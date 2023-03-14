@@ -1,2 +1,2 @@
 # uni-sysprog-project
-Final project for Systems Programming
+Systems Programming - Final project
