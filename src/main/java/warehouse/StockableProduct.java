@@ -1,6 +1,6 @@
 package warehouse;
 
-public class StockableProduct extends Product {
+public class StockableProduct extends ProductList {
 	
 	private int productID;
 	private int numUnits;
