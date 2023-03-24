@@ -16,6 +16,7 @@ public class Provider {
 	}
 
 	// Getters and Setters
+	// TODO: Add get(var) and set(data) methods
 	public String getVat() {
 		return vat;
 	}
@@ -41,4 +42,7 @@ public class Provider {
 		this.contactPerson = contactPerson;
 	}
 
+	// TODO: Override toString() method
+	// TODO: Add print() and writeToFile(String file) methods
+	// TODO: Add static readFromStdio() and readFromFile(String file) methods
 }

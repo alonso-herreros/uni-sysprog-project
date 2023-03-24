@@ -29,6 +29,7 @@ public class StockableProduct extends ProductList {
 
 
 	// Getters and Setters
+	// TODO: Add get(var) and set(data) methods
 	public int getProductID() {
 		return productID;
 	}
@@ -60,4 +61,7 @@ public class StockableProduct extends ProductList {
 		return totalPrice;
 	}
 
+	// TODO: Override toString() method
+	// TODO: Add print() and writeToFile(String file) methods
+	// TODO: Add static readFromStdio() and readFromFile(String file) methods
 }

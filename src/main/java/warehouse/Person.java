@@ -14,6 +14,30 @@ public class Person {
 		setEmail(email);
 	}
 
+	// Global getters and Setters
+	public void set(String[] data) {
+		if (data.length != 4) {
+			throw new IllegalArgumentException("Invalid number of data fields.");
+		}
+		setId(data[0]);
+		setFirstName(data[1]);
+		setLastName(data[2]);
+		setEmail(data[3]);
+	}
+	public String get(String varId) throws IllegalArgumentException {
+		switch (varId) {
+		case "id":
+			return getId();
+		case "firstName":
+			return getFirstName();
+		case "lastName":
+			return getLastName();
+		case "email":
+			return getEmail();
+		default:
+			throw new IllegalArgumentException();
+		}
+	}
 	// Getters and Setters
 	public String getId() {
 		return id;
@@ -39,5 +63,8 @@ public class Person {
 	private void setEmail(String email) {
 		this.email = email;
 	}
-	
+
+	// TODO: Override toString() method
+	// TODO: Add print() and writeToFile(String file) methods
+	// TODO: Add static readFromStdio() and readFromFile(String file) methods
 }

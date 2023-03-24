@@ -11,10 +11,22 @@ public class StoreManager {
 	public StoreManager(String name, float stockCost, float stockBenefit, ProductList stock) {
 		setName(name);
 		setStock(stock);
-
 	}
 
 	// Getters and Setters
+	// TODO: Add get(var) and set(data) methods
+	public String get(String varId) throws IllegalArgumentException {
+		switch (varId) {
+		case "storeName":
+        	return getName();
+		case "stockCost":
+			return Float.toString(getStockCost());
+		case "stockBenefit":
+			return Float.toString(getStockBenefit());
+		default:
+			throw new IllegalArgumentException();
+		}
+	}
 	public String getName() {
 		return name;
 	}
@@ -34,4 +46,6 @@ public class StoreManager {
 		this.stock = stock;
 	}
 
+
+	// TODO: Override toString() method
 }

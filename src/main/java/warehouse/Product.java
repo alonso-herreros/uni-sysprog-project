@@ -19,6 +19,7 @@ public class Product {
 	}
 
 	// Getters and Setters
+	// TODO: Add get(var) and set(data) methods
 	public String getName() {
 		return name;
 	}
@@ -53,4 +54,7 @@ public class Product {
 		this.measurementUnit = measurementUnit;
 	}
 
+	// TODO: Override toString() method
+	// TODO: Add print() and writeToFile(String file) methods
+	// TODO: Add static readFromStdio() and readFromFile(String file) methods
 }

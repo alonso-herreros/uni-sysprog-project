@@ -30,9 +30,45 @@ public class ProductList implements Collection<StockableProduct> {
 			totalBenefit += totalPrice-totalCost;
 		}
 	}
+	public double calculateCost() {
+		double cost = 0;
+		for (StockableProduct product : list) {
+			cost += product.getTotalCost();
+		}
+		return cost;
+	}
+	public double calculatePrice() {
+		double price = 0;
+		for (StockableProduct product : list) {
+			price += product.getTotalPrice();
+		}
+		return price;
+	}
+	public double calculateBenefit() {
+		return calculatePrice() - calculateCost();
+	}
+	public StockableProduct mostExpensiveProduct() {
+		StockableProduct mostExpensive = null;
+		for (StockableProduct product : list) {
+			if (mostExpensive == null || product.getTotalPrice() > mostExpensive.getTotalPrice()) {
+				mostExpensive = product;
+			}
+		}
+		return mostExpensive;
+	}
+	public StockableProduct cheapestProduct() {
+		StockableProduct cheapest = null;
+		for (StockableProduct product : list) {
+			if (cheapest == null || product.getTotalPrice() < cheapest.getTotalPrice()) {
+				cheapest = product;
+			}
+		}
+		return cheapest;
+	}
 
 
 	// Getters and Setters
+	// TODO: Add get(var) and set(data) methods
 	public ArrayList<StockableProduct> getList() {
 		return list;
 	}
@@ -100,4 +136,7 @@ public class ProductList implements Collection<StockableProduct> {
 		list.clear();
 	}
 	
+	// TODO: Override toString() method
+	// TODO: Add print() and writeToFile(String file) methods
+	// TODO: Add static readFromStdio() and readFromFile(String file) methods
 }
