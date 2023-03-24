@@ -35,6 +35,9 @@ public class Product {
 		return category;
 	}
 	private void setCategory(char category) {
+		if ("fsem".indexOf(category)<0) {
+			throw new IllegalArgumentException(String.format("Invalid category %c, it must be one of the following: f, s, e, m.", category));
+		}
 		this.category = category;
 	}
 	public boolean isCountable() {
