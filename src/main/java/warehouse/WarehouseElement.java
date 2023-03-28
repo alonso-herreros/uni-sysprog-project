@@ -9,31 +9,32 @@ public abstract class WarehouseElement {
 
     // Must include getters and setters for all fields
     // Global getters and setters
-    abstract String get(String varId);
-    abstract void set(String[] data);
+    public abstract String get(String varId);
+    public abstract void set(String[] data);
 
     // Read/write
-    abstract public String toString();
-    void print() {
+    public abstract String toString();
+    public void print() {
         System.out.println(toString());
     }
-    void writeToFile(String file) {
+    public void writeToFile(String file) {
         // TODO: Implement writing to file
 
         throw new UnsupportedOperationException("File I/O not implemented yet.");
     }
 
-    static WarehouseElement readFromStdio() {
+    // abstract public static WarehouseElement fromString(String string);
+    public static WarehouseElement readFromStdio() {
         // TODO: Implement stdio reading
         throw new UnsupportedOperationException("Not implemented yet.");
     }
-    static WarehouseElement readFromFile(String file) {
+    public static WarehouseElement readFromFile(String file) {
         // TODO: Implement file reading
         throw new UnsupportedOperationException("File I/O not implemented yet.");
     }
 
     // Utility methods    
-    static ArrayList<String> paramsFromString(String string) {
+    public static ArrayList<String> paramsFromString(String string) {
 		ArrayList<String> params = new ArrayList<String>();
 		Matcher m = Pattern.compile("\\(.*\\)|[^|()]*").matcher(string);
 		while (m.find()) {
