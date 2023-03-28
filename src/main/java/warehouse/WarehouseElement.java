@@ -1,10 +1,14 @@
 package warehouse;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class WarehouseElement {
+
+    private static Scanner scanner = new Scanner(System.in);
+
     // Must include empty constructor and full constructor
 
     // Must include getters and setters for all fields
@@ -12,7 +16,7 @@ public abstract class WarehouseElement {
     public abstract String get(String varId);
     public abstract void set(String[] data);
 
-    // Read/write
+    // Writing
     public abstract String toString();
     public void print() {
         System.out.println(toString());
@@ -23,10 +27,14 @@ public abstract class WarehouseElement {
         throw new UnsupportedOperationException("File I/O not implemented yet.");
     }
 
-    // abstract public static WarehouseElement fromString(String string);
+    // Reading
+    public static WarehouseElement fromString(String string) {
+        throw new UnsupportedOperationException("Not implemented by the class.");
+    }
     public static WarehouseElement readFromStdio() {
-        // TODO: Implement stdio reading
-        throw new UnsupportedOperationException("Not implemented yet.");
+        System.out.println("Enter full object string representation:");
+        String string = scanner.nextLine();
+        return fromString(string);
     }
     public static WarehouseElement readFromFile(String file) {
         // TODO: Implement file reading
