@@ -6,9 +6,9 @@ import java.util.concurrent.Callable;
 
 public class Person extends WarehouseElement {
 
-	private String id, firstName, lastName, email;
+	protected String id, firstName, lastName, email;
 
-	private HashMap<String, Callable<String>> getters = new HashMap<String, Callable<String>>() {{
+	protected HashMap<String, Callable<String>> getters = new HashMap<String, Callable<String>>() {{
 		put("id", () -> getId());
 		put("firstName", () -> getFirstName());
 		put("lastName", () -> getLastName());
