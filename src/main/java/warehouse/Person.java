@@ -36,15 +36,6 @@ public class Person extends WarehouseElement {
 	}
 
 	// Global getters and Setters
-	public void set(String[] data) {
-		if (data.length != 4) {
-			throw new IllegalArgumentException("Invalid number of data fields.");
-		}
-		setId(data[0]);
-		setFirstName(data[1]);
-		setLastName(data[2]);
-		setEmail(data[3]);
-	}
 	public String get(String varId) {
 		try {
 			return getters.get(varId).call();
@@ -54,6 +45,16 @@ public class Person extends WarehouseElement {
 			throw new RuntimeException(String.format("Error retrieving variable: %s.", varId));
 		}
 	}
+	public void set(String[] data) {
+		if (data.length != 4) {
+			throw new IllegalArgumentException("Invalid number of data fields.");
+		}
+		setId(data[0]);
+		setFirstName(data[1]);
+		setLastName(data[2]);
+		setEmail(data[3]);
+	}
+
 	// Getters and Setters
 	public String getId() {
 		return id;
@@ -80,12 +81,12 @@ public class Person extends WarehouseElement {
 		this.email = email;
 	}
 
-	public static Person fromString(String string) {
-		return new Person(paramsFromString(string));
-	}
 	@Override
 	public String toString() {
 		return String.join("|", id, firstName, lastName, email);
+	}
+	public static Person fromString(String string) {
+		return new Person(paramsFromString(string));
 	}
 
 }
