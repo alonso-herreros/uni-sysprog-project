@@ -5,16 +5,17 @@ import java.util.HashMap;
 import java.util.concurrent.Callable;
 
 public class Person extends WarehouseElement {
-
-	protected String id, firstName, lastName, email;
-
+	
 	protected HashMap<String, Callable<String>> getters = new HashMap<String, Callable<String>>() {{
 		put("id", () -> getId());
 		put("firstName", () -> getFirstName());
 		put("lastName", () -> getLastName());
 		put("email", () -> getEmail());
 	}};
-	
+
+	protected String id, firstName, lastName, email;
+
+
 	// Constructors
 	public Person() {
 		this("", "", "", "");
@@ -34,6 +35,7 @@ public class Person extends WarehouseElement {
 		setLastName(lastName);
 		setEmail(email);
 	}
+
 
 	// Global getters and Setters
 	public String get(String varId) {
@@ -81,6 +83,7 @@ public class Person extends WarehouseElement {
 		this.email = email;
 	}
 
+	
 	@Override
 	public String toString() {
 		return String.join("|", id, firstName, lastName, email);

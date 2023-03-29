@@ -19,6 +19,8 @@ public class Product extends WarehouseElement {
 	protected boolean isCountable;
 	protected String measurementUnit;
 
+
+	// Constructors
 	public Product() {
 		this("", "", 'm', false, "");
 	}
@@ -40,6 +42,7 @@ public class Product extends WarehouseElement {
 		setCountable(isCountable);
 		setMeasurementUnit(measurementUnit);
 	}
+
 
 	// Global getters and Setters
 	public String get(String varId) {
@@ -96,7 +99,8 @@ public class Product extends WarehouseElement {
 	protected void setMeasurementUnit(String measurementUnit) {
 		this.measurementUnit = measurementUnit;
 	}
-	
+
+
 	@Override
 	public String toString() {
 		return String.join("|", getName(), getBrand(), Character.toString(getCategory()), Boolean.toString(isCountable()), getMeasurementUnit());
