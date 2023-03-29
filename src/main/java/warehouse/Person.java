@@ -1,11 +1,32 @@
 package warehouse;
 
-public class Person {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.concurrent.Callable;
+
+public class Person extends WarehouseElement {
 
 	private String id, firstName, lastName, email;
+
+	private HashMap<String, Callable<String>> getters = new HashMap<String, Callable<String>>() {{
+		put("id", () -> getId());
+		put("firstName", () -> getFirstName());
+		put("lastName", () -> getLastName());
+		put("email", () -> getEmail());
+	}};
 	
+	// Constructors
 	public Person() {
 		this("", "", "", "");
+	}
+	public Person(String string) {
+		this(paramsFromString(string));
+	}
+	public Person(ArrayList<String> params) {
+		this(params.get(0), params.get(1), params.get(2), params.get(3));
+		if (params.size() != 4) {
+			throw new IllegalArgumentException("Invalid number of data fields.");
+		}
 	}
 	public Person(String id, String firstName, String lastName, String email) {
 		setId(id);
@@ -24,18 +45,13 @@ public class Person {
 		setLastName(data[2]);
 		setEmail(data[3]);
 	}
-	public String get(String varId) throws IllegalArgumentException {
-		switch (varId) {
-		case "id":
-			return getId();
-		case "firstName":
-			return getFirstName();
-		case "lastName":
-			return getLastName();
-		case "email":
-			return getEmail();
-		default:
-			throw new IllegalArgumentException();
+	public String get(String varId) {
+		try {
+			return getters.get(varId).call();
+		} catch (NullPointerException e) {
+			throw new IllegalArgumentException(String.format("Invalid varId: %s.", varId));
+		} catch (Exception e) {
+			throw new RuntimeException(String.format("Error retrieving variable: %s.", varId));
 		}
 	}
 	// Getters and Setters
@@ -64,7 +80,12 @@ public class Person {
 		this.email = email;
 	}
 
-	// TODO: Override toString() method
-	// TODO: Add print() and writeToFile(String file) methods
-	// TODO: Add static readFromStdio() and readFromFile(String file) methods
+	public static Person fromString(String string) {
+		return new Person(paramsFromString(string));
+	}
+	@Override
+	public String toString() {
+		return String.join("|", id, firstName, lastName, email);
+	}
+
 }
