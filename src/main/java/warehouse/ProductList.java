@@ -2,15 +2,33 @@ package warehouse;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.concurrent.Callable;
 
-public class ProductList implements Collection<StockableProduct> {
+public class ProductList extends WarehouseElement implements Collection<StockableProduct> {
 
 	private ArrayList<StockableProduct> list = new ArrayList<StockableProduct>();
 	private float totalCost, totalPrice, totalBenefit;
 	
+	private HashMap<String, Callable<String>> getters = new HashMap<String, Callable<String>>() {{
+		put("totalCost", () -> Float.toString(getTotalCost()));
+		put("totalPrice", () -> Float.toString(getTotalPrice()));
+		put("totalBenefit", () -> Float.toString(getTotalBenefit()));
+	}};
+	 
+
+	// Constructors
+	public ProductList() {
+	}
 	public ProductList(ArrayList<StockableProduct> list) {
 		this.list.addAll(list);
+		updateCosts();
+	}
+	public ProductList(String... products) {
+		for (int i=0, n=products.length; i<n; i++) {
+			list.add(new StockableProduct(products[i]));
+		}
 		updateCosts();
 	}
 	public ProductList(StockableProduct... products) {
@@ -67,8 +85,21 @@ public class ProductList implements Collection<StockableProduct> {
 	}
 
 
+	// Global getters and Setters
+	@Override
+	public String get(String varId) {
+		try {
+			return getters.get(varId).call();
+		} catch (Exception e) {
+			throw new IllegalArgumentException(String.format("Invalid varId %s.", varId));
+		}
+	}
+	@Override
+	public void set(String[] data) {
+		throw new UnsupportedOperationException("Cannot set ProductList data.");
+	}
+	// TODO: Override get(var) and set(data) methods
 	// Getters and Setters
-	// TODO: Add get(var) and set(data) methods
 	public ArrayList<StockableProduct> getList() {
 		return list;
 	}
@@ -134,6 +165,27 @@ public class ProductList implements Collection<StockableProduct> {
 	@Override
 	public void clear() {
 		list.clear();
+	}
+
+	@Override
+	public void print() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'print'");
+	}
+	@Override
+	public void writeToFile(String file) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'writeToFile'");
+	}
+	
+	public static WarehouseElement fromString() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'fromString'");
+	}
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'toString'");
 	}
 	
 	// TODO: Override toString() method

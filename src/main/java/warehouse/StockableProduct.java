@@ -1,12 +1,13 @@
 package warehouse;
 
-public class StockableProduct extends ProductList {
+public class StockableProduct extends Product {
 	
 	private int productID;
 	private int numUnits;
 	private float costPerUnit, pricePerUnit;
 	private float totalCost, totalPrice;
 
+	// Constructors
 	public StockableProduct() {
 		this(0, new Product(), 0, 0, 0);
 	}
@@ -22,6 +23,9 @@ public class StockableProduct extends ProductList {
 		updateCosts();
 	}
 
+	public StockableProduct(String string) {
+		// TODO: implement this
+	}
 	private void updateCosts() {
 		totalCost = getNumUnits() * getCostPerUnit();
 		totalPrice = getNumUnits() * getPricePerUnit();
@@ -60,8 +64,20 @@ public class StockableProduct extends ProductList {
 	public float getTotalPrice() {
 		return totalPrice;
 	}
+	public void setTotalCost(float totalCost) {
+		this.totalCost = totalCost;
+	}
+	public void setTotalPrice(float totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 
-	// TODO: Override toString() method
-	// TODO: Add print() and writeToFile(String file) methods
-	// TODO: Add static readFromStdio() and readFromFile(String file) methods
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'toString'");
+	}
+	public static StockableProduct fromString(String string) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'fromString'");
+	}
 }

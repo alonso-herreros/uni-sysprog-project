@@ -1,6 +1,17 @@
 package warehouse;
 
-public class Product {
+import java.util.HashMap;
+import java.util.concurrent.Callable;
+
+public class Product extends WarehouseElement {
+	
+	private HashMap<String, Callable<String>> getters = new HashMap<String, Callable<String>>() {{
+		put("name", () -> getName());
+		put("brand", () -> getBrand());
+		put("category", () -> Character.toString(getCategory()));
+		put("isCountable", () -> Boolean.toString(isCountable()));
+		put("measurementUnit", () -> getMeasurementUnit());
+	}};
 	
 	private String name, brand;
 	private char category;
@@ -18,8 +29,29 @@ public class Product {
 		setMeasurementUnit(measurementUnit);
 	}
 
-	// Getters and Setters
+	// Global getters and Setters
 	// TODO: Add get(var) and set(data) methods
+	public String[] getVarIds() {
+		return getters.keySet().toArray(new String[0]);
+	}
+	public String get(String varId) {
+		try {
+			return getters.get(varId).call();
+		} catch (Exception e) {
+			return "";
+		}
+	}
+	public void set(String[] data) {
+		if (data.length != 5) {
+			throw new IllegalArgumentException(String.format("Invalid data length %d, it must be 5.", data.length));
+		}
+		setName(data[0]);
+		setBrand(data[1]);
+		setCategory(data[2].charAt(0));
+		setCountable(Boolean.parseBoolean(data[3]));
+		setMeasurementUnit(data[4]);
+	}
+	// Getters and Setters
 	public String getName() {
 		return name;
 	}
@@ -53,8 +85,15 @@ public class Product {
 	private void setMeasurementUnit(String measurementUnit) {
 		this.measurementUnit = measurementUnit;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'toString'");
+	}
+	public static WarehouseElement fromString() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'fromString'");
+	}
 
-	// TODO: Override toString() method
-	// TODO: Add print() and writeToFile(String file) methods
-	// TODO: Add static readFromStdio() and readFromFile(String file) methods
 }
