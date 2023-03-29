@@ -1,20 +1,44 @@
 package warehouse;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.concurrent.Callable;
+
 public class StockableProduct extends Product {
 	
-	private int productID;
-	private int numUnits;
-	private float costPerUnit, pricePerUnit;
-	private float totalCost, totalPrice;
+	protected HashMap<String, Callable<String>> getters = new HashMap<String, Callable<String>>() {{
+		putAll(getters);
+		put("productID", () -> Integer.toString(getProductID()));
+		put("numUnits", () -> Integer.toString(getNumUnits()));
+		put("costPerUnit", () -> Float.toString(getCostPerUnit()));
+		put("pricePerUnit", () -> Float.toString(getPricePerUnit()));
+		put("totalCost", () -> Float.toString(getTotalCost()));
+		put("totalPrice", () -> Float.toString(getTotalPrice()));
+	}};
+
+	protected int productID, numUnits;
+	protected float costPerUnit, pricePerUnit;
+	protected float totalCost, totalPrice;
+
 
 	// Constructors
 	public StockableProduct() {
-		this(0, new Product(), 0, 0, 0);
+		this(0, "", "", 'm', false, "", 0, 0, 0f);
+	}
+	public StockableProduct(String string) {
+		this(paramsFromString(string));
+	}
+	public StockableProduct(ArrayList<String> params) {
+		this(Integer.parseInt(
+			params.get(0)), params.get(1), params.get(2), params.get(3).charAt(0), Boolean.parseBoolean(params.get(4)),
+			params.get(5), Integer.parseInt(params.get(6)), Float.parseFloat(params.get(7)), Float.parseFloat(params.get(8)));
+		if(params.size() != 9) {
+			throw new IllegalArgumentException(String.format("Invalid data length %d, it must be 9.", params.size()));
+		}
 	}
 	public StockableProduct(int productId, String name, String brand, char category, boolean isCountable, String measurementUnit, int numUnits, float costPerUnit, float pricePerUnit) {
-		this(productId, new Product(name, brand, category, isCountable, measurementUnit), numUnits, costPerUnit, pricePerUnit);
-	}
-	public StockableProduct(int productId, Product product, int numUnits, float costPerUnit, float pricePerUnit) {
+		super(name, brand, category, isCountable, measurementUnit);
 		setProductID(productId);
 		setNumUnits(numUnits);
 		setCostPerUnit(costPerUnit);
@@ -23,17 +47,37 @@ public class StockableProduct extends Product {
 		updateCosts();
 	}
 
-	public StockableProduct(String string) {
-		// TODO: implement this
-	}
+
 	private void updateCosts() {
 		totalCost = getNumUnits() * getCostPerUnit();
 		totalPrice = getNumUnits() * getPricePerUnit();
 	}
 
 
+	// Global getters and setters
+	@Override
+	public String get(String varId) {
+		try {
+			return getters.get(varId).call();
+		} catch (NullPointerException e) {
+			throw new IllegalArgumentException(String.format("Invalid varId: %s.", varId));
+		} catch (Exception e) {
+			throw new RuntimeException(String.format("Error retrieving variable: %s.", varId));
+		}
+	}
+	@Override
+	public void set(String[] data) {
+		if (data.length != 9) {
+			throw new IllegalArgumentException(String.format("Invalid data length %d, it must be 5.", data.length));
+		}
+		super.set(Arrays.copyOfRange(data, 1, 6));
+		setProductID(Integer.parseInt(data[0]));
+		setNumUnits(Integer.parseInt(data[6]));
+		setCostPerUnit(Float.parseFloat(data[7]));
+		setPricePerUnit(Float.parseFloat(data[8]));
+	}
+
 	// Getters and Setters
-	// TODO: Add get(var) and set(data) methods
 	public int getProductID() {
 		return productID;
 	}
@@ -71,13 +115,12 @@ public class StockableProduct extends Product {
 		this.totalPrice = totalPrice;
 	}
 
+
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'toString'");
+		return String.join("|", Integer.toString(getProductID()), super.toString(), Integer.toString(getNumUnits()), Float.toString(getCostPerUnit()), Float.toString(getPricePerUnit()));
 	}
 	public static StockableProduct fromString(String string) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'fromString'");
+		return new StockableProduct(string);
 	}
 }
