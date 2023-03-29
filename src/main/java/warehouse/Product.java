@@ -6,7 +6,7 @@ import java.util.concurrent.Callable;
 
 public class Product extends WarehouseElement {
 	
-	private HashMap<String, Callable<String>> getters = new HashMap<String, Callable<String>>() {{
+	protected HashMap<String, Callable<String>> getters = new HashMap<String, Callable<String>>() {{
 		put("name", () -> getName());
 		put("brand", () -> getBrand());
 		put("category", () -> Character.toString(getCategory()));
@@ -14,13 +14,16 @@ public class Product extends WarehouseElement {
 		put("measurementUnit", () -> getMeasurementUnit());
 	}};
 	
-	private String name, brand;
-	private char category;
-	private boolean isCountable;
-	private String measurementUnit;
+	protected String name, brand;
+	protected char category;
+	protected boolean isCountable;
+	protected String measurementUnit;
 
 	public Product() {
-		this("", "", ' ', false, "");
+		this("", "", 'm', false, "");
+	}
+	public Product(String string) {
+		this(paramsFromString(string));
 	}
 	public Product(ArrayList<String> params) {
 		this();
@@ -63,19 +66,19 @@ public class Product extends WarehouseElement {
 	public String getName() {
 		return name;
 	}
-	private void setName(String name) {
+	protected void setName(String name) {
 		this.name = name;
 	}
 	public String getBrand() {
 		return brand;
 	}
-	private void setBrand(String brand) {
+	protected void setBrand(String brand) {
 		this.brand = brand;
 	}
 	public char getCategory() {
 		return category;
 	}
-	private void setCategory(char category) {
+	protected void setCategory(char category) {
 		if ("fsem".indexOf(category)<0) {
 			throw new IllegalArgumentException(String.format("Invalid category %c, it must be one of the following: f, s, e, m.", category));
 		}
@@ -84,13 +87,13 @@ public class Product extends WarehouseElement {
 	public boolean isCountable() {
 		return isCountable;
 	}
-	private void setCountable(boolean isCountable) {
+	protected void setCountable(boolean isCountable) {
 		this.isCountable = isCountable;
 	}
 	public String getMeasurementUnit() {
 		return measurementUnit;
 	}
-	private void setMeasurementUnit(String measurementUnit) {
+	protected void setMeasurementUnit(String measurementUnit) {
 		this.measurementUnit = measurementUnit;
 	}
 	
