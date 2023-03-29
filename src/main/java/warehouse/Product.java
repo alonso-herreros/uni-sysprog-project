@@ -1,5 +1,6 @@
 package warehouse;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 
@@ -21,6 +22,14 @@ public class Product extends WarehouseElement {
 	public Product() {
 		this("", "", ' ', false, "");
 	}
+	public Product(ArrayList<String> params) {
+		this();
+		set(params.toArray(new String[0]));
+		//this(params.get(0), params.get(1), params.get(2).charAt(0), Boolean.parseBoolean(params.get(3)), params.get(4));
+		//if(params.size() != 5) {
+		//	throw new IllegalArgumentException(String.format("Invalid data length %d, it must be 5.", params.size()));
+		//}
+	}
 	public Product(String name, String brand, char category, boolean isCountable, String measurementUnit) {
 		setName(name);
 		setBrand(brand);
@@ -30,15 +39,13 @@ public class Product extends WarehouseElement {
 	}
 
 	// Global getters and Setters
-	// TODO: Add get(var) and set(data) methods
-	public String[] getVarIds() {
-		return getters.keySet().toArray(new String[0]);
-	}
 	public String get(String varId) {
 		try {
 			return getters.get(varId).call();
+		} catch (NullPointerException e) {
+			throw new IllegalArgumentException(String.format("Invalid varId: %s.", varId));
 		} catch (Exception e) {
-			return "";
+			throw new RuntimeException(String.format("Error retrieving variable: %s.", varId));
 		}
 	}
 	public void set(String[] data) {
@@ -51,6 +58,7 @@ public class Product extends WarehouseElement {
 		setCountable(Boolean.parseBoolean(data[3]));
 		setMeasurementUnit(data[4]);
 	}
+
 	// Getters and Setters
 	public String getName() {
 		return name;
@@ -88,12 +96,10 @@ public class Product extends WarehouseElement {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'toString'");
+		return String.join("|", getName(), getBrand(), Character.toString(getCategory()), Boolean.toString(isCountable()), getMeasurementUnit());
 	}
-	public static WarehouseElement fromString() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'fromString'");
+	public static Product fromString(String string) {
+		return new Product(paramsFromString(string));
 	}
 
 }
