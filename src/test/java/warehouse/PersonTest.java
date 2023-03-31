@@ -32,10 +32,10 @@ public class PersonTest {
     @Test
     public void testDefaultConstructor() {
         Person defaultPerson = new Person();
-        Assert.assertEquals("", defaultPerson.getId());
-        Assert.assertEquals("", defaultPerson.getFirstName());
-        Assert.assertEquals("", defaultPerson.getLastName());
-        Assert.assertEquals("", defaultPerson.getEmail());
+        Assert.assertEquals(" ", defaultPerson.getId());
+        Assert.assertEquals(" ", defaultPerson.getFirstName());
+        Assert.assertEquals(" ", defaultPerson.getLastName());
+        Assert.assertEquals(" ", defaultPerson.getEmail());
     }
 
     @Test
