@@ -15,12 +15,12 @@ public class WarehouseElementTest {
             Arguments.of("test", new ArrayList<String>() {{
                 add("test");
             }}),
-            Arguments.of("test1|test2|(bruuuuh|frfr)", new ArrayList<String>() {{
+            Arguments.of("test1|test2|(bruuuuh| )", new ArrayList<String>() {{
                 add("test1");
                 add("test2");
-                add("(bruuuuh|frfr)");
+                add("(bruuuuh| )");
             }}),
-            Arguments.of("test1|test2|(bruuuuh|frfr)|test3", new ArrayList<String>() {{
+            Arguments.of("(test1|test2|(bruuuuh|frfr)|test3)", new ArrayList<String>() {{
                 add("test1");
                 add("test2");
                 add("(bruuuuh|frfr)");
@@ -40,7 +40,6 @@ public class WarehouseElementTest {
     void testParamsFromString(String inputString, ArrayList<String> expectedParams) {
         ArrayList<String> returnedParams = WarehouseElement.paramsFromString(inputString);
         assertTrue(expectedParams.equals(returnedParams));
-        System.out.println(returnedParams);
     }
 
     public static void main(String[] args) {
