@@ -55,12 +55,22 @@ public class ProductTest {
     }
 
     @Test
-    public void testConstructorWithInvalidParams() {
+    public void testConstructorWithNotEnoughParams() {
         try {
             new Product("Detergent|Tide|f|true");
             fail("Should have thrown an IllegalArgumentException for invalid params.");
         } catch (IllegalArgumentException e) {
             assertEquals("Invalid data length 4, it must be 5.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testConstructorWithBADParams() {
+        try {
+            new Product("Detergent|Tide|x|true|fl oz");
+            fail("Should have thrown an IllegalArgumentException for invalid params.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Invalid category x, it must be one of the following: f, s, e, m.", e.getMessage());
         }
     }
 
