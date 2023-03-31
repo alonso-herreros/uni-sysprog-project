@@ -44,11 +44,12 @@ public abstract class WarehouseElement {
     // Utility methods    
     public static ArrayList<String> paramsFromString(String string) {
 		ArrayList<String> params = new ArrayList<String>();
-		Matcher m = Pattern.compile("\\(.*\\)|[^|()]*").matcher(string);
+        string = string.replaceFirst("^\\(((\\(.*\\)|[^|()]+|\\|)+)\\)", "$1");
+		Matcher m = Pattern.compile("\\(.*\\)|[^|()]+").matcher(string);
 		while (m.find()) {
-			if (!m.group().isEmpty()) {
-				params.add(m.group());
-			}
+            if (!m.group().isEmpty()) {
+                params.add(m.group());
+            }
 		}
         return params;
     }
