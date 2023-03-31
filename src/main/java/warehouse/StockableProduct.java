@@ -24,7 +24,7 @@ public class StockableProduct extends Product {
 
 	// Constructors
 	public StockableProduct() {
-		this(0, "", "", 'm', false, "", 0, 0, 0f);
+		this(0, " ", " ", 'm', false, " ", 0, 0, 0f);
 	}
 	public StockableProduct(String string) {
 		this(paramsFromString(string));

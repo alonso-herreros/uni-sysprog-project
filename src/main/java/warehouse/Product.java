@@ -22,7 +22,7 @@ public class Product extends WarehouseElement {
 
 	// Constructors
 	public Product() {
-		this("", "", 'm', false, "");
+		this(" ", " ", 'm', false, " ");
 	}
 	public Product(String string) {
 		this(paramsFromString(string));
