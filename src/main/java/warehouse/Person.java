@@ -18,7 +18,7 @@ public class Person extends WarehouseElement {
 
 	// Constructors
 	public Person() {
-		this("", "", "", "");
+		this(" ", " ", " ", " ");
 	}
 	public Person(String string) {
 		this(paramsFromString(string));
@@ -28,6 +28,9 @@ public class Person extends WarehouseElement {
 		if (params.size() != 4) {
 			throw new IllegalArgumentException("Invalid number of data fields.");
 		}
+	}
+	public Person(String firstName, String lastName) {
+		this(" ", firstName, lastName, " ");
 	}
 	public Person(String id, String firstName, String lastName, String email) {
 		setId(id);
@@ -92,4 +95,8 @@ public class Person extends WarehouseElement {
 		return new Person(paramsFromString(string));
 	}
 
+	public boolean equals(Person p) {
+		return p.getId().equals(id) && p.getFirstName().equals(firstName) && p.getLastName().equals(lastName) && p.getEmail().equals(email);
+	}
+	
 }
