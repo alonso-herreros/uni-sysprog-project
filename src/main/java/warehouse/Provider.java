@@ -1,13 +1,11 @@
 package warehouse;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 
 public class Provider extends WarehouseElement {
 	
-	private String vat, name, taxAddress;
-	protected Person contactPerson;
-
 	private HashMap<String, Callable<String>> getters = new HashMap<String, Callable<String>>() {{
 		put("vat", () -> getVat());
 		put("name", () -> getName());
@@ -15,12 +13,28 @@ public class Provider extends WarehouseElement {
 		put("contactPerson", () -> getContactPerson().toString());
 	}};
 
+	protected String vat, name, taxAddress;
+	protected Person contactPerson;
 
+
+	// Constructors
 	public Provider() {
 		this("", "", "", new Person());
 	}
+	public Provider(String string) {
+		this(paramsFromString(string));
+	}
+	public Provider(ArrayList<String> params) {
+		this(params.get(0), params.get(1), params.get(2), params.get(3));
+		if(params.size() != 4) {
+			throw new IllegalArgumentException(String.format("Invalid data length %d, it must be 4.", params.size()));
+		}
+	}
 	public Provider(String vat, String name, String taxAddress) {
 		this(vat, name, taxAddress, new Person());
+	}
+	public Provider(String vat, String name, String taxAddress, String contactPersonString) {
+		this(vat, name, taxAddress, new Person(contactPersonString));
 	}
 	public Provider(String vat, String name, String taxAddress, String id, String firstName, String lastName, String email) {
 		this(vat, name, taxAddress, new Person(id, firstName, lastName, email));
@@ -32,6 +46,7 @@ public class Provider extends WarehouseElement {
 		setContactPerson(contactPerson);
 	}
 
+
 	// Global getters and Setters
 	public String get(String varId) {
 		try {
@@ -41,13 +56,20 @@ public class Provider extends WarehouseElement {
 		}
 	}
 	public void set(String[] data) {
-		if (data.length != 7) {
-			throw new IllegalArgumentException(String.format("Invalid data length %d, it must be 7.", data.length));
+		Person person;
+		if (data.length == 7) {
+			person = new Person(data[3], data[4], data[5], data[6]);
+		}
+		else if (data.length == 4) {
+			person = new Person(data[3]);
+		}
+		else {
+			throw new IllegalArgumentException(String.format("Invalid data length %d, it must be 7 or 4.", data.length));
 		}
 		setVat(data[0]);
 		setName(data[1]);
 		setTaxAddress(data[2]);
-		setContactPerson(new Person(data[3], data[4], data[5], data[6]));
+		setContactPerson(person);
 	}
 	// Getters and Setters
 	public String getVat() {
@@ -77,12 +99,10 @@ public class Provider extends WarehouseElement {
 	
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'toString'");
+		return String.join("|", vat, name, taxAddress, "("+contactPerson.toString()+")");
 	}
-	public WarehouseElement fromString() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'fromString'");
+	public static Provider fromString(String string) {
+		return new Provider(string);
 	}
 	
 }
