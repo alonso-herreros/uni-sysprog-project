@@ -1,79 +1,61 @@
 package warehouse;
 
-import java.util.HashMap;
-import java.util.concurrent.Callable;
+import java.util.ArrayList;
 
 public class StoreManager extends WarehouseElement {
 	
-	private String name;
-	private ProductList stock;
+	protected String name;
+	protected ProductList stock;
 
-	private HashMap<String, Callable<String>> getters = new HashMap<String, Callable<String>>() {{
-		put("storeName", () -> getName());
-		put("stockCost", () -> Float.toString(getStockCost()));
-		put("stockBenefit", () -> Float.toString(getStockBenefit()));
-	}};
+	protected static final String[] def = {"Name", ""};
 
 
 	// Constructors
 	public StoreManager() {
-		this("", new ProductList());
-	}
-	public StoreManager(String name) {
-		this(name, new ProductList());
+		this(def);
+	} // vv FALL THROUGH (3) vv
+	public StoreManager(String data) {
+		this(paramsFromString(data));
+	} // vv FALL THROUGH vv
+	public StoreManager(ArrayList<String> params) {
+		this(params.toArray(new String[0]));
+	} // vv FALL THROUGH vv
+	public StoreManager(String... data) {
+		super(data);
 	}
 	public StoreManager(String name, StockableProduct... products) {
 		this(name, new ProductList(products));
 	}
 	public StoreManager(String name, ProductList stock) {
-		setName(name);
-		setStock(stock);
+		super(name, stock.toString());
 	}
 
-	// Global getters and Setters
-	// TODO: Add get(var) and set(data) methods
-	public String get(String varId) {
-		try {
-			return getters.get(varId).call();
-		} catch (Exception e) {
-			throw new IllegalArgumentException(String.format("Invalid varId %s.", varId));
-		}
-	}
-	public void set(String[] data) {
-		if (data.length != 3) {
-			throw new IllegalArgumentException(String.format("Invalid data length %d, it must be 3.", data.length));
-		}
-		setName(data[0]);
-		setStock(new ProductList(data[1], data[2]));
-	}
+
 	// Getters and Setters
-	public String getName() {
-		return name;
+	protected void defineGetters() {
+		getters.put("name", () -> getName());
+		getters.put("stock", () -> getStock().toString());
+		getters.put("stockCost", () -> Double.toString(getStockCost()));
+		getters.put("stockBenefit", () -> Double.toString(getStockBenefit()));
 	}
-	private void setName(String name) {
-		this.name = name;
+	protected void defineSetters() {
+		setters.put("name", (data) -> setName(data));
+		setters.put("stock", (data) -> setStock(new ProductList(data)));
 	}
-	public float getStockCost() {
-		return getStock().getTotalCost();
-	}
-	public float getStockBenefit() {
-		return getStock().getTotalBenefit();
-	}
-	public ProductList getStock() {
-		return stock;
-	}
-	private void setStock(ProductList stock) {
-		this.stock = stock;
-	}
-	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'toString'");
-	}
-	public WarehouseElement fromString() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'fromString'");
+
+	public String getName() { return name; }
+	private void setName(String name) { this.name = name; }
+
+	public ProductList getStock() { return stock; }
+	private void setStock(ProductList stock) { this.stock = stock; }
+
+	public double getStockCost() { return getStock().getTotalCost(); }
+
+	public double getStockBenefit() { return getStock().getTotalBenefit(); }
+
+
+	public static StoreManager fromString(String string) {
+		return new StoreManager(string);
 	}
 
 }

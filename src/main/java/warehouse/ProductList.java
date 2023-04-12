@@ -1,53 +1,35 @@
 package warehouse;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.concurrent.Callable;
 
 public class ProductList extends WarehouseElement implements Collection<StockableProduct> {
-
-	private ArrayList<StockableProduct> list = new ArrayList<StockableProduct>();
-	private float totalCost, totalPrice, totalBenefit;
 	
-	private HashMap<String, Callable<String>> getters = new HashMap<String, Callable<String>>() {{
-		put("totalCost", () -> Float.toString(getTotalCost()));
-		put("totalPrice", () -> Float.toString(getTotalPrice()));
-		put("totalBenefit", () -> Float.toString(getTotalBenefit()));
-	}};
+	protected ArrayList<StockableProduct> list = new ArrayList<StockableProduct>();
+	protected double totalCost, totalPrice, totalBenefit;
 	 
 
 	// Constructors
 	public ProductList() {
-	}
-	public ProductList(ArrayList<StockableProduct> list) {
-		this.list.addAll(list);
-		updateCosts();
-	}
-	public ProductList(String... products) {
-		for (int i=0, n=products.length; i<n; i++) {
-			list.add(new StockableProduct(products[i]));
-		}
-		updateCosts();
-	}
+		this(new StockableProduct[0]);
+	} // vv FALL THROUGH (4) vv
+	public ProductList(String string) {
+        this(paramsFromString(string));
+	} // vv FALL THROUGH vv
+	public ProductList(String... productStrings) {
+		this(new ArrayList<String>(Arrays.asList(productStrings)));
+	} // vv FALL THROUGH vv
+	public ProductList(ArrayList<String> productStrings) {
+		this(productStrings.stream().map((String productString) -> new StockableProduct(productString)).toArray(StockableProduct[]::new));
+	} // vv FALL THROUGH vv
 	public ProductList(StockableProduct... products) {
-		for (int i=0, n=products.length; i<n; i++) {
-			this.list.add(products[i]);
-		}
-		updateCosts();
+		super();
+		addAll(Arrays.asList(products));
 	}
 
-	private void updateCosts() {
-		totalCost = 0;
-		totalPrice = 0;
-		totalBenefit = 0;
-		for (StockableProduct product : list) {
-			totalCost += product.getTotalCost();
-			totalPrice += product.getTotalPrice();
-			totalBenefit += totalPrice-totalCost;
-		}
-	}
+
 	public double calculateCost() {
 		double cost = 0;
 		for (StockableProduct product : list) {
@@ -65,6 +47,7 @@ public class ProductList extends WarehouseElement implements Collection<Stockabl
 	public double calculateBenefit() {
 		return calculatePrice() - calculateCost();
 	}
+
 	public StockableProduct mostExpensiveProduct() {
 		StockableProduct mostExpensive = null;
 		for (StockableProduct product : list) {
@@ -85,33 +68,25 @@ public class ProductList extends WarehouseElement implements Collection<Stockabl
 	}
 
 
-	// Global getters and Setters
+	// Getters and Setters
 	@Override
-	public String get(String varId) {
-		try {
-			return getters.get(varId).call();
-		} catch (Exception e) {
-			throw new IllegalArgumentException(String.format("Invalid varId %s.", varId));
-		}
+	protected void defineGetters() {
+		getters.put("totalCost", () -> Double.toString(getTotalCost()));
+		getters.put("totalPrice", () -> Double.toString(getTotalPrice()));
+		getters.put("totalBenefit", () -> Double.toString(getTotalBenefit()));
 	}
+	@Override
+	protected void defineSetters() { }
 	@Override
 	public void set(String[] data) {
-		throw new UnsupportedOperationException("Cannot set ProductList data.");
+		throw new UnsupportedOperationException("Can't set ProductList data.");
 	}
-	// TODO: Override get(var) and set(data) methods
-	// Getters and Setters
-	public ArrayList<StockableProduct> getList() {
-		return list;
-	}
-	public float getTotalCost() {
-		return totalCost;
-	}
-	public float getTotalPrice() {
-		return totalPrice;
-	}
-	public float getTotalBenefit() {
-		return totalBenefit;
-	}
+
+	public ArrayList<StockableProduct> getList() { return list; }
+	public double getTotalCost() { return totalCost; }
+	public double getTotalPrice() { return totalPrice; }
+	public double getTotalBenefit() { return totalBenefit; }
+
 
 	// Collection methods
 	@Override
@@ -140,11 +115,28 @@ public class ProductList extends WarehouseElement implements Collection<Stockabl
 	}
 	@Override
 	public boolean add(StockableProduct e) {
-		return list.add(e);
+		if (list.add(e)) {
+			getters.put(Integer.toString(list.size()-1), () -> e.toString());
+			setters.put(Integer.toString(list.size()-1), (String data) -> e.set(data));
+			totalCost += e.getTotalCost();
+			totalPrice += e.getTotalPrice();
+			totalBenefit = totalCost-totalPrice;
+			return true;
+		}
+		return false;
 	}
 	@Override
 	public boolean remove(Object o) {
-		return list.remove(o);
+		final int index = list.indexOf(o);
+		if (list.remove(o)) {
+			getters.remove(Integer.toString(index));
+			setters.remove(Integer.toString(index));
+			totalCost += ((StockableProduct) o).getTotalCost();
+			totalPrice += ((StockableProduct) o).getTotalPrice();
+			totalBenefit = totalCost-totalPrice;
+			return true;
+		}
+		return false;
 	}
 	@Override
 	public boolean containsAll(Collection<?> c) {
@@ -152,43 +144,38 @@ public class ProductList extends WarehouseElement implements Collection<Stockabl
 	}
 	@Override
 	public boolean addAll(Collection<? extends StockableProduct> c) {
-		return list.addAll(c);
+		boolean out = false;
+		for (StockableProduct product : c) {
+			out = add(product) || out;
+		}
+		return out;
 	}
 	@Override
 	public boolean removeAll(Collection<?> c) {
-		return list.removeAll(c);
+		boolean out = false;
+		for (Object product : c) {
+			out = remove(product) || out;
+		}
+		return out;
 	}
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		return list.retainAll(c);
+		boolean out = false;
+		for (Object product : c) {
+			if (!list.contains(product)) {
+				out = remove(product) | out;
+			}
+		}
+		return out;
 	}
 	@Override
 	public void clear() {
 		list.clear();
+		totalCost = totalPrice = totalBenefit = 0;
 	}
 
-	@Override
-	public void print() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'print'");
+
+	public static ProductList fromString(String string) {
+		return new ProductList(string);
 	}
-	@Override
-	public void writeToFile(String file) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'writeToFile'");
-	}
-	
-	public static WarehouseElement fromString() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'fromString'");
-	}
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'toString'");
-	}
-	
-	// TODO: Override toString() method
-	// TODO: Add print() and writeToFile(String file) methods
-	// TODO: Add static readFromStdio() and readFromFile(String file) methods
 }

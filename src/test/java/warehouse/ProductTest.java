@@ -117,7 +117,7 @@ public class ProductTest {
 
     @Test
     public void testToString() {
-        assertEquals("Detergent|Tide|f|true|fl oz", product.toString());
+        assertEquals("(Detergent|Tide|f|true|fl oz)", product.toString());
     }
 
     @Test

@@ -1,102 +1,57 @@
 package warehouse;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.concurrent.Callable;
 
 public class Person extends WarehouseElement {
 	
-	protected HashMap<String, Callable<String>> getters = new HashMap<String, Callable<String>>() {{
-		put("id", () -> getId());
-		put("firstName", () -> getFirstName());
-		put("lastName", () -> getLastName());
-		put("email", () -> getEmail());
-	}};
-
 	protected String id, firstName, lastName, email;
+	protected static final String[] def = {"00000001A", "Name", "LastName", "email@example.com"};
 
 
 	// Constructors
 	public Person() {
-		this(" ", " ", " ", " ");
-	}
+		this(def);
+	} // vv FALL THROUGH (3) vv
 	public Person(String string) {
-		this(paramsFromString(string));
-	}
+        this(paramsFromString(string));
+	} // vv FALL THROUGH vv
 	public Person(ArrayList<String> params) {
-		this(params.get(0), params.get(1), params.get(2), params.get(3));
-		if (params.size() != 4) {
-			throw new IllegalArgumentException("Invalid number of data fields.");
-		}
+		this(params.toArray(new String[0]));
+	} // vv FALL THROUGH vv
+	public Person(String... data) {
+		super(data);
 	}
 	public Person(String firstName, String lastName) {
-		this(" ", firstName, lastName, " ");
-	}
-	public Person(String id, String firstName, String lastName, String email) {
-		setId(id);
-		setFirstName(firstName);
-		setLastName(lastName);
-		setEmail(email);
-	}
-
-
-	// Global getters and Setters
-	public String get(String varId) {
-		try {
-			return getters.get(varId).call();
-		} catch (NullPointerException e) {
-			throw new IllegalArgumentException(String.format("Invalid varId: %s.", varId));
-		} catch (Exception e) {
-			throw new RuntimeException(String.format("Error retrieving variable: %s.", varId));
-		}
-	}
-	public void set(String[] data) {
-		if (data.length != 4) {
-			throw new IllegalArgumentException("Invalid number of data fields.");
-		}
-		setId(data[0]);
-		setFirstName(data[1]);
-		setLastName(data[2]);
-		setEmail(data[3]);
+		this(def[0], firstName, lastName, def[3]);
 	}
 
 	// Getters and Setters
-	public String getId() {
-		return id;
+	protected void defineGetters() {
+		getters.put("id", () -> getId());
+		getters.put("firstName", () -> getFirstName());
+		getters.put("lastName", () -> getLastName());
+		getters.put("email", () -> getEmail());
 	}
-	private void setId(String id) {
-		this.id = id;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	private void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	private void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public String getEmail() {
-		return email;
-	}
-	private void setEmail(String email) {
-		this.email = email;
+	protected void defineSetters() {
+		setters.put("id", (String value) -> setId(value));
+		setters.put("firstName", (String value) -> setFirstName(value));
+		setters.put("lastName", (String value) -> setLastName(value));
+		setters.put("email", (String value) -> setEmail(value));
 	}
 
+	public String getId() { return id; }
+	protected void setId(String id) { this.id = id; }
 	
-	@Override
-	public String toString() {
-		return String.join("|", id, firstName, lastName, email);
-	}
+	public String getFirstName() { return firstName; }
+	protected void setFirstName(String firstName) { this.firstName = firstName; }
+
+	public String getLastName() { return lastName; }
+	private void setLastName(String lastName) { this.lastName = lastName; }
+
+	public String getEmail() { return email; }
+	private void setEmail(String email) { this.email = email; }
+
 	public static Person fromString(String string) {
 		return new Person(paramsFromString(string));
 	}
-
-	public boolean equals(Person p) {
-		return p.getId().equals(id) && p.getFirstName().equals(firstName) && p.getLastName().equals(lastName) && p.getEmail().equals(email);
-	}
-	
 }

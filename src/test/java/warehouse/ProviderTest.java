@@ -33,7 +33,7 @@ public class ProviderTest {
     @Test
     public void testGetContactPersonAsString() {
         Provider provider = new Provider("123", "Acme Inc.", "123 Main St", new Person("John", "Doe"));
-        assertEquals(" |John|Doe| ", provider.get("contactPerson"));
+        assertEquals("(00000001A|John|Doe|email@example.com)", provider.get("contactPerson"));
     }
     
     @Test(expected = IllegalArgumentException.class)
@@ -45,23 +45,12 @@ public class ProviderTest {
     @Test
     public void testSetWithArrayLength4() {
         Provider provider = new Provider();
-        String[] data = {"123", "Acme Inc.", "123 Main St", " |John|Doe| "};
+        String[] data = {"123", "Acme Inc.", "123 Main St", "( |John|Doe| )"};
         provider.set(data);
         assertEquals("123", provider.getVat());
         assertEquals("Acme Inc.", provider.getName());
         assertEquals("123 Main St", provider.getTaxAddress());
-        assertTrue(new Person(" |John|Doe| ").equals(provider.getContactPerson()));
-    }
-    
-    @Test
-    public void testSetWithArrayLength7() {
-        Provider provider = new Provider();
-        String[] data = {"123", "Acme Inc.", "123 Main St", "1", "John", "Doe", "john.doe@example.com"};
-        provider.set(data);
-        assertEquals("123", provider.getVat());
-        assertEquals("Acme Inc.", provider.getName());
-        assertEquals("123 Main St", provider.getTaxAddress());
-        assertTrue(new Person("1", "John", "Doe", "john.doe@example.com").equals(provider.getContactPerson()));
+        assertTrue(new Person("( |John|Doe| )").equals(provider.getContactPerson()));
     }
     
     @Test(expected = IllegalArgumentException.class)
@@ -73,13 +62,13 @@ public class ProviderTest {
     
     @Test
     public void testToString() {
-        Provider provider = new Provider("123", "Acme Inc.", "123 Main St", new Person("John", "Doe"));
-        assertEquals("123|Acme Inc.|123 Main St|( |John|Doe| )", provider.toString());
+        Provider provider = new Provider("123", "Acme Inc.", "123 Main St", new Person("Some", "Dude"));
+        assertEquals("(123|Acme Inc.|123 Main St|(00000001A|Some|Dude|email@example.com))", provider.toString());
     }
     
     @Test
     public void testFromString() {
-        String providerString = "123|Acme Inc.|123 Main St|( |John|Doe| )";
+        String providerString = "(123|Acme Inc.|123 Main St|(00000001A|John|Doe|email@example.com))";
         Provider provider = Provider.fromString(providerString);
         assertTrue("123".equals(provider.getVat()));
         assertTrue("Acme Inc.".equals(provider.getName()));

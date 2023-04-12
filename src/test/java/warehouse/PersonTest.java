@@ -32,10 +32,10 @@ public class PersonTest {
     @Test
     public void testDefaultConstructor() {
         Person defaultPerson = new Person();
-        Assert.assertEquals(" ", defaultPerson.getId());
-        Assert.assertEquals(" ", defaultPerson.getFirstName());
-        Assert.assertEquals(" ", defaultPerson.getLastName());
-        Assert.assertEquals(" ", defaultPerson.getEmail());
+        Assert.assertEquals("00000001A", defaultPerson.getId());
+        Assert.assertEquals("Name", defaultPerson.getFirstName());
+        Assert.assertEquals("LastName", defaultPerson.getLastName());
+        Assert.assertEquals("email@example.com", defaultPerson.getEmail());
     }
 
     @Test
@@ -111,7 +111,7 @@ public class PersonTest {
 
     @Test
     public void testToString() {
-        String expectedString = String.join("|", testParams);
+        String expectedString = "(" + String.join("|", testParams) + ")";
         String actualString = personUnderTest.toString();
         Assert.assertEquals(expectedString, actualString);
     }
