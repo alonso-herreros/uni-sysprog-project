@@ -75,4 +75,10 @@ public class Product extends WarehouseElement {
 		return new Product(paramsFromString(string));
 	}
 
+	public static Product fromStdio() {
+		return new Product(stringFromStdio());
+	}
+	public static Product fromFile(String filepath) {
+		return new Product(stringFromFile(filepath));
+	}
 }

@@ -58,4 +58,10 @@ public class StoreManager extends WarehouseElement {
 		return new StoreManager(string);
 	}
 
+	public static StoreManager fromStdio() {
+		return new StoreManager(stringFromStdio());
+	}
+	public static StoreManager fromFile(String filepath) {
+		return new StoreManager(stringFromFile(filepath));
+	}
 }

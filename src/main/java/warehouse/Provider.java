@@ -80,4 +80,10 @@ public class Provider extends WarehouseElement {
 		return new Provider(string);
 	}
 	
+	public static Provider fromStdio() {
+		return new Provider(stringFromStdio());
+	}
+	public static Provider fromFile(String filepath) {
+		return new Provider(stringFromFile(filepath));
+	}
 }

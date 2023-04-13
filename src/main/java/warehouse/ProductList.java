@@ -78,7 +78,7 @@ public class ProductList extends WarehouseElement implements Collection<Stockabl
 	@Override
 	protected void defineSetters() { }
 	@Override
-	public void set(String[] data) {
+	public void set(String... data) {
 		throw new UnsupportedOperationException("Can't set ProductList data.");
 	}
 
@@ -177,5 +177,12 @@ public class ProductList extends WarehouseElement implements Collection<Stockabl
 
 	public static ProductList fromString(String string) {
 		return new ProductList(string);
+	}
+
+	public static ProductList fromStdio() {
+		return new ProductList(stringFromStdio());
+	}
+	public static ProductList fromFile(String filepath) {
+		return new ProductList(stringFromFile(filepath));
 	}
 }

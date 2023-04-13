@@ -1,5 +1,7 @@
 package warehouse;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
@@ -57,7 +59,7 @@ public abstract class WarehouseElement {
     public void set(ArrayList<String> data) {
         set(data.toArray(new String[0]));
     } // vv FALL THROUGH vv
-    public void set(String[] data) {
+    public void set(String... data) {
 		if (data.length != setters.size()) {
 			throw new IllegalArgumentException(String.format("Invalid data length %d, it must be %d.", data.length, setters.size()));
 		}
@@ -81,9 +83,15 @@ public abstract class WarehouseElement {
     public void print() {
         System.out.println(toString());
     }
-    public void writeToFile(String file) {
-        // TODO: Implement writing to file
-        throw new UnsupportedOperationException("File I/O not implemented yet.");
+    public void writeToFile(String filepath) {
+        try {
+            FileWriter writer = new FileWriter(filepath);
+            writer.write(toString());
+            writer.close();
+        }
+        catch (Exception e) {
+            throw new RuntimeException(String.format("Exception while writing to '%s': %s", filepath, e.getMessage()));
+        }
     }
 
     // Reading
@@ -91,14 +99,21 @@ public abstract class WarehouseElement {
         // MUST BE IMPLEMENTED BY THE CHILD CLASSES
         throw new UnsupportedOperationException("Not implemented by this class.");
     }
-    public static WarehouseElement readFromStdio() {
+    public static String stringFromStdio() {
         System.out.println("Enter full object string representation:");
         String string = scanner.nextLine();
-        return fromString(string);
+        return string;
     }
-    public static WarehouseElement readFromFile(String file) {
-        // TODO: Implement file reading
-        throw new UnsupportedOperationException("File I/O not implemented yet.");
+    public static String stringFromFile(String filepath) {
+        try {
+            Scanner reader = new Scanner(new File(filepath));
+            String string = reader.nextLine();
+            reader.close();
+            return string;
+        }
+        catch (Exception e) {
+            throw new RuntimeException(String.format("Exception while reading from '%s': %s", filepath, e.getMessage()));
+        }
     }
 
 

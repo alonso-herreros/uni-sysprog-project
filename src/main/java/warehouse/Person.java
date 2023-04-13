@@ -54,4 +54,11 @@ public class Person extends WarehouseElement {
 	public static Person fromString(String string) {
 		return new Person(paramsFromString(string));
 	}
+
+	public static Person fromStdio() {
+		return new Person(stringFromStdio());
+	}
+	public static Person fromFile(String filepath) {
+		return new Person(stringFromFile(filepath));
+	}
 }

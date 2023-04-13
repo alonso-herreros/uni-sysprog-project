@@ -77,4 +77,11 @@ public class StockableProduct extends Product {
 	public static StockableProduct fromString(String string) {
 		return new StockableProduct(string);
 	}
+	
+	public static StockableProduct fromStdio() {
+		return new StockableProduct(stringFromStdio());
+	}
+	public static StockableProduct fromFile(String filepath) {
+		return new StockableProduct(stringFromFile(filepath));
+	}
 }
