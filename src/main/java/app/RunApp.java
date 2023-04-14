@@ -1,22 +1,21 @@
 package app;
 
-import java.io.IOException;
-
 import org.xml.sax.SAXException;
 
-import app.gui.UserInterface;
 import warehouse.StoreManager;
 
+import java.io.IOException;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+
+@SpringBootApplication
 public class RunApp {
 
-	static UserInterface ui;
-
+	
 	public static void main(String[] args) throws SAXException, IOException {
-		ui = new UserInterface();
-
-		ui.start();
-
+		SpringApplication.run(RunApp.class, args);
 	}
 
 }
