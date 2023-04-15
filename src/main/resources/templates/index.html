@@ -3,6 +3,7 @@
 <head>
 	<title>Store Management System</title>
     <link rel="stylesheet" href="/css/style.css">
+	<script th:replace="/fragments/scripts :: scripts"></script>
 </head>
 <body>
 	<header th:replace="/fragments/header :: header"></header>
@@ -10,7 +11,7 @@
 	<main>
 		<h2>Main menu</h2>
 		<div class="info-card">
-			<h3>Store name: null</h3>
+			<h3>Store name: <span th:text="${storeName}"></span></h3>
 			<hr/>
 			<h3>Total Cost and Benefit:</h3>
 			<p>Total Cost: $xxx</p>
