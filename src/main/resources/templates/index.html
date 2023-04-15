@@ -14,8 +14,8 @@
 			<h3>Store name: <span th:text="${storeName}"></span></h3>
 			<hr/>
 			<h3>Total Cost and Benefit:</h3>
-			<p>Total Cost: $xxx</p>
-			<p>Total Benefit: $xxx</p>
+			<p>Total Cost: <span th:text="${store.stockCost}">eur</span> €</p>
+			<p>Total Benefit: <span th:text="${store.stockBenefit}">eur</span> €</p>
 		</div>
 	</main>
 

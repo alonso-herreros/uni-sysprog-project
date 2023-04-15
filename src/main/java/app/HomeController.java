@@ -1,79 +1,87 @@
 package app;
 
-import warehouse.StoreManager;
-
-
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.client.RestTemplate;
+
+import warehouse.StoreManager;
 
 
 @Controller
 @EnableAutoConfiguration
 public class HomeController {
 
+    static final String getVarUri = "http://localhost:8080/store/getvar?varId=%s";
+    static final RestTemplate restTemplate = new RestTemplate();
 
-  @GetMapping("/")
-  public String home(Model model) {
-      model.addAttribute("storeName", " ");
-      return "index";
-  }
-
-
-  @GetMapping("/create")
-  public String create() { return "create"; }
+    @GetMapping("/")
+    public String home(Model model) {
+        return "index";
+    }
 
 
-  @GetMapping("manage/stock")
-  public String stock(Model model) {
-      model.addAttribute("menuName", "Stock");
-      model.addAttribute("elementName", "stock");
-      model.addAttribute("elementsName", "stock");
-      return "manage";
-  }
+    @GetMapping("/create")
+    public String create() { return "create"; }
 
-  @GetMapping("manage/orders/unprocessed")
-  public String unprocessedOrders(Model model) {
-      model.addAttribute("menuName", "Unprocessed Orders");
-      model.addAttribute("elementName", "order");
-      model.addAttribute("elementsName", "orders");
-      return "manage";
-  }
 
-  @GetMapping("manage/orders/processed")
-  public String processedOrders(Model model) {
-      model.addAttribute("menuName", "Processed Orders");
-      model.addAttribute("elementName", "order (processed)");
-      model.addAttribute("elementsName", "orders (processed)");
-      return "manage";
-  }
+    @GetMapping("manage/stock")
+    public String stock(Model model) {
+        setupManageMenu(model, "Stock", "stock", "stock");
+        return "manage";
+    }
 
-  @GetMapping("manage/clients")
-  public String clients(Model model) {
-      model.addAttribute("menuName", "Clients");
-      model.addAttribute("elementName", "client");
-      model.addAttribute("elementsName", "clients");
-      return "manage";
-  }
+    @GetMapping("manage/orders/unprocessed")
+    public String unprocessedOrders(Model model) {
+        setupManageMenu(model, "Unprocessed Orders", "order", "orders");
+        return "manage";
+    }
 
-  @GetMapping("manage/providers")
-  public String providers(Model model) {
-      model.addAttribute("menuName", "Providers");
-      model.addAttribute("elementName", "provider");
-      model.addAttribute("elementsName", "providers");
-      return "manage";
-  }
+    @GetMapping("manage/orders/processed")
+    public String processedOrders(Model model) {
+        setupManageMenu(model, "Processed Orders", "order (processed)", "orders (processed)");
+        return "manage";
+    }
 
-  @GetMapping("manage/employees")
-  public String employees(Model model) {
-      model.addAttribute("menuName", "Employees");
-      model.addAttribute("elementName", "employee");
-      model.addAttribute("elementsName", "employees");
-      return "manage";
-  }
+    @GetMapping("manage/clients")
+    public String clients(Model model) {
+        setupManageMenu(model, "Clients", "client", "clients");
+        return "manage";
+    }
 
-  
-  @GetMapping("print")
-  public String print() { return "print"; }
+    @GetMapping("manage/providers")
+    public String providers(Model model) {
+        setupManageMenu(model, "Providers", "provider", "providers");
+        return "manage";
+    }
+
+    @GetMapping("manage/employees")
+    public String employees(Model model) {
+        setupManageMenu(model, "Employees", "employee", "employees");
+        return "manage";
+    }
+
+    
+    @GetMapping("print")
+    public String print() { return "print"; }
+
+
+    // Utility methods
+    public Model setupManageMenu(Model model, String menuName, String elementName, String elementsName) {
+        model.addAttribute("menuName", elementName);
+        model.addAttribute("elementName", elementName);
+        model.addAttribute("elementsName", elementsName);
+        return model;
+    }
+
+    @ModelAttribute("store")
+    public StoreManager store() {
+        return RunApp.storeManager;
+    }
+
+    public String getVar(String varId) {
+        return restTemplate.getForObject(String.format(getVarUri, varId), String.class);
+    }
 }
