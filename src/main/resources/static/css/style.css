@@ -76,7 +76,7 @@ nav ul ul {
 }
 
 nav ul ul li {
-	display: block;
+  display: block;
 	margin: 0.2em 0.3em;
 	font-size: 16px;
 }
@@ -89,6 +89,21 @@ nav ul li a {
 nav ul li a:hover {
 	text-decoration: underline;
 }
+nav ul li a.active {
+	font-weight: bold;
+}
+
+/* Style the footer */
+footer {
+	background-color: #333;
+	color: #fff;
+	text-align: center;
+	padding: 20px;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+
 
 /* Style the main content */
 .info-card {
@@ -99,6 +114,7 @@ nav ul li a:hover {
 	border-radius: 5px;
 }
 
+/* Style the operations list for the manage page */
 .operations {
   list-style: none;
   padding: 0;
@@ -124,15 +140,38 @@ nav ul li a:hover {
   color: #f2f2f2;
 }
 
-
-/* Style the footer */
-footer {
-	background-color: #333;
-	color: #fff;
-	text-align: center;
-	padding: 20px;
-	position: absolute;
-	bottom: 0;
-	width: 100%;
+/* Style for error page */
+.error {
+  max-width: 800px;
+  margin: 30px auto 50px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
 }
 
+.error h2 {
+  font-size: 34px;
+  font-weight: bold;
+  margin: 0 0 20px;
+}
+
+.error p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.error a {
+  display: inline-block;
+  background-color: #333;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.error a:hover {
+  background-color: #777;
+  color: #fff;
+}
