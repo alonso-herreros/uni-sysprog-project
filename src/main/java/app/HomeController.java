@@ -65,7 +65,9 @@ public class HomeController {
 
     
     @GetMapping("print")
-    public String print() { return "print"; }
+    public String print(Model model) {
+        return "print";
+    }
 
 
     // Utility methods
