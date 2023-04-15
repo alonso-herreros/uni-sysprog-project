@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Store Management System</title>
+    <link rel="stylesheet" href="/css/style.css">
+	<script th:replace="/fragments/scripts :: scripts"></script>
+</head>
+<body>
+	<header th:replace="/fragments/header :: header"></header>
+
+	<main>
+		<h2>Manage <span th:text="${menuName}"></span> Menu</h2>
+		<div class="info-card">
+			<ul class="operations"> 
+				<li><a href="#">Insert <span th:text="${elementName}"></span></a></li>
+				<li><a href="#">Remove <span th:text="${elementName}"></span></a></li>
+				<li><a href="#">Modify <span th:text="${elementName}"></span></a></li>
+				<li><a href="#">Search <span th:text="${elementName}"></span></a></li>
+				<li><a href="#">List <span th:text="${elementsName}"></span></a></li>
+				<li><a href="#">Main menu</a></li>
+			</ul>
+		</div>
+	</main>
+
+	<footer th:replace="/fragments/footer :: footer"></footer>
+</body>
+</html>
