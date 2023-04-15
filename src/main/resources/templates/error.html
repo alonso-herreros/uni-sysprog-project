@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Page Not Found</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<script th:replace="/fragments/scripts :: scripts"></script>
+</head>
+<body>
+	<header th:replace="/fragments/header :: header"></header>
+
+	<div class="error">
+		<h2>Oops! Page not found</h2>
+		<p>The page you requested could not be found on this server.</p>
+		<a href="/">Go back to homepage</a>
+	</div>
+
+	<footer th:replace="/fragments/footer :: footer"></footer>
+</body>
+</html>
