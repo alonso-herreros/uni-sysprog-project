@@ -69,6 +69,10 @@ public class HomeController {
         return "print";
     }
 
+    @ModelAttribute("store")
+    public StoreManager store() {
+        return RunApp.storeManager;
+    }
 
     // Utility methods
     public Model setupManageMenu(Model model, String menuName, String elementName, String elementsName) {
@@ -77,13 +81,5 @@ public class HomeController {
         model.addAttribute("elementsName", elementsName);
         return model;
     }
-
-    @ModelAttribute("store")
-    public StoreManager store() {
-        return RunApp.storeManager;
-    }
-
-    public String getVar(String varId) {
-        return restTemplate.getForObject(String.format(getVarUri, varId), String.class);
-    }
+    
 }
