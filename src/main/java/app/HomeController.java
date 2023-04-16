@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.client.RestTemplate;
 
 import warehouse.StoreManager;
 
@@ -13,9 +12,6 @@ import warehouse.StoreManager;
 @Controller
 @EnableAutoConfiguration
 public class HomeController {
-
-    static final String getVarUri = "http://localhost:8080/store/getvar?varId=%s";
-    static final RestTemplate restTemplate = new RestTemplate();
 
     @GetMapping("/")
     public String home(Model model) {
@@ -81,5 +77,5 @@ public class HomeController {
         model.addAttribute("elementsName", elementsName);
         return model;
     }
-    
+
 }
