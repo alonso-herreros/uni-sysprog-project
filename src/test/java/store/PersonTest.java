@@ -1,4 +1,4 @@
-package warehouse;
+package store;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Before;
@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class PersonTest {
 

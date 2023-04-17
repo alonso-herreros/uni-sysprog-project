@@ -1,4 +1,4 @@
-package warehouse;
+package store;
 
 import java.io.File;
 import java.io.FileWriter;
