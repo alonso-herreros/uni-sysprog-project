@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 public class Provider extends WarehouseElement {
 	
-	protected String vat, name, taxAddress;
+	protected int vat;
+	protected String name, taxAddress;
 	protected Person contactPerson;
 
-	protected static final String[] def = {"VAT", "Name", "TaxAddress", "00000001A|John|Doe|email@example.com"};
+	protected static final String[] def = {"00000001", "Name", "TaxAddress", "00000001|John|Doe|email@example.com"};
 
 
 	// Constructors
@@ -37,23 +38,23 @@ public class Provider extends WarehouseElement {
 	// Getters and Setters
 	@Override
 	protected void defineGetters() {
-		getters.put("vat", () -> getVat());
+		getters.put("vat", () -> String.format("%08d", getVat()));
 		getters.put("name", () -> getName());
 		getters.put("taxAddress", () -> getTaxAddress());
 		getters.put("contactPerson", () -> getContactPerson().toString());
 	}
 	@Override
 	protected void defineSetters() {
-		setters.put("vat", (String vat) -> setVat(vat));
+		setters.put("vat", (String vat) -> setVat(Integer.parseInt(vat)));
 		setters.put("name", (String name) -> setName(name));
 		setters.put("taxAddress", (String taxAddress) -> setTaxAddress(taxAddress));
 		setters.put("contactPerson", (String contactPerson) -> setContactPerson(new Person(contactPerson)));
 	}
 
-	public String getVat() {
+	public int getVat() {
 		return vat;
 	}
-	private void setVat(String vat) {
+	private void setVat(int vat) {
 		this.vat = vat;
 	}
 	public String getName() {
@@ -76,6 +77,7 @@ public class Provider extends WarehouseElement {
 	}
 	
 
+	// String import methods
 	public static Provider fromString(String string) {
 		return new Provider(string);
 	}
