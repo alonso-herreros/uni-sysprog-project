@@ -2,7 +2,7 @@ package store;
 
 import java.util.ArrayList;
 
-public class Provider extends WarehouseElement {
+public class Provider extends WarehouseElement implements Comparable<Object> {
 	
 	protected int vat;
 	protected String name, taxAddress;
@@ -87,5 +87,20 @@ public class Provider extends WarehouseElement {
 	}
 	public static Provider fromFile(String filepath) {
 		return new Provider(stringFromFile(filepath));
+	}
+
+
+	// Comparison methods
+	@Override
+	public int compareTo(Object o) {
+		try {
+			return Integer.valueOf(vat).compareTo(((Provider) o).getVat());
+		} catch (ClassCastException e) {
+			throw new IllegalArgumentException("Cannot compare a Provider with a " + o.getClass().getName());
+		}
+	}
+	@Override
+	public boolean equals(Object o) {
+		return compareTo(o) == 0;
 	}
 }
