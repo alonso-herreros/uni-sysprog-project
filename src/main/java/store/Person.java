@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 public class Person extends WarehouseElement {
 	
-	protected String id, firstName, lastName, email;
-	protected static final String[] def = {"00000001A", "Name", "LastName", "email@example.com"};
+	protected int id;
+	protected String firstName, lastName, email;
+	protected static final String[] def = {"00000001", "Name", "LastName", "email@example.com"};
 
 
 	// Constructors
@@ -25,22 +26,23 @@ public class Person extends WarehouseElement {
 		this(def[0], firstName, lastName, def[3]);
 	}
 
+
 	// Getters and Setters
 	protected void defineGetters() {
-		getters.put("id", () -> getId());
+		getters.put("id", () -> String.format("%08d", getId()));
 		getters.put("firstName", () -> getFirstName());
 		getters.put("lastName", () -> getLastName());
 		getters.put("email", () -> getEmail());
 	}
 	protected void defineSetters() {
-		setters.put("id", (String value) -> setId(value));
+		setters.put("id", (String value) -> setId(Integer.parseInt(value)));
 		setters.put("firstName", (String value) -> setFirstName(value));
 		setters.put("lastName", (String value) -> setLastName(value));
 		setters.put("email", (String value) -> setEmail(value));
 	}
 
-	public String getId() { return id; }
-	protected void setId(String id) { this.id = id; }
+	public int getId() { return id; }
+	protected void setId(int id) { this.id = id; }
 	
 	public String getFirstName() { return firstName; }
 	protected void setFirstName(String firstName) { this.firstName = firstName; }
@@ -51,6 +53,8 @@ public class Person extends WarehouseElement {
 	public String getEmail() { return email; }
 	private void setEmail(String email) { this.email = email; }
 
+
+	// Import methods
 	public static Person fromString(String string) {
 		return new Person(paramsFromString(string));
 	}

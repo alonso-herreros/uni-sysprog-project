@@ -14,9 +14,9 @@ public class PersonTest {
 
     private Person personUnderTest;
 
-    private static final String[] DEF = {"00000001A", "Name", "LastName", "email@example.com"};
+    private static final String[] DEF = {"00000001", "Name", "LastName", "email@example.com"};
 
-    private final String testId = "123";
+    private final String testId = "00000123";
     private final String testFirstName = "John";
     private final String testLastName = "Doe";
     private final String testEmail = "jdoe@test.com";
@@ -37,7 +37,7 @@ public class PersonTest {
     @Test
     public void testDefaultConstructor() {
         Person defaultPerson = new Person();
-        assertEquals(DEF[0], defaultPerson.getId());
+        assertEquals(DEF[0], defaultPerson.get("id"));
         assertEquals(DEF[1], defaultPerson.getFirstName());
         assertEquals(DEF[2], defaultPerson.getLastName());
         assertEquals(DEF[3], defaultPerson.getEmail());
@@ -46,7 +46,7 @@ public class PersonTest {
     @Test
     public void testFullConstructor() {
         Person fullPerson = new Person(testId, testFirstName, testLastName, testEmail);
-        assertEquals(testId, fullPerson.getId());
+        assertEquals(testId, fullPerson.get("id"));
         assertEquals(testFirstName, fullPerson.getFirstName());
         assertEquals(testLastName, fullPerson.getLastName());
         assertEquals(testEmail, fullPerson.getEmail());
@@ -56,7 +56,7 @@ public class PersonTest {
     @Test
     public void testStringConstructor() {
         Person stringPerson = new Person(String.join("|", testParams));
-        assertEquals(testId, stringPerson.getId());
+        assertEquals(testId, stringPerson.get("id"));
         assertEquals(testFirstName, stringPerson.getFirstName());
         assertEquals(testLastName, stringPerson.getLastName());
         assertEquals(testEmail, stringPerson.getEmail());
@@ -65,7 +65,7 @@ public class PersonTest {
     @Test
     public void testArrayListConstructor() {
         Person arrayListPerson = new Person(testParams);
-        assertEquals(testId, arrayListPerson.getId());
+        assertEquals(testId, arrayListPerson.get("id"));
         assertEquals(testFirstName, arrayListPerson.getFirstName());
         assertEquals(testLastName, arrayListPerson.getLastName());
         assertEquals(testEmail, arrayListPerson.getEmail());
@@ -96,26 +96,26 @@ public class PersonTest {
     @Test
     public void testSetWithStringArray() {
         String[] data = {
-                "456",
+                "00000456",
                 "Jane",
                 "Doe",
                 "jane@test.com"
         };
         personUnderTest.set(data);
 
-        assertEquals(data[0], personUnderTest.getId());
+        assertEquals(data[0], personUnderTest.get("id"));
         assertEquals(data[1], personUnderTest.getFirstName());
         assertEquals(data[2], personUnderTest.getLastName());
         assertEquals(data[3], personUnderTest.getEmail());
     }
     @Test
     public void testSetWithStringArgs() {
-        String id = "456";
+        String id = "00000456";
         String firstName = "Jane";
         String lastName = "Doe";
         String email = "jane@test.com";
         personUnderTest.set(id, firstName, lastName, email);
-        assertEquals(id, personUnderTest.getId());
+        assertEquals(id, personUnderTest.get("id"));
         assertEquals(firstName, personUnderTest.getFirstName());
         assertEquals(lastName, personUnderTest.getLastName());
         assertEquals(email, personUnderTest.getEmail());
@@ -123,14 +123,14 @@ public class PersonTest {
     @Test
     public void testSetWithString() {
         String[] data = {
-                "456",
+                "00000456",
                 "Jane",
                 "Doe",
                 "jane@test.com"
         };
         String dataString = String.join("|", data);
         personUnderTest.set(dataString);
-        assertEquals(data[0], personUnderTest.getId());
+        assertEquals(data[0], personUnderTest.get("id"));
         assertEquals(data[1], personUnderTest.getFirstName());
         assertEquals(data[2], personUnderTest.getLastName());
         assertEquals(data[3], personUnderTest.getEmail());
@@ -138,7 +138,7 @@ public class PersonTest {
     @Test
     public void testSetWithVarIdAndValue() {
         String[] data = {
-                "456",
+                "00000456",
                 "Jane",
                 "Doe",
                 "jane@test.com"
@@ -153,7 +153,7 @@ public class PersonTest {
             personUnderTest.set(varIds[i], data[i]);
             assertEquals(data[i], personUnderTest.get(varIds[i]));
         }
-        assertEquals(data[0], personUnderTest.getId());
+        assertEquals(data[0], personUnderTest.get("id"));
         assertEquals(data[1], personUnderTest.getFirstName());
         assertEquals(data[2], personUnderTest.getLastName());
         assertEquals(data[3], personUnderTest.getEmail());
