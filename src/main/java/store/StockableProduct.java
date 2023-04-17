@@ -2,7 +2,7 @@ package store;
 
 import java.util.ArrayList;
 
-public class StockableProduct extends Product {
+public class StockableProduct extends Product implements Comparable<Object> {
 	
 	protected int productID, numUnits;
 	protected float costPerUnit, pricePerUnit;
@@ -74,6 +74,7 @@ public class StockableProduct extends Product {
 	public float getTotalPrice() { return totalPrice; }
 	
 
+	// String import methods
 	public static StockableProduct fromString(String string) {
 		return new StockableProduct(string);
 	}
@@ -83,5 +84,20 @@ public class StockableProduct extends Product {
 	}
 	public static StockableProduct fromFile(String filepath) {
 		return new StockableProduct(stringFromFile(filepath));
+	}
+
+
+	// Comparison methods
+	@Override
+	public int compareTo(Object o) {
+		try {
+			return Integer.valueOf(productID).compareTo(((StockableProduct) o).getProductID());
+		}
+		catch (ClassCastException e) {
+			throw new IllegalArgumentException("Cannot compare a StockableProduct with a " + o.getClass().getName());
+		}
+	}
+	public boolean equals(Object o) {
+		return compareTo(o) == 0;
 	}
 }
