@@ -2,7 +2,7 @@ package store;
 
 import java.util.ArrayList;
 
-public class Person extends WarehouseElement {
+public class Person extends WarehouseElement implements Comparable<Object> {
 	
 	protected int id;
 	protected String firstName, lastName, email;
@@ -64,5 +64,21 @@ public class Person extends WarehouseElement {
 	}
 	public static Person fromFile(String filepath) {
 		return new Person(stringFromFile(filepath));
+	}
+
+
+	// Comparison methods
+	@Override
+	public int compareTo(Object o) {
+		try {
+			return Integer.valueOf(id).compareTo(((Person) o).getId());
+		}
+		catch (ClassCastException e) {
+			throw new IllegalArgumentException("Cannot compare a Person with a " + o.getClass().getName());
+		}
+	}
+	@Override
+	public boolean equals(Object o) {
+		return compareTo(o) == 0;
 	}
 }
