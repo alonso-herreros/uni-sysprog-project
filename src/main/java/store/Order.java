@@ -72,6 +72,6 @@ public class Order extends ProductList {
         return new Order(stringFromStdio());
     }
     public static Order readFromFile(String filepath) {
-        return new Order(stringFromFile(filepath));
+        return new Order(stringsFromFile(filepath));
     }
 }
