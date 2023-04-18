@@ -186,6 +186,6 @@ public class ProductList extends WarehouseElement implements Collection<Stockabl
         return new ProductList(stringFromStdio());
     }
     public static ProductList readFromFile(String filepath) {
-        return new ProductList(stringFromFile(filepath));
+        return new ProductList(stringsFromFile(filepath));
     }
 }

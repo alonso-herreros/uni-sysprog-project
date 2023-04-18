@@ -127,13 +127,12 @@ public class ProductListTest {
         String expected = "((1|Pods|Tide|f|true|fl oz|30|10.0|20.0)|(2|Product2|Tide|f|true|fl oz|40|20.0|30.0))";
         assertEquals(expected, pl.toString());
     }
-    /* 
+    
     @Test
     public void testFromFile() {
-        ProductList pl = ProductList.readFromFile("test_products.txt");
-        StockableProduct sp1 = new StockableProduct("Product1,10.0,20.0,30");
-        StockableProduct sp2 = new StockableProduct("Product2,20.0,30.0,40");
+        ProductList pl = ProductList.readFromFile("src\\test\\testObjectFiles\\testProductList1.txt");
+        assertEquals(2, pl.size());
         assertEquals(sp1, pl.getList().get(0));
         assertEquals(sp2, pl.getList().get(1));
-    }*/
+    }
 }
