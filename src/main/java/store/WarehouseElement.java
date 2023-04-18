@@ -157,8 +157,8 @@ public abstract class WarehouseElement {
             return new ArrayList<String>();
         }
         ArrayList<String> params = new ArrayList<String>();
-        string = string.replaceFirst("^\\(((\\(.*\\)|[^|()]+|\\|)+)\\)", "$1");
-        Matcher m = Pattern.compile("\\(.*\\)|[^|()]+").matcher(string);
+        string = string.replaceFirst("(?<!\\|)\\(((\\(.*\\)|[^|()]+|\\|)+)\\)(?!\\|)", "$1");
+        Matcher m = Pattern.compile("\\(.*?\\)|[^|()]+").matcher(string);
         while (m.find()) {
             if (!m.group().isEmpty()) {
                 params.add(m.group());
