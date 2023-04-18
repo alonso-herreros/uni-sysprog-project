@@ -46,25 +46,38 @@ public class PersonTest {
     @Test
     public void testFullConstructor() {
         Person fullPerson = new Person(testId, testFirstName, testLastName, testEmail);
+        assertEquals(testId, fullPerson.get("id"));
+        assertEquals(testFirstName, fullPerson.getFirstName());
+        assertEquals(testLastName, fullPerson.getLastName());
+        assertEquals(testEmail, fullPerson.getEmail());
         assertTrue(fullPerson.equals(personUnderTest));
     }
 
     @Test
     public void testStringConstructor() {
         Person stringPerson = new Person(String.join("|", testParams));
-        assertTrue(stringPerson.equals(personUnderTest));
+        assertEquals(testId, stringPerson.get("id"));
+        assertEquals(testFirstName, stringPerson.getFirstName());
+        assertEquals(testLastName, stringPerson.getLastName());
+        assertEquals(testEmail, stringPerson.getEmail());
     }
 
     @Test
     public void testArrayListConstructor() {
         Person arrayListPerson = new Person(testParams);
-        assertTrue(arrayListPerson.equals(personUnderTest));
+        assertEquals(testId, arrayListPerson.get("id"));
+        assertEquals(testFirstName, arrayListPerson.getFirstName());
+        assertEquals(testLastName, arrayListPerson.getLastName());
+        assertEquals(testEmail, arrayListPerson.getEmail());
     }
 
     @Test
     public void testNullStringConstructor() {
         Person nullStringPerson = new Person((String) null);
-        assertTrue(nullStringPerson.equals(new Person()));
+        assertEquals(DEF[0], nullStringPerson.get("id"));
+        assertEquals(DEF[1], nullStringPerson.getFirstName());
+        assertEquals(DEF[2], nullStringPerson.getLastName());
+        assertEquals(DEF[3], nullStringPerson.getEmail());
     }
 
     @Test
@@ -226,7 +239,10 @@ public class PersonTest {
             writer.close();
 
             Person personFromFile = Person.fromFile(filepath);
-            assertTrue(personFromFile.equals(personUnderTest));
+            assertEquals(personFromFile.get("id"), testId);
+            assertEquals(personFromFile.getFirstName(), testFirstName);
+            assertEquals(personFromFile.getLastName(), testLastName);
+            assertEquals(personFromFile.getEmail(), testEmail);
         }
         catch (Exception e) {
             fail(e.getStackTrace().toString());
