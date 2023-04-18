@@ -37,6 +37,7 @@ public abstract class WarehouseElement {
     protected abstract void defineSetters();
     public abstract String[] getDef();
 
+    // Generalized get(var), set(var, value), and set(data)
     public String get(String varId) {
         try {
             return getters.get(varId).call();
@@ -75,7 +76,7 @@ public abstract class WarehouseElement {
 
 
     // Writing
-    public String toString() {
+    public String toString() { // Generalized
         String out = "(";
         for (String key : getters.keySet()) {
             if(setters.containsKey(key)) {
@@ -84,26 +85,59 @@ public abstract class WarehouseElement {
         }
         return out.substring(0, Math.max(1, out.length()-1)) + ")";
     }
-    public void print() {
+    public void print() { // Generalized
         System.out.println(toString());
     }
-    public void writeToFile(String filepath) {
-        try {
-            FileWriter writer = new FileWriter(filepath);
-            writer.write(toString());
-            writer.close();
+    public void writeToFile(String filepath) { // Generalized
+        stringToFile(filepath, toString());
+    }
+    // Read methods: to be implemented by subclasses, using utility methods (can't generalize these static methods)
+
+
+    // Default equals
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
         }
-        catch (Exception e) {
-            throw new RuntimeException(String.format("Exception while writing to '%s': %s", filepath, e.getMessage()));
+        if (!(o instanceof WarehouseElement)) {
+            return false;
         }
+        if(toString() == o.toString()) {
+            return true;
+        }
+        WarehouseElement other = (WarehouseElement) o;
+        for (String key : getters.keySet()) {
+            if (!get(key).equals(other.get(key))) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    
+    // Utility methods    
+    public static ArrayList<String> paramsFromString(String string) {
+        if(string == null || string.isEmpty()) {
+            return new ArrayList<String>();
+        }
+        ArrayList<String> params = new ArrayList<String>();
+        string = string.replaceFirst("(?<!\\|)\\(((\\(.*\\)|[^|()]+|\\|)+)\\)(?!\\|)", "$1");
+        Matcher m = Pattern.compile("\\(.*?\\)|[^|()]+").matcher(string);
+        while (m.find()) {
+            if (!m.group().isEmpty()) {
+                params.add(m.group());
+            }
+        }
+        return params;
     }
 
-    // Reading
+    // String i/o
     public static String stringFromStdio() {
         System.out.println("Enter full object string representation:");
         String string = scanner.nextLine();
         return string;
     }
+    
     public static String stringFromFile(String filepath) {
         try {
             Scanner reader = new Scanner(new File(filepath));
@@ -129,42 +163,15 @@ public abstract class WarehouseElement {
             throw new RuntimeException(String.format("Exception while reading from '%s': %s", filepath, e.getMessage()));
         }
     }
-
-
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
+    public void stringToFile(String filepath, String string) {
+        try {
+            FileWriter writer = new FileWriter(filepath);
+            writer.write(string);
+            writer.close();
         }
-        if (!(o instanceof WarehouseElement)) {
-            return false;
+        catch (Exception e) {
+            throw new RuntimeException(String.format("Exception while writing to '%s': %s", filepath, e.getMessage()));
         }
-        if(toString() == o.toString()) {
-            return true;
-        }
-        WarehouseElement other = (WarehouseElement) o;
-        for (String key : getters.keySet()) {
-            if (!get(key).equals(other.get(key))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-
-    // Utility methods    
-    public static ArrayList<String> paramsFromString(String string) {
-        if(string == null || string.isEmpty()) {
-            return new ArrayList<String>();
-        }
-        ArrayList<String> params = new ArrayList<String>();
-        string = string.replaceFirst("(?<!\\|)\\(((\\(.*\\)|[^|()]+|\\|)+)\\)(?!\\|)", "$1");
-        Matcher m = Pattern.compile("\\(.*?\\)|[^|()]+").matcher(string);
-        while (m.find()) {
-            if (!m.group().isEmpty()) {
-                params.add(m.group());
-            }
-        }
-        return params;
     }
 
 }
