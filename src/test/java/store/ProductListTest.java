@@ -19,6 +19,25 @@ public class ProductListTest {
     }
 
     @Test
+    public void testConstructorEmpty() {
+        assertEquals(0, pl.size());
+    }
+
+    @Test
+    public void testConstructor1Product() {
+        ProductList pl = new ProductList("((0|Pods|Tide|f|true|fl oz|30|10.0|20.0))");
+        assertEquals(1, pl.size());
+    }
+
+    @Test
+    public void testConstructor2Products() {
+        String p1String = "(0|Pods|Tide|f|true|fl oz|30|10.0|20.0)";
+        String p2String = "(1|Product2|Tide|f|true|fl oz|40|20.0|30.0)";
+        ProductList pl = new ProductList(String.join("|", p1String, p2String));
+        assertEquals(2, pl.size());
+    }
+
+    @Test
     public void testAdd() {
         assertTrue(pl.add(sp));
     }
