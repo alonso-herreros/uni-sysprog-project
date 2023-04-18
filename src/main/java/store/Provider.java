@@ -81,14 +81,14 @@ public class Provider extends WarehouseElement implements Comparable<Object> {
     
 
     // String import methods
-    public static Provider fromString(String string) {
+    public static Provider readFromString(String string) {
         return new Provider(string);
     }
     
-    public static Provider fromStdio() {
+    public static Provider readFromStdio() {
         return new Provider(stringFromStdio());
     }
-    public static Provider fromFile(String filepath) {
+    public static Provider readFromFile(String filepath) {
         return new Provider(stringFromFile(filepath));
     }
 

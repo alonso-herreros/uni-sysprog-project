@@ -74,14 +74,14 @@ public class Product extends WarehouseElement {
     protected void setMeasurementUnit(String measurementUnit) { this.measurementUnit = measurementUnit; }
 
 
-    public static Product fromString(String string) {
+    public static Product readFromString(String string) {
         return new Product(paramsFromString(string));
     }
 
-    public static Product fromStdio() {
+    public static Product readFromStdio() {
         return new Product(stringFromStdio());
     }
-    public static Product fromFile(String filepath) {
+    public static Product readFromFile(String filepath) {
         return new Product(stringFromFile(filepath));
     }
 }

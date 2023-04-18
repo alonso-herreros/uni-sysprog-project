@@ -60,7 +60,7 @@ public class ProviderTest {
     @Test
     public void testFromString() {
         String providerString = "(123|Acme Inc.|123 Main St|(00000001|John|Doe|email@example.com))";
-        Provider provider = Provider.fromString(providerString);
+        Provider provider = Provider.readFromString(providerString);
         assertTrue("00000123".equals(provider.get("vat")));
         assertTrue("Acme Inc.".equals(provider.getName()));
         assertTrue("123 Main St".equals(provider.getTaxAddress()));

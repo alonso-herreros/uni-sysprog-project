@@ -58,14 +58,14 @@ public class Person extends WarehouseElement implements Comparable<Object> {
 
 
     // Import methods
-    public static Person fromString(String string) {
+    public static Person readFromString(String string) {
         return new Person(paramsFromString(string));
     }
 
-    public static Person fromStdio() {
+    public static Person readFromStdio() {
         return new Person(stringFromStdio());
     }
-    public static Person fromFile(String filepath) {
+    public static Person readFromFile(String filepath) {
         return new Person(stringFromFile(filepath));
     }
 

@@ -238,7 +238,7 @@ public class PersonTest {
             writer.write(personString);
             writer.close();
 
-            Person personFromFile = Person.fromFile(filepath);
+            Person personFromFile = Person.readFromFile(filepath);
             assertEquals(personFromFile.get("id"), testId);
             assertEquals(personFromFile.getFirstName(), testFirstName);
             assertEquals(personFromFile.getLastName(), testLastName);

@@ -178,14 +178,14 @@ public class ProductList extends WarehouseElement implements Collection<Stockabl
     }
 
 
-    public static ProductList fromString(String string) {
+    public static ProductList readFromString(String string) {
         return new ProductList(string);
     }
 
-    public static ProductList fromStdio() {
+    public static ProductList readFromStdio() {
         return new ProductList(stringFromStdio());
     }
-    public static ProductList fromFile(String filepath) {
+    public static ProductList readFromFile(String filepath) {
         return new ProductList(stringFromFile(filepath));
     }
 }

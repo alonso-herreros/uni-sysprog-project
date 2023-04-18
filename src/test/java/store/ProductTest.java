@@ -123,7 +123,7 @@ public class ProductTest {
 
     @Test
     public void testFromString() {
-        product = Product.fromString("Detergent|Tide|f|true|fl oz");
+        product = Product.readFromString("Detergent|Tide|f|true|fl oz");
         assertEquals("Detergent", product.getName());
         assertEquals("Tide", product.getBrand());
         assertEquals('f', product.getCategory());

@@ -75,14 +75,14 @@ public class StockableProduct extends Product implements Comparable<Object> {
 
 
     // String import methods
-    public static StockableProduct fromString(String string) {
+    public static StockableProduct readFromString(String string) {
         return new StockableProduct(string);
     }
 
-    public static StockableProduct fromStdio() {
+    public static StockableProduct readFromStdio() {
         return new StockableProduct(stringFromStdio());
     }
-    public static StockableProduct fromFile(String filepath) {
+    public static StockableProduct readFromFile(String filepath) {
         return new StockableProduct(stringFromFile(filepath));
     }
 

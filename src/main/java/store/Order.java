@@ -47,8 +47,8 @@ public class Order extends ProductList {
     protected void defineSetters() {
         super.defineSetters();
         setters.put("orderID", (data) -> setOrderID(Integer.parseInt(data)));
-        setters.put("client", (data) -> setClient(Person.fromString(data)));
-        setters.put("employee", (data) -> setEmployee(Person.fromString(data)));
+        setters.put("client", (data) -> setClient(Person.readFromString(data)));
+        setters.put("employee", (data) -> setEmployee(Person.readFromString(data)));
     }
 
     public int getOrderID() { return orderID; }
@@ -64,14 +64,14 @@ public class Order extends ProductList {
     private void setEmployee(Person employee) { this.employee = employee; }
     
 
-    public static Order fromString(String string) {
+    public static Order readFromString(String string) {
         return new Order(string);
     }
 
-    public static Order fromStdio() {
+    public static Order readFromStdio() {
         return new Order(stringFromStdio());
     }
-    public static Order fromFile(String filepath) {
+    public static Order readFromFile(String filepath) {
         return new Order(stringFromFile(filepath));
     }
 }

@@ -57,14 +57,14 @@ public class StoreManager extends WarehouseElement {
     public double getStockBenefit() { return getStock().getTotalBenefit(); }
 
 
-    public static StoreManager fromString(String string) {
+    public static StoreManager readFromString(String string) {
         return new StoreManager(string);
     }
 
-    public static StoreManager fromStdio() {
+    public static StoreManager readFromStdio() {
         return new StoreManager(stringFromStdio());
     }
-    public static StoreManager fromFile(String filepath) {
+    public static StoreManager readFromFile(String filepath) {
         return new StoreManager(stringFromFile(filepath));
     }
 }

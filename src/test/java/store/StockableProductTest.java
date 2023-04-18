@@ -162,7 +162,7 @@ class StockableProductTest {
 
     @Test
     void fromStringTest() {
-        StockableProduct sp = StockableProduct.fromString("1|product|brand|f|true|unit|10|1.5|2.5");
+        StockableProduct sp = StockableProduct.readFromString("1|product|brand|f|true|unit|10|1.5|2.5");
         assertEquals(1, sp.getProductID());
         assertEquals("product", sp.getName());
         assertEquals("brand", sp.getBrand());
@@ -179,7 +179,7 @@ class StockableProductTest {
     @Test
     void toFromStringTest() {
         StockableProduct sp1 = new StockableProduct(1, "product", "brand", 'm', true, "unit", 10, 1.5f, 2.5f);
-        StockableProduct sp2 = StockableProduct.fromString(sp1.toString());
+        StockableProduct sp2 = StockableProduct.readFromString(sp1.toString());
         assertEquals(sp1.getProductID(), sp2.getProductID());
         assertEquals(sp1.getName(), sp2.getName());
         assertEquals(sp1.getBrand(), sp2.getBrand());
