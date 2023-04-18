@@ -99,10 +99,6 @@ public abstract class WarehouseElement {
     }
 
     // Reading
-    public static WarehouseElement fromString(String string) {
-        // MUST BE IMPLEMENTED BY THE CHILD CLASSES
-        throw new UnsupportedOperationException("Not implemented by this class.");
-    }
     public static String stringFromStdio() {
         System.out.println("Enter full object string representation:");
         String string = scanner.nextLine();
@@ -114,6 +110,20 @@ public abstract class WarehouseElement {
             String string = reader.nextLine();
             reader.close();
             return string;
+        }
+        catch (Exception e) {
+            throw new RuntimeException(String.format("Exception while reading from '%s': %s", filepath, e.getMessage()));
+        }
+    }
+    public static ArrayList<String> stringsFromFile(String filepath) {
+        try {
+            Scanner reader = new Scanner(new File(filepath));
+            ArrayList<String> strings = new ArrayList<String>();
+            while (reader.hasNextLine()) {
+                strings.add(reader.nextLine());
+            }
+            reader.close();
+            return strings;
         }
         catch (Exception e) {
             throw new RuntimeException(String.format("Exception while reading from '%s': %s", filepath, e.getMessage()));
