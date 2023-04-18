@@ -228,7 +228,7 @@ public class PersonTest {
 
     @Test
     public void testFromFile() {
-        String filepath = "src\\test\\tmp\\testFromFile.txt";
+        String filepath = "src\\test\\testObjectFiles\\testPerson1.txt";
         String personString = "(" + String.join("|", testParams) + ")";
 
         try {
@@ -243,6 +243,9 @@ public class PersonTest {
             assertEquals(personFromFile.getFirstName(), testFirstName);
             assertEquals(personFromFile.getLastName(), testLastName);
             assertEquals(personFromFile.getEmail(), testEmail);
+
+            assertTrue(personFromFile.toString().equals(WarehouseElement.stringFromFile(filepath)));
+            assertTrue(personFromFile.toString().equals(personString));
         }
         catch (Exception e) {
             fail(e.getStackTrace().toString());
