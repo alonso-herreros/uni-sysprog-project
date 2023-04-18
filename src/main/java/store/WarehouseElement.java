@@ -29,22 +29,22 @@ public abstract class WarehouseElement {
 
     // Global getters and setters
     // Must include getters and setters for all fields
-	protected void defineGettersAndSetters() {
-		defineGetters();
-		defineSetters();
-	}
+    protected void defineGettersAndSetters() {
+        defineGetters();
+        defineSetters();
+    }
     protected abstract void defineGetters();
     protected abstract void defineSetters();
     public abstract String[] getDef();
 
     public String get(String varId) {
-		try {
-			return getters.get(varId).call();
-		} catch (NullPointerException e) {
-			throw new IllegalArgumentException(String.format("Invalid varId: %s.", varId));
-		} catch (Exception e) {
-			throw new RuntimeException(String.format("Error retrieving variable: %s.", varId));
-		}
+        try {
+            return getters.get(varId).call();
+        } catch (NullPointerException e) {
+            throw new IllegalArgumentException(String.format("Invalid varId: %s.", varId));
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error retrieving variable: %s.", varId));
+        }
     }
 
     public void set(String varId, String value) {
@@ -64,9 +64,9 @@ public abstract class WarehouseElement {
         if(data.length == 0) {
             data = getDef();
         }
-		if (data.length != setters.size()) {
-			throw new IllegalArgumentException(String.format("Invalid data length %d, it must be %d.", data.length, setters.size()));
-		}
+        if (data.length != setters.size()) {
+            throw new IllegalArgumentException(String.format("Invalid data length %d, it must be %d.", data.length, setters.size()));
+        }
         int i = 0;
         for (String key : setters.keySet()) {
             set(key, data[i++]);
@@ -76,13 +76,13 @@ public abstract class WarehouseElement {
 
     // Writing
     public String toString() {
-		String out = "(";
-		for (String key : getters.keySet()) {
+        String out = "(";
+        for (String key : getters.keySet()) {
             if(setters.containsKey(key)) {
-			    out += get(key) + "|";
+                out += get(key) + "|";
             }
-		}
-		return out.substring(0, Math.max(1, out.length()-1)) + ")";
+        }
+        return out.substring(0, Math.max(1, out.length()-1)) + ")";
     }
     public void print() {
         System.out.println(toString());
@@ -146,14 +146,14 @@ public abstract class WarehouseElement {
         if(string == null || string.isEmpty()) {
             return new ArrayList<String>();
         }
-		ArrayList<String> params = new ArrayList<String>();
+        ArrayList<String> params = new ArrayList<String>();
         string = string.replaceFirst("^\\(((\\(.*\\)|[^|()]+|\\|)+)\\)", "$1");
-		Matcher m = Pattern.compile("\\(.*\\)|[^|()]+").matcher(string);
-		while (m.find()) {
+        Matcher m = Pattern.compile("\\(.*\\)|[^|()]+").matcher(string);
+        while (m.find()) {
             if (!m.group().isEmpty()) {
                 params.add(m.group());
             }
-		}
+        }
         return params;
     }
 
