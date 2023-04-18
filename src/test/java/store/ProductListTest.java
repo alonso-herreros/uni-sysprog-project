@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 
 
@@ -127,12 +129,30 @@ public class ProductListTest {
         String expected = "((1|Pods|Tide|f|true|fl oz|30|10.0|20.0)|(2|Product2|Tide|f|true|fl oz|40|20.0|30.0))";
         assertEquals(expected, pl.toString());
     }
-    
+
     @Test
     public void testFromFile() {
         ProductList pl = ProductList.readFromFile("src\\test\\testObjectFiles\\testProductList1.txt");
         assertEquals(2, pl.size());
         assertEquals(sp1, pl.getList().get(0));
         assertEquals(sp2, pl.getList().get(1));
+    }
+
+    @Test
+    public void testToFile() {
+        String filepath = "src\\test\\tmp\\testProductList.txt";
+        ProductList pl = new ProductList();
+        pl.add(sp1);
+        pl.add(sp2);
+        pl.writeToFile(filepath);
+        ProductList pl2 = ProductList.readFromFile(filepath);
+        ArrayList<String> expected = WarehouseElement.stringsFromFile(filepath);
+        int i = 0;
+        for (String s : expected) {
+            assertTrue(pl2.get(i++).equals(new StockableProduct(s)));
+        }
+        assertEquals(2, pl2.size());
+        assertEquals(sp1, pl2.getList().get(0));
+        assertEquals(sp2, pl2.getList().get(1));
     }
 }
