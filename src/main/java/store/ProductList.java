@@ -134,8 +134,8 @@ public class ProductList extends WarehouseElement implements Collection<Stockabl
         if (list.remove(o)) {
             getters.remove(Integer.toString(index));
             setters.remove(Integer.toString(index));
-            totalCost += ((StockableProduct) o).getTotalCost();
-            totalPrice += ((StockableProduct) o).getTotalPrice();
+            totalCost -= ((StockableProduct) o).getTotalCost();
+            totalPrice -= ((StockableProduct) o).getTotalPrice();
             totalBenefit = totalCost-totalPrice;
             return true;
         }
