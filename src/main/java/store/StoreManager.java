@@ -43,6 +43,9 @@ public class StoreManager extends WarehouseElement {
 		setters.put("stock", (data) -> setStock(new ProductList(data)));
 	}
 
+	@Override
+	public String[] getDef() { return def; }
+
 	public String getName() { return name; }
 	private void setName(String name) { this.name = name; }
 

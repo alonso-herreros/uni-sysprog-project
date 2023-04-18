@@ -35,6 +35,7 @@ public abstract class WarehouseElement {
 	}
     protected abstract void defineGetters();
     protected abstract void defineSetters();
+    public abstract String[] getDef();
 
     public String get(String varId) {
 		try {
@@ -60,6 +61,9 @@ public abstract class WarehouseElement {
         set(data.toArray(new String[0]));
     } // vv FALL THROUGH vv
     public void set(String... data) {
+        if(data.length == 0) {
+            data = getDef();
+        }
 		if (data.length != setters.size()) {
 			throw new IllegalArgumentException(String.format("Invalid data length %d, it must be %d.", data.length, setters.size()));
 		}
@@ -139,6 +143,9 @@ public abstract class WarehouseElement {
 
     // Utility methods    
     public static ArrayList<String> paramsFromString(String string) {
+        if(string == null || string.isEmpty()) {
+            return new ArrayList<String>();
+        }
 		ArrayList<String> params = new ArrayList<String>();
         string = string.replaceFirst("^\\(((\\(.*\\)|[^|()]+|\\|)+)\\)", "$1");
 		Matcher m = Pattern.compile("\\(.*\\)|[^|()]+").matcher(string);

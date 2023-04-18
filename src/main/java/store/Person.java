@@ -26,6 +26,9 @@ public class Person extends WarehouseElement implements Comparable<Object> {
 		this(def[0], firstName, lastName, def[3]);
 	}
 
+	@Override
+	public String[] getDef() { return def; }
+
 
 	// Getters and Setters
 	protected void defineGetters() {

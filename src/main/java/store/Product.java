@@ -50,6 +50,9 @@ public class Product extends WarehouseElement {
 		setters.put("measurementUnit", (String value) -> setMeasurementUnit(value));
 	}
 
+	@Override
+	public String[] getDef() { return def; }
+
 	public String getName() { return name; }
 	protected void setName(String name) { this.name = name; }
 

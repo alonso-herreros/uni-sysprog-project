@@ -51,6 +51,9 @@ public class Provider extends WarehouseElement implements Comparable<Object> {
 		setters.put("contactPerson", (String contactPerson) -> setContactPerson(new Person(contactPerson)));
 	}
 
+	@Override
+	public String[] getDef() { return def; }
+
 	public int getVat() {
 		return vat;
 	}

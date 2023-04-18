@@ -82,6 +82,9 @@ public class ProductList extends WarehouseElement implements Collection<Stockabl
 		throw new UnsupportedOperationException("Can't set ProductList data.");
 	}
 
+	@Override
+	public String[] getDef() { return new String[0]; }
+
 	public ArrayList<StockableProduct> getList() { return list; }
 	public double getTotalCost() { return totalCost; }
 	public double getTotalPrice() { return totalPrice; }
