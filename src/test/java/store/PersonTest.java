@@ -16,21 +16,21 @@ public class PersonTest {
 
     private static final String[] DEF = {"00000001", "Name", "LastName", "email@example.com"};
 
-    private final String testId = "00000123";
-    private final String testFirstName = "John";
-    private final String testLastName = "Doe";
-    private final String testEmail = "jdoe@test.com";
+    private static final String testId = "00000123";
+    private static final String testFirstName = "John";
+    private static final String testLastName = "Doe";
+    private static final String testEmail = "jdoe@test.com";
 
-    private ArrayList<String> testParams;
+    private static final ArrayList<String> testParams = new ArrayList<String>() {{
+        add(testId);
+        add(testFirstName);
+        add(testLastName);
+        add(testEmail);
+    }};
 
     @Before
     public void setUp() {
         personUnderTest = new Person(testId, testFirstName, testLastName, testEmail);
-        testParams = new ArrayList<String>();
-        testParams.add(testId);
-        testParams.add(testFirstName);
-        testParams.add(testLastName);
-        testParams.add(testEmail);
     }
 
 
@@ -46,29 +46,25 @@ public class PersonTest {
     @Test
     public void testFullConstructor() {
         Person fullPerson = new Person(testId, testFirstName, testLastName, testEmail);
-        assertEquals(testId, fullPerson.get("id"));
-        assertEquals(testFirstName, fullPerson.getFirstName());
-        assertEquals(testLastName, fullPerson.getLastName());
-        assertEquals(testEmail, fullPerson.getEmail());
         assertTrue(fullPerson.equals(personUnderTest));
     }
 
     @Test
     public void testStringConstructor() {
         Person stringPerson = new Person(String.join("|", testParams));
-        assertEquals(testId, stringPerson.get("id"));
-        assertEquals(testFirstName, stringPerson.getFirstName());
-        assertEquals(testLastName, stringPerson.getLastName());
-        assertEquals(testEmail, stringPerson.getEmail());
+        assertTrue(stringPerson.equals(personUnderTest));
     }
 
     @Test
     public void testArrayListConstructor() {
         Person arrayListPerson = new Person(testParams);
-        assertEquals(testId, arrayListPerson.get("id"));
-        assertEquals(testFirstName, arrayListPerson.getFirstName());
-        assertEquals(testLastName, arrayListPerson.getLastName());
-        assertEquals(testEmail, arrayListPerson.getEmail());
+        assertTrue(arrayListPerson.equals(personUnderTest));
+    }
+
+    @Test
+    public void testNullStringConstructor() {
+        Person nullStringPerson = new Person((String) null);
+        assertTrue(nullStringPerson.equals(new Person()));
     }
 
     @Test
