@@ -1,6 +1,6 @@
 package store;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Test;
 import org.junit.Before;
 
@@ -37,6 +37,46 @@ public class ProductListTest {
         String p2String = "(1|Product2|Tide|f|true|fl oz|40|20.0|30.0)";
         ProductList pl = new ProductList(String.join("|", p1String, p2String));
         assertEquals(2, pl.size());
+    }
+
+    @Test
+    public void testGetWithIntIndex() {
+        pl.add(sp1);
+        pl.add(sp2);
+        assertEquals(sp1, pl.get(0));
+        assertEquals(sp2, pl.get(1));
+    }
+
+    @Test
+    public void testGetWithStringIndex() {
+        pl.add(sp1);
+        pl.add(sp2);
+        assertEquals(sp1.toString(), pl.get("0"));
+        assertEquals(sp2.toString(), pl.get("1"));
+    }
+
+    @Test
+    public void testGetWithInvalidIndex() {
+        pl.add(sp1);
+        pl.add(sp2);
+        assertThrows(ArrayIndexOutOfBoundsException.class, () -> pl.get(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> pl.get(2));
+    }
+
+    @Test
+    public void testGetWithInvalidStringIndex() {
+        pl.add(sp1);
+        pl.add(sp2);
+        assertThrows(IllegalArgumentException.class, () -> pl.get("-1"));
+        assertThrows(IllegalArgumentException.class, () -> pl.get("2"));
+    }
+
+    @Test
+    public void testSetWithIntIndex() {
+        pl.add(sp1);
+        pl.add(sp2);
+        pl.set(0, sp2);
+        assertEquals(sp2, pl.get(0));
     }
 
     @Test
