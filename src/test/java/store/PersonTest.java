@@ -159,7 +159,7 @@ public class PersonTest {
                 "email"
         };
         for (int i = 0; i < data.length; i++) {
-            personUnderTest.set(varIds[i], data[i]);
+            personUnderTest.setVar(varIds[i], data[i]);
             assertEquals(data[i], personUnderTest.get(varIds[i]));
         }
         assertEquals(data[0], personUnderTest.get("id"));

@@ -48,7 +48,7 @@ public abstract class WarehouseElement {
         }
     }
 
-    public void set(String varId, String value) {
+    public void setVar(String varId, String value) {
         try {
             setters.get(varId).accept(value);
         } catch (NullPointerException e) {
@@ -70,7 +70,7 @@ public abstract class WarehouseElement {
         }
         int i = 0;
         for (String key : setters.keySet()) {
-            set(key, data[i++]);
+            setVar(key, data[i++]);
         }
     }
 
