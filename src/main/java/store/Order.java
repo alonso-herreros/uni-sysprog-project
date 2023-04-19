@@ -1,6 +1,8 @@
 package store;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 public class Order extends ProductList {
 
@@ -72,6 +74,22 @@ public class Order extends ProductList {
         return new Order(stringFromStdio());
     }
     public static Order readFromFile(String filepath) {
-        return new Order(stringsFromFile(filepath));
+        Order order = new Order(getParamsFromFilename(filepath));
+        
+        return order;
+    }
+
+    protected static String[] getParamsFromFilename(String filepath) {
+        String[] params = new String[3];
+        Matcher m = Pattern.compile("(\\d+)_(\\d+)_(\\d+)\\.txt").matcher(filepath);
+        m.find();
+        try {
+            params[0] = m.group(1);
+            params[1] = m.group(2);
+            params[2] = m.group(3);
+        } catch (IllegalStateException e) {
+            throw new IllegalArgumentException(String.format("Invalid filepath: %s.", filepath));
+        }
+        return params;
     }
 }
