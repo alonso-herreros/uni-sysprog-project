@@ -72,6 +72,17 @@ public class ProductListTest {
     }
 
     @Test
+    public void testSet() {
+        pl.add(sp2);
+        pl.add(sp1);
+        pl.add(new StockableProduct());
+        pl.set(sp1.toString(), sp2.toString());
+        assertEquals(sp1, pl.get(0));
+        assertEquals(sp2, pl.get(1));
+        assertThrows(IndexOutOfBoundsException.class, () -> pl.get(2));
+    }
+
+    @Test
     public void testSetWithIntIndex() {
         pl.add(sp1);
         pl.add(sp2);

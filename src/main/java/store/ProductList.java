@@ -81,7 +81,7 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
     protected void defineSetters() { }
     @Override
     public void set(String... data) {
-        throw new UnsupportedOperationException("Can't set ProductList data.");
+        list = Arrays.asList(data).stream().map((String productString) -> new StockableProduct(productString)).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
     }
 
     @Override
