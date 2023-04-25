@@ -188,6 +188,7 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
     @Override
     public void clear() {
         list.clear();
+        defineGettersAndSetters();
         totalCost = totalPrice = totalBenefit = 0;
     }
     @Override

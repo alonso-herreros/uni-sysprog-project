@@ -30,6 +30,8 @@ public abstract class WarehouseElement {
     // Global getters and setters
     // Must include getters and setters for all fields
     protected void defineGettersAndSetters() {
+        getters = new LinkedHashMap<String, Callable<String>>();
+        setters = new LinkedHashMap<String, Consumer<String>>();
         defineGetters();
         defineSetters();
     }
