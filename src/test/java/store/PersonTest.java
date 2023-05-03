@@ -228,7 +228,7 @@ public class PersonTest {
 
     @Test
     public void testFromFile() {
-        String filepath = "src\\test\\testObjectFiles\\testPerson1.txt";
+        String filepath = "src\\test\\resources\\testPerson1.txt";
         String personString = "(" + String.join("|", testParams) + ")";
 
         try {

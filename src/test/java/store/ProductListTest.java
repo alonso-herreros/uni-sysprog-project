@@ -181,7 +181,7 @@ public class ProductListTest {
 
     @Test
     public void testFromFile() {
-        ProductList pl = ProductList.readFromFile("src\\test\\testObjectFiles\\testProductList1.txt");
+        ProductList pl = ProductList.readFromFile("src\\test\\resources\\testProductList1.txt");
         assertEquals(2, pl.size());
         assertEquals(sp1, pl.getList().get(0));
         assertEquals(sp2, pl.getList().get(1));
