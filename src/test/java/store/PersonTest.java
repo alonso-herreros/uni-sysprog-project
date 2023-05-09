@@ -245,4 +245,11 @@ public class PersonTest {
             fail(e.getMessage());
         }
     }
+
+    @Test
+    public void testEqualsWrongObject() {
+        String string = "notComparable";
+        assertThrows(IllegalArgumentException.class, () -> personUnderTest.equals(string));
+    }
+
 }
