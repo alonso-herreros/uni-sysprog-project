@@ -81,7 +81,11 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
     protected void defineSetters() { }
     @Override
     public void set(String... data) {
-        list = Arrays.asList(data).stream().map((String productString) -> new StockableProduct(productString)).collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
+        clear();
+        String[] info = Arrays.copyOfRange(data, 0, setters.keySet().size());
+        String[] productStrings = Arrays.copyOfRange(data, setters.keySet().size(), data.length);
+        super.set(info);
+        addAll(Arrays.asList(productStrings).stream().map((String productString) -> new StockableProduct(productString)).collect(ArrayList::new, ArrayList::add, ArrayList::addAll));
     }
 
     @Override
