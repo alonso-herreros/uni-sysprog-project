@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 public class OrderTest {
 
     private StockableProduct sp1;
-    private StockableProduct sp2;
+    //private StockableProduct sp2;
 	private Order order;
 
     private static final Person person1Def = new Person();
@@ -22,7 +22,7 @@ public class OrderTest {
         try {
             order = new Order();
             sp1 = new StockableProduct("1|Pods|Tide|f|true|fl oz|30|10.0|20.0");
-            sp2 = new StockableProduct("2|Product2|Tide|f|true|fl oz|40|20.0|30.0");
+            //sp2 = new StockableProduct("2|Product2|Tide|f|true|fl oz|40|20.0|30.0");
         }
         catch (Exception e) {
             System.out.println(e);
@@ -65,6 +65,19 @@ public class OrderTest {
         assertTrue(order.getEmployee().equals(new Person(person2String)));
         assertEquals(1, order.size());
         assertEquals(sp1, order.get(0));
+    }
+
+
+    @Test
+    public void testGetParamsFromFileName() {
+        String filepath = "src\\test\\resources\\001_00000001_00000002.txt";
+
+        Order testOrder = new Order(Order.getParamsFromFilename(filepath));
+
+        assertEquals("1", testOrder.get("orderID"));
+        assertEquals("(00000001|Name|LastName|email@example.com)", testOrder.get("client"));
+        assertEquals("(00000002|Name|LastName|email@example.com)", testOrder.get("employee"));
+
     }
 
 }
