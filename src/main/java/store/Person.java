@@ -6,12 +6,12 @@ public class Person extends WarehouseElement implements Comparable<Object> {
 
     protected int id;
     protected String firstName, lastName, email;
-    protected static final String[] def = {"00000001", "Name", "LastName", "email@example.com"};
+    protected static final String[] DEF = {"00000001", "Name", "LastName", "email@example.com"};
 
 
     // Constructors
     public Person() {
-        this(def);
+        this(DEF);
     } // vv FALL THROUGH (3) vv
     public Person(String string) {
         this(paramsFromString(string));
@@ -23,11 +23,11 @@ public class Person extends WarehouseElement implements Comparable<Object> {
         super(data);
     }
     public Person(String firstName, String lastName) {
-        this(def[0], firstName, lastName, def[3]);
+        this(DEF[0], firstName, lastName, DEF[3]);
     }
 
     @Override
-    public String[] getDef() { return def; }
+    public String[] getDef() { return DEF; }
 
 
     // Getters and Setters
@@ -42,6 +42,20 @@ public class Person extends WarehouseElement implements Comparable<Object> {
         setters.put("firstName", (String value) -> setFirstName(value));
         setters.put("lastName", (String value) -> setLastName(value));
         setters.put("email", (String value) -> setEmail(value));
+    }
+
+    @Override
+    public void set(String... data) {
+        if(data.length == 1) {
+            try {
+                Integer.parseInt(data[0]);
+                data = new String[]{data[0], DEF[1], DEF[2], DEF[3]};
+            }
+            catch (NumberFormatException e) {
+                data = paramsFromString(data[0]).toArray(new String[0]);
+            }
+        }
+        super.set(data);
     }
 
     public int getId() { return id; }
