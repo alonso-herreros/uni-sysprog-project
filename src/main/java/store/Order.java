@@ -1,6 +1,7 @@
 package store;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -10,7 +11,7 @@ public class Order extends ProductList {
     protected int orderID;
     protected Person client, employee;
 
-    protected static final String[] def = {"00000001A|John|Doe|email@example.com", "00000002B|Jane|Doe|email2@example.com"};
+    protected static final String[] def = {"00000001|John|Doe|email@example.com", "00000002|Jane|Doe|email2@example.com"};
 
 
     // Constructors
@@ -24,10 +25,8 @@ public class Order extends ProductList {
         this(params.toArray(new String[0]));
     } // vv FALL THROUGH vv
     public Order(String... data) {
-        super(data);
-    }
-    public Order(String clientString, String employeeString) {
-        this(Integer.toString(maxOrderID++), clientString, employeeString);
+        super();
+        set(data);
     }
     public Order(Person client, Person employee) {
         this(maxOrderID++, client, employee);
@@ -51,6 +50,21 @@ public class Order extends ProductList {
         setters.put("orderID", (data) -> setOrderID(Integer.parseInt(data)));
         setters.put("client", (data) -> setClient(Person.readFromString(data)));
         setters.put("employee", (data) -> setEmployee(Person.readFromString(data)));
+    }
+    @Override
+    public void set(String... data) {
+        if(data.length == 0) {
+            data = getDef();
+        }
+        try { // This is how i check that the first entry does not correspond to an ID.
+            Integer.parseInt(data[0]);
+        }
+        catch(NumberFormatException e) {
+            ArrayList<String> dataList = new ArrayList<String>(Arrays.asList(data));
+            dataList.add(0, Integer.toString(maxOrderID++));
+            data = dataList.toArray(new String[0]);
+        }
+        super.set(data);
     }
 
     public int getOrderID() { return orderID; }
