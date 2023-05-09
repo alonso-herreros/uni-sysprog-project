@@ -1,8 +1,7 @@
 package store;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -12,26 +11,21 @@ import java.util.Scanner;
 
 public class PersonTest {
 
-    private Person personUnderTest;
-
+    
     private static final String[] DEF = {"00000001", "Name", "LastName", "email@example.com"};
-
+    
     private static final String testId = "00000123";
     private static final String testFirstName = "John";
     private static final String testLastName = "Doe";
     private static final String testEmail = "jdoe@test.com";
-
+    
+    private Person personUnderTest = new Person(testId, testFirstName, testLastName, testEmail);
     private static final ArrayList<String> testParams = new ArrayList<String>() {{
         add(testId);
         add(testFirstName);
         add(testLastName);
         add(testEmail);
     }};
-
-    @Before
-    public void setUp() {
-        personUnderTest = new Person(testId, testFirstName, testLastName, testEmail);
-    }
 
 
     @Test
@@ -248,7 +242,7 @@ public class PersonTest {
             assertTrue(personFromFile.toString().equals(personString));
         }
         catch (Exception e) {
-            fail(e.getStackTrace().toString());
+            fail(e.getMessage());
         }
     }
 }

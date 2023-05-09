@@ -1,8 +1,7 @@
 package store;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 
 public class ProviderTest {
@@ -27,10 +26,10 @@ public class ProviderTest {
         assertEquals("(00000001|John|Doe|email@example.com)", provider.get("contactPerson"));
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test()
     public void testInvalidVarId() {
         Provider provider = new Provider();
-        provider.get("invalidVarId");
+        assertThrows(IllegalArgumentException.class, () -> provider.get("invalidVarId"));
     }
     
     @Test
@@ -44,11 +43,11 @@ public class ProviderTest {
         assertTrue(new Person("(0|John|Doe| )").equals(provider.getContactPerson()));
     }
     
-    @Test(expected = IllegalArgumentException.class)
+    @Test()
     public void testSetInvalidArrayLength() {
         Provider provider = new Provider();
         String[] data = {"123", "Acme Inc.", "123 Main St"};
-        provider.set(data);
+        assertThrows(IllegalArgumentException.class, () -> provider.set(data));
     }
     
     @Test

@@ -1,8 +1,6 @@
 package store;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,13 +8,7 @@ import java.util.ArrayList;
 
 class StockableProductTest {
 
-    private StockableProduct sp;
-
-    @BeforeEach
-    void setUp() {
-        sp = new StockableProduct("1|product|brand|m|true|unit|10|1.5|2.5");
-        //sp = new StockableProduct(1, "product", "brand", 'm', true, "unit", 10, 1.5f, 2.5f);
-    }
+    private StockableProduct sp = new StockableProduct("1|product|brand|m|true|unit|10|1.5|2.5");
 
 
     @Test

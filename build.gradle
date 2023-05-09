@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.11'
     id 'io.spring.dependency-management' version '1.1.0'
+    id 'jacoco'
 }
 
 group = ''
@@ -20,12 +21,29 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
+
+jacoco {
+  toolVersion = "0.8.7"
+  reportsDir = file("$buildDir/jacoco")
+}
+
 tasks.named('test', Test) {
+    
+    finalizedBy jacocoTestReport
+
     useJUnitPlatform()
 
     maxHeapSize = '1G'
 
     testLogging {
         events "passed"
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.enabled false
     }
 }

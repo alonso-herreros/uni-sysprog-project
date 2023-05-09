@@ -1,24 +1,16 @@
 package store;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.Test;
-import org.junit.Before;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 
 public class ProductListTest {
 
-    private ProductList pl;
-    private StockableProduct sp1;
-    private StockableProduct sp2;
-
-    @Before
-    public void setUp() {
-        pl = new ProductList();
-        sp1 = new StockableProduct("1|Pods|Tide|f|true|fl oz|30|10.0|20.0");
-        sp2 = new StockableProduct("2|Product2|Tide|f|true|fl oz|40|20.0|30.0");
-    }
+    private ProductList pl = new ProductList();
+    private StockableProduct sp1 = new StockableProduct("1|Pods|Tide|f|true|fl oz|30|10.0|20.0");
+    private StockableProduct sp2 = new StockableProduct("2|Product2|Tide|f|true|fl oz|40|20.0|30.0");
 
     @Test
     public void testConstructorEmpty() {
@@ -59,7 +51,7 @@ public class ProductListTest {
     public void testGetWithInvalidIndex() {
         pl.add(sp1);
         pl.add(sp2);
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> pl.get(-1));
+        assertThrows(IndexOutOfBoundsException.class, () -> pl.get(-1));
         assertThrows(IndexOutOfBoundsException.class, () -> pl.get(2));
     }
 

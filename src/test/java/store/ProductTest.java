@@ -1,30 +1,15 @@
 package store;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
 
 
 public class ProductTest {
 
-    private Product product;
-
-    @Before
-    public void setUp() throws Exception {
-        product = new Product("Detergent", "Tide", 'f', true, "fl oz");
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        product = null;
-    }
+    private Product product = new Product("Detergent", "Tide", 'f', true, "fl oz");
 
     @Test
     public void testGlobalGetters() {
