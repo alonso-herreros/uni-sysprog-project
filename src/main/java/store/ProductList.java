@@ -104,8 +104,8 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
     }
     @Override
     public StockableProduct set(int index, StockableProduct element) {
-        StockableProduct out = list.remove(index);
-        list.add(index, element);
+        StockableProduct out = remove(index);
+        add(index, element);
         return out;
     }
     @Override
