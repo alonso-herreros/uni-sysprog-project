@@ -195,6 +195,14 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
         defineGettersAndSetters();
         totalCost = totalPrice = totalBenefit = 0;
     }
+    public int indexOf(int productID) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getProductID() == productID) {
+                return i;
+            }
+        }
+        return -1;
+    }
     @Override
     public int indexOf(Object o) {
         return list.indexOf(o);
@@ -203,6 +211,15 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
     public int lastIndexOf(Object o) {
         return list.lastIndexOf(o);
     }
+    public StockableProduct search(int productID) {
+        int index = indexOf(productID);
+        if (index == -1) {
+            return null;
+        }
+        return get(index);
+    }
+
+
     @Override
     public Iterator<StockableProduct> iterator() {
         return list.iterator();
