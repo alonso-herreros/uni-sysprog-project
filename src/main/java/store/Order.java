@@ -89,6 +89,9 @@ public class Order extends ProductList {
     }
     public static Order readFromFile(String filepath) {
         Order order = new Order(getParamsFromFilename(filepath));
+        for (String line : stringsFromFile(filepath)) {
+            order.add(StockableProduct.readFromString(line));
+        }
         
         return order;
     }
