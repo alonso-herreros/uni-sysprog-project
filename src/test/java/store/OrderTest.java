@@ -64,6 +64,7 @@ public class OrderTest {
     @Test
     public void testConstructorEmployeeClientAndProductStrings() {
         order = new Order(person1String, person2String, sp1.toString());
+        assertEquals(Order.maxOrderID, order.getOrderID());
         assertEquals(null, order.getDir());
         assertTrue(order.getClient().equals(new Person(person1String)));
         assertTrue(order.getEmployee().equals(new Person(person2String)));

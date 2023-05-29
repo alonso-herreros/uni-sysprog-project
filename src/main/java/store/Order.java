@@ -30,7 +30,7 @@ public class Order extends ProductList {
         set(data);
     }
     public Order(Person client, Person employee) {
-        this(maxOrderID++, client, employee);
+        this(++maxOrderID, client, employee);
     } // vv FALL THROUGH vv
     public Order(int orderID, Person client, Person employee) {
         this(Integer.toString(orderID), client.toString(), employee.toString());
@@ -65,7 +65,7 @@ public class Order extends ProductList {
             Integer.parseInt(dataList.get(0));
         }
         catch(NumberFormatException e) {
-            dataList.add(0, Integer.toString(maxOrderID++));
+            dataList.add(0, Integer.toString(++maxOrderID));
         }
 
         try { // If the fourth entry is a product, no dir was specified
