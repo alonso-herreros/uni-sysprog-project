@@ -202,6 +202,22 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
         }
         return out;
     }
+
+    public void modify(int productID) {
+        int index = indexOf(productID);
+        if (index == -1) {
+            throw new IllegalArgumentException("Product with ID " + productID + " not found.");
+        }
+        StockableProduct product = remove(index);
+        System.out.println("Product selected: " + product.toString());
+        System.out.println("Enter new data in the format 'name|brand|category|isCountable|measurementUnit|numUnits|costPerUnit|pricePerUnit': ");
+        ArrayList<String> data = paramsFromString(stringFromStdio());
+        data.add(0, Integer.toString(productID));
+        product.set(data);
+        add(index, product);
+    }
+
+
     @Override
     public boolean contains(Object o) {
         return list.contains(o);

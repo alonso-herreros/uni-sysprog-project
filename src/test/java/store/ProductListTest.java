@@ -1,9 +1,17 @@
 package store;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 
 
 public class ProductListTest {
@@ -180,6 +188,21 @@ public class ProductListTest {
         assertEquals(800.0, pl.getTotalCost(), 0.001);
     }
 
+    public void testModify() {
+        pl.add(sp1);
+        pl.add(sp2);
+        assertEquals(2, pl.size());
+        assertEquals(30, pl.get(0).getNumUnits());
+        assertEquals(1100.0, pl.getTotalCost(), 0.001);
+
+        pl.modify(sp1.getProductID());
+
+        assertEquals(2, pl.size());
+        assertEquals(10, pl.get(0).getNumUnits());
+        assertEquals(850.0, pl.getTotalCost(), 0.001);
+    }
+
+
     @Test
     public void testSize() {
         assertEquals(0, pl.size());
@@ -281,5 +304,11 @@ public class ProductListTest {
         assertEquals(2, pl2.size());
         assertEquals(sp1, pl2.getList().get(0));
         assertEquals(sp2, pl2.getList().get(1));
+    }
+
+
+    public static void main(String[] args) {
+        ProductListTest test = new ProductListTest();
+        test.testModify(); // Use input 'Product|Brand|m|true|oz|10|5.0|10.0'
     }
 }
