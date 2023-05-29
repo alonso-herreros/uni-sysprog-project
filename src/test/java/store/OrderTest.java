@@ -70,14 +70,34 @@ public class OrderTest {
 
     @Test
     public void testGetParamsFromFileName() {
-        String filepath = "src\\test\\resources\\001_00000001_00000002.txt";
+        String filepath = "src\\test\\resources\\orders\\001_00000001_00000002.txt";
 
-        Order testOrder = new Order(Order.getParamsFromFilename(filepath));
+        String[] params = Order.getParamsFromFilename(filepath);
 
-        assertEquals("1", testOrder.get("orderID"));
-        assertEquals("(00000001|Name|LastName|email@example.com)", testOrder.get("client"));
-        assertEquals("(00000002|Name|LastName|email@example.com)", testOrder.get("employee"));
+        assertEquals("001", params[0]);
+        assertEquals("00000001", params[1]);
+        assertEquals("00000002", params[2]);
+    }
 
+    @Test
+    public void testGetParamsFromFileNameWithInvalidPath() {
+        String filepath = "src\\test\\resources\\orders\\001_00000001_00000002";
+
+        assertThrows(IllegalArgumentException.class, () -> Order.getParamsFromFilename(filepath), "Invalid filepath: " + filepath + ".");
+    }
+
+    @Test 
+    public void testReadFromFile() {
+        String filepath = "src\\test\\resources\\orders\\001_00000001_00000002.txt";
+
+        Order order = Order.readFromFile(filepath);
+
+        assertEquals(1, order.getOrderID());
+        assertEquals(1, order.getClient().getId());
+        assertEquals(2, order.getEmployee().getId());
+
+        assertEquals(2, order.size());
+        assertEquals(1, order.get(0).getProductID());
     }
 
 }

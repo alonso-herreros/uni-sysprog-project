@@ -1,0 +1,2 @@
+(1|Pods|Tide|f|true|fl oz|30|10.0|20.0)
+(2|NotPods|Tide|f|true|fl oz|40|20.0|30.0)
