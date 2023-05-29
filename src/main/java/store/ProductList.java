@@ -116,13 +116,28 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
     public boolean isEmpty() {
         return list.isEmpty();
     }
+    public void insert(StockableProduct e) { // Required by specs
+        add(e);
+    } // vv SAME vv
     @Override
     public boolean add(StockableProduct e) {
-        add(size(), e);
+        int indexFound = indexOf(e.getProductID());
+        if (indexFound != -1) {
+            StockableProduct p = remove(indexFound);
+            p.setNumUnits(p.getNumUnits() + e.getNumUnits());
+            add(indexFound, p);
+        }
+        else {
+            add(size(), e);
+        }
         return true;
     } // vv FALL THROUGH vv
     @Override
     public void add(int index, StockableProduct e) {
+        int indexFound = indexOf(e.getProductID());
+        if (indexFound > -1) {
+            throw new IllegalArgumentException("Product with ID " + e.getProductID() + " already exists, found at index " + indexFound + ".");
+        }
         list.add(index, e);
         getters.put(Integer.toString(list.size()-1), () -> e.toString());
         setters.put(Integer.toString(list.size()-1), (String data) -> e.set(data));

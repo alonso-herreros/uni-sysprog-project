@@ -77,14 +77,39 @@ public class ProductListTest {
     @Test
     public void testSetWithIntIndex() {
         pl.add(sp1);
-        pl.add(sp2);
         pl.set(0, sp2);
         assertEquals(sp2, pl.get(0));
     }
 
     @Test
+    public void testSetWithIntIndexInvalid() {
+        pl.add(sp1);
+        assertThrows(IndexOutOfBoundsException.class, () -> pl.set(-1, sp2));
+        assertThrows(IndexOutOfBoundsException.class, () -> pl.set(1, sp2));
+    }
+
+    @Test
+    public void testSetIndexWithIDClash() {
+        pl.add(sp1);
+        pl.add(sp2);
+        assertThrows(IllegalArgumentException.class, () -> pl.set(0, sp2));
+    }
+
+    @Test
     public void testAdd() {
         assertTrue(pl.add(sp1));
+    }
+
+    @Test
+    public void testAddWithSameID() {
+        pl.add(sp1);
+        assertEquals(30, pl.get(0).getNumUnits());
+        assertEquals(300.0, pl.get(0).getTotalCost(), 0.001);
+
+        assertTrue(pl.add(sp1));
+        assertEquals(1, pl.size());
+        assertEquals(60, pl.get(0).getNumUnits());
+        assertEquals(600.0, pl.get(0).getTotalCost(), 0.001);
     }
 
     @Test
