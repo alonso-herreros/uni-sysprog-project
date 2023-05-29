@@ -159,6 +159,22 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
         }
         return out;
     }
+    public StockableProduct remove(int productID, int numUnits) {
+        int index = indexOf(productID);
+        if (index == -1) {
+            return null;
+        }
+        StockableProduct out = remove(index);
+
+        if (out.getNumUnits() < numUnits) {
+            throw new IllegalArgumentException("Cannot remove " + numUnits + " units of product with ID " + productID + " because there are only " + out.getNumUnits() + " units.");
+        }
+        else if (out.getNumUnits() > numUnits){
+            out.setNumUnits(out.getNumUnits() - numUnits);
+            add(index, out);
+        }
+        return out;
+    }
     @Override
     public boolean remove(Object o) {
         try {

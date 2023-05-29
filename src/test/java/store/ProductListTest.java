@@ -118,10 +118,66 @@ public class ProductListTest {
     }
 
     @Test
-    public void testRemove() {
+    public void testRemoveIndex() {
         pl.add(sp1);
         assertTrue(pl.remove(sp1));
         assertFalse(pl.remove(sp1));
+    }
+
+    @Test
+    public void testRemoveUnits() {
+        pl.add(sp1);
+        pl.add(sp2);
+        assertEquals(2, pl.size());
+        assertEquals(30, pl.get(0).getNumUnits());
+        assertEquals(1100.0, pl.getTotalCost(), 0.001);
+
+        StockableProduct removed = pl.remove(sp1.getProductID(), 10);
+
+        assertEquals(2, pl.size());
+        assertEquals(20, pl.get(0).getNumUnits());
+        assertEquals(1000.0, pl.getTotalCost(), 0.001);
+        assertTrue(sp1.equals(removed));
+    }
+
+    @Test
+    public void testRemoveUnitsInvalidID() {
+        pl.add(sp1);
+        pl.add(sp2);
+        assertEquals(2, pl.size());
+
+        assertEquals(2, pl.size());
+        assertEquals(null, pl.remove(3, 10));
+        assertEquals(1100.0, pl.getTotalCost(), 0.001);
+    }
+
+    @Test
+    public void testRemoveUnitsMax() {
+        pl.add(sp1);
+        pl.add(sp2);
+        assertEquals(2, pl.size());
+
+        StockableProduct removed = pl.remove(sp1.getProductID(), 30);
+        assertTrue(sp1.equals(removed));
+
+        assertEquals(1, pl.size());
+        assertEquals(-1, pl.indexOf(removed));
+        assertEquals(sp2, pl.get(0));
+        assertEquals(800.0, pl.getTotalCost(), 0.001);
+    }
+
+    @Test
+    public void testRemoveUnitsTooMany() {
+        pl.add(sp1);
+        pl.add(sp2);
+        assertEquals(2, pl.size());
+
+        assertThrows(IllegalArgumentException.class, () -> pl.remove(sp1.getProductID(), 31));
+
+        assertEquals(1, pl.size());
+        assertEquals(-1, pl.indexOf(sp1));
+        assertEquals(sp2, pl.get(0));
+        assertEquals(800.0, pl.getTotalCost(), 0.001);
     }
 
     @Test
