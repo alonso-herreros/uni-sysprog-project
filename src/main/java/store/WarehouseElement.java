@@ -135,7 +135,10 @@ public abstract class WarehouseElement {
 
     // String i/o
     public static String stringFromStdio() {
-        System.out.println("Enter full object string representation:");
+        return stringFromStdio("Enter full object string representation:");
+    }
+    public static String stringFromStdio(String prompt) {
+        System.out.println(prompt);
         String string = scanner.nextLine();
         return string;
     }
