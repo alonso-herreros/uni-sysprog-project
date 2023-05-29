@@ -61,13 +61,22 @@ public class StockableProduct extends Product implements Comparable<Object> {
     public void setProductID(int productID) { this.productID = productID; }
 
     public int getNumUnits() { return numUnits; }
-    public void setNumUnits(int numUnits) { this.numUnits = numUnits; }
+    public void setNumUnits(int numUnits) {
+        this.numUnits = numUnits;
+        updateCosts();
+    }
 
     public float getCostPerUnit() { return costPerUnit; }
-    public void setCostPerUnit(float costPerUnit) { this.costPerUnit = costPerUnit; }
+    public void setCostPerUnit(float costPerUnit) {
+        this.costPerUnit = costPerUnit;
+        updateCosts();
+    }
 
     public float getPricePerUnit() { return pricePerUnit; }
-    public void setPricePerUnit(float pricePerUnit) { this.pricePerUnit = pricePerUnit; }
+    public void setPricePerUnit(float pricePerUnit) {
+        this.pricePerUnit = pricePerUnit;
+        updateCosts();
+    }
 
     public float getTotalCost() { return totalCost; }
 
