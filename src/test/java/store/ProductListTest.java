@@ -103,13 +103,18 @@ public class ProductListTest {
     @Test
     public void testAddWithSameID() {
         pl.add(sp1);
+        pl.add(sp2);
+        assertEquals(2, pl.size());
         assertEquals(30, pl.get(0).getNumUnits());
         assertEquals(300.0, pl.get(0).getTotalCost(), 0.001);
+        assertEquals(1100.0, pl.getTotalCost());
+
 
         assertTrue(pl.add(sp1));
-        assertEquals(1, pl.size());
+        assertEquals(2, pl.size());
         assertEquals(60, pl.get(0).getNumUnits());
         assertEquals(600.0, pl.get(0).getTotalCost(), 0.001);
+        assertEquals(1400.0, pl.getTotalCost());
     }
 
     @Test
