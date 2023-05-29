@@ -1,6 +1,9 @@
 package store;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -8,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 public class OrderTest {
 
     private StockableProduct sp1;
-    //private StockableProduct sp2;
+    private StockableProduct sp2;
 	private Order order;
 
     private static final Person person1Def = new Person();
@@ -22,7 +25,7 @@ public class OrderTest {
         try {
             order = new Order();
             sp1 = new StockableProduct("1|Pods|Tide|f|true|fl oz|30|10.0|20.0");
-            //sp2 = new StockableProduct("2|Product2|Tide|f|true|fl oz|40|20.0|30.0");
+            sp2 = new StockableProduct("2|Product2|Tide|f|true|fl oz|40|20.0|30.0");
         }
         catch (Exception e) {
             System.out.println(e);
@@ -61,6 +64,7 @@ public class OrderTest {
     @Test
     public void testConstructorEmployeeClientAndProductStrings() {
         order = new Order(person1String, person2String, sp1.toString());
+        assertEquals(null, order.getDir());
         assertTrue(order.getClient().equals(new Person(person1String)));
         assertTrue(order.getEmployee().equals(new Person(person2String)));
         assertEquals(1, order.size());
@@ -98,6 +102,29 @@ public class OrderTest {
 
         assertEquals(2, order.size());
         assertEquals(1, order.get(0).getProductID());
+    }
+
+    @Test
+    public void testWriteToFile() {
+        String filepath = "src\\test\\tmp";
+
+        Order order = new Order(1, new Person(person1String), new Person(person2String));
+
+        order.add(sp1);
+        order.add(sp2);
+        order.setDir(filepath);
+
+        order.writeToFile();
+
+        try {
+            ArrayList<String> lines = WarehouseElement.stringsFromFile(filepath + "\\001_00000123_00000456.txt");
+            assertEquals(2, lines.size());
+            assertTrue(lines.get(0).equals(sp1.toString()));
+            assertTrue(lines.get(1).equals(sp2.toString()));
+        }
+        catch (Exception e) {
+            fail("File writing failed: " + e.getMessage());
+        }
     }
 
 }

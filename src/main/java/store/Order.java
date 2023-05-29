@@ -10,6 +10,7 @@ public class Order extends ProductList {
     static int maxOrderID = 0;
     protected int orderID;
     protected Person client, employee;
+    protected String dir;
 
     protected static final String[] def = {"00000001|John|Doe|email@example.com", "00000002|Jane|Doe|email2@example.com"};
 
@@ -43,6 +44,7 @@ public class Order extends ProductList {
         getters.put("orderID", () -> Integer.toString(getOrderID()));
         getters.put("client", () -> getClient().toString());
         getters.put("employee", () -> getEmployee().toString());
+        getters.put("dir", () -> getDir());
     }
     @Override
     protected void defineSetters() {
@@ -50,21 +52,32 @@ public class Order extends ProductList {
         setters.put("orderID", (data) -> setOrderID(Integer.parseInt(data)));
         setters.put("client", (data) -> setClient(Person.readFromString(data)));
         setters.put("employee", (data) -> setEmployee(Person.readFromString(data)));
+        setters.put("dir", (data) -> setDir(data));
     }
     @Override
     public void set(String... data) {
-        if(data.length == 0) {
+        if (data.length == 0) {
             data = getDef();
         }
+
+        ArrayList<String> dataList = new ArrayList<String>(Arrays.asList(data));
         try { // This is how i check that the first entry does not correspond to an ID.
-            Integer.parseInt(data[0]);
+            Integer.parseInt(dataList.get(0));
         }
         catch(NumberFormatException e) {
-            ArrayList<String> dataList = new ArrayList<String>(Arrays.asList(data));
             dataList.add(0, Integer.toString(maxOrderID++));
-            data = dataList.toArray(new String[0]);
         }
-        super.set(data);
+
+        try { // If the fourth entry is a product, no dir was specified
+            new StockableProduct(dataList.get(3));
+            dataList.add(3, " ");
+        }
+        catch(IndexOutOfBoundsException e) { // If there is no fourth entry...
+            dataList.add(3, " ");
+        }
+        catch(IllegalArgumentException e) {} // If the fourth entry is not a product, it must be a dir
+
+        super.set(dataList.toArray(new String[0]));
     }
 
     public int getOrderID() { return orderID; }
@@ -79,6 +92,14 @@ public class Order extends ProductList {
     public Person getEmployee() { return employee; }
     private void setEmployee(Person employee) { this.employee = employee; }
     
+    public String getDir() { return dir; }
+    public void setDir(String dir) {
+        if (dir.equals(" ") || dir.equals("")) {
+            dir = null;
+        }
+        this.dir = dir;
+    }
+
 
     public static Order readFromString(String string) {
         return new Order(string);
@@ -94,6 +115,15 @@ public class Order extends ProductList {
         }
         
         return order;
+    }
+
+    public void writeToFile() {
+        if (getDir() == null) {
+            throw new IllegalStateException("Order directory not set.");
+        }
+        String filename = String.format("%03d_%08d_%08d.txt", getOrderID(), getClient().getID(), getEmployee().getID());
+
+        writeToFile(getDir() +  "\\" + filename);
     }
 
     protected static String[] getParamsFromFilename(String filepath) {
