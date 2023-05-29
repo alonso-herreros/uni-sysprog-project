@@ -98,9 +98,9 @@ public class Order extends ProductList {
         Matcher m = Pattern.compile("(\\d+)_(\\d+)_(\\d+)\\.txt").matcher(filepath);
         m.find();
         try {
-            params[0] = m.group(1);
-            params[1] = m.group(2);
-            params[2] = m.group(3);
+            params[0] = m.group(1); // order ID
+            params[1] = m.group(2); // client ID
+            params[2] = m.group(3); // employee ID
         } catch (IllegalStateException e) {
             throw new IllegalArgumentException(String.format("Invalid filepath: %s.", filepath));
         }
