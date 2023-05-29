@@ -21,12 +21,12 @@ public class ProductTest {
     }
 
     @Test
-    public void testGetInvalidVarId() {
+    public void testGetInvalidVarID() {
         try {
-            product.get("invalidVarId");
-            fail("Should have thrown an IllegalArgumentException for invalid varId.");
+            product.get("invalidVarID");
+            fail("Should have thrown an IllegalArgumentException for invalid varID.");
         } catch (IllegalArgumentException e) {
-            assertEquals("Invalid varId: invalidVarId.", e.getMessage());
+            assertEquals("Invalid varID: invalidVarID.", e.getMessage());
         }
     }
 

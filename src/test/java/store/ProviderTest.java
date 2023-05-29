@@ -27,9 +27,9 @@ public class ProviderTest {
     }
     
     @Test()
-    public void testInvalidVarId() {
+    public void testInvalidVarID() {
         Provider provider = new Provider();
-        assertThrows(IllegalArgumentException.class, () -> provider.get("invalidVarId"));
+        assertThrows(IllegalArgumentException.class, () -> provider.get("invalidVarID"));
     }
     
     @Test

@@ -21,8 +21,8 @@ public class StockableProduct extends Product implements Comparable<Object> {
     public StockableProduct(ArrayList<String> params) {
         this(params.toArray(new String[0]));
     } // vv FALL THROUGH (2) vv
-    public StockableProduct(int productId, String name, String brand, char category, boolean isCountable, String measurementUnit, int numUnits, float costPerUnit, float pricePerUnit) {
-        this(Integer.toString(productId), name, brand, Character.toString(category), Boolean.toString(isCountable), measurementUnit, Integer.toString(numUnits), Float.toString(costPerUnit), Float.toString(pricePerUnit));
+    public StockableProduct(int productID, String name, String brand, char category, boolean isCountable, String measurementUnit, int numUnits, float costPerUnit, float pricePerUnit) {
+        this(Integer.toString(productID), name, brand, Character.toString(category), Boolean.toString(isCountable), measurementUnit, Integer.toString(numUnits), Float.toString(costPerUnit), Float.toString(pricePerUnit));
     } // vv FALL THROUGH vv
     public StockableProduct(String... data) {
         super(data);

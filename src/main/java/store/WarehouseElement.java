@@ -40,21 +40,21 @@ public abstract class WarehouseElement {
     public abstract String[] getDef();
 
     // Generalized get(var), set(var, value), and set(data)
-    public String get(String varId) {
+    public String get(String varID) {
         try {
-            return getters.get(varId).call();
+            return getters.get(varID).call();
         } catch (NullPointerException e) {
-            throw new IllegalArgumentException(String.format("Invalid varId: %s.", varId));
+            throw new IllegalArgumentException(String.format("Invalid varID: %s.", varID));
         } catch (Exception e) {
-            throw new RuntimeException(String.format("Error retrieving variable: %s.", varId));
+            throw new RuntimeException(String.format("Error retrieving variable: %s.", varID));
         }
     }
 
-    public void setVar(String varId, String value) {
+    public void setVar(String varID, String value) {
         try {
-            setters.get(varId).accept(value);
+            setters.get(varID).accept(value);
         } catch (NullPointerException e) {
-            throw new IllegalArgumentException(String.format("Invalid varId: %s.", varId));
+            throw new IllegalArgumentException(String.format("Invalid varID: %s.", varID));
         }
     }
     public void set(String data) {

@@ -93,8 +93,8 @@ public class OrderTest {
         Order order = Order.readFromFile(filepath);
 
         assertEquals(1, order.getOrderID());
-        assertEquals(1, order.getClient().getId());
-        assertEquals(2, order.getEmployee().getId());
+        assertEquals(1, order.getClient().getID());
+        assertEquals(2, order.getEmployee().getID());
 
         assertEquals(2, order.size());
         assertEquals(1, order.get(0).getProductID());

@@ -14,14 +14,14 @@ public class PersonTest {
     
     private static final String[] DEF = {"00000001", "Name", "LastName", "email@example.com"};
     
-    private static final String testId = "00000123";
+    private static final String testID = "00000123";
     private static final String testFirstName = "John";
     private static final String testLastName = "Doe";
     private static final String testEmail = "jdoe@test.com";
     
-    private Person personUnderTest = new Person(testId, testFirstName, testLastName, testEmail);
+    private Person personUnderTest = new Person(testID, testFirstName, testLastName, testEmail);
     private static final ArrayList<String> testParams = new ArrayList<String>() {{
-        add(testId);
+        add(testID);
         add(testFirstName);
         add(testLastName);
         add(testEmail);
@@ -39,8 +39,8 @@ public class PersonTest {
 
     @Test
     public void testFullConstructor() {
-        Person fullPerson = new Person(testId, testFirstName, testLastName, testEmail);
-        assertEquals(testId, fullPerson.get("id"));
+        Person fullPerson = new Person(testID, testFirstName, testLastName, testEmail);
+        assertEquals(testID, fullPerson.get("id"));
         assertEquals(testFirstName, fullPerson.getFirstName());
         assertEquals(testLastName, fullPerson.getLastName());
         assertEquals(testEmail, fullPerson.getEmail());
@@ -50,7 +50,7 @@ public class PersonTest {
     @Test
     public void testStringConstructor() {
         Person stringPerson = new Person(String.join("|", testParams));
-        assertEquals(testId, stringPerson.get("id"));
+        assertEquals(testID, stringPerson.get("id"));
         assertEquals(testFirstName, stringPerson.getFirstName());
         assertEquals(testLastName, stringPerson.getLastName());
         assertEquals(testEmail, stringPerson.getEmail());
@@ -59,7 +59,7 @@ public class PersonTest {
     @Test
     public void testArrayListConstructor() {
         Person arrayListPerson = new Person(testParams);
-        assertEquals(testId, arrayListPerson.get("id"));
+        assertEquals(testID, arrayListPerson.get("id"));
         assertEquals(testFirstName, arrayListPerson.getFirstName());
         assertEquals(testLastName, arrayListPerson.getLastName());
         assertEquals(testEmail, arrayListPerson.getEmail());
@@ -139,22 +139,22 @@ public class PersonTest {
         assertEquals(data[3], personUnderTest.getEmail());
     }
     @Test
-    public void testSetWithVarIdAndValue() {
+    public void testSetWithVarIDAndValue() {
         String[] data = {
                 "00000456",
                 "Jane",
                 "Doe",
                 "jane@test.com"
         };
-        String[] varIds = {
+        String[] varIDs = {
                 "id",
                 "firstName",
                 "lastName",
                 "email"
         };
         for (int i = 0; i < data.length; i++) {
-            personUnderTest.setVar(varIds[i], data[i]);
-            assertEquals(data[i], personUnderTest.get(varIds[i]));
+            personUnderTest.setVar(varIDs[i], data[i]);
+            assertEquals(data[i], personUnderTest.get(varIDs[i]));
         }
         assertEquals(data[0], personUnderTest.get("id"));
         assertEquals(data[1], personUnderTest.getFirstName());
@@ -175,21 +175,21 @@ public class PersonTest {
 
 
     @Test
-    public void testGetWithAllVarIds() {
-        String[] varIds = {
+    public void testGetWithAllVarIDs() {
+        String[] varIDs = {
                 "id",
                 "firstName",
                 "lastName",
                 "email"
         };
-        for (int i = 0; i < varIds.length; i++) {
-            assertEquals(testParams.get(i), personUnderTest.get(varIds[i]));
+        for (int i = 0; i < varIDs.length; i++) {
+            assertEquals(testParams.get(i), personUnderTest.get(varIDs[i]));
         }
     }
     @Test
-    public void testGetWithInvalidVarId() {
-        String invalidVarId = "invalidVarId";
-        assertThrows(IllegalArgumentException.class, () -> personUnderTest.get(invalidVarId));
+    public void testGetWithInvalidVarID() {
+        String invalidVarID = "invalidVarID";
+        assertThrows(IllegalArgumentException.class, () -> personUnderTest.get(invalidVarID));
     }
 
     @Test
@@ -233,7 +233,7 @@ public class PersonTest {
             writer.close();
 
             Person personFromFile = Person.readFromFile(filepath);
-            assertEquals(personFromFile.get("id"), testId);
+            assertEquals(personFromFile.get("id"), testID);
             assertEquals(personFromFile.getFirstName(), testFirstName);
             assertEquals(personFromFile.getLastName(), testLastName);
             assertEquals(personFromFile.getEmail(), testEmail);

@@ -32,13 +32,13 @@ public class Person extends WarehouseElement implements Comparable<Object> {
 
     // Getters and Setters
     protected void defineGetters() {
-        getters.put("id", () -> String.format("%08d", getId()));
+        getters.put("id", () -> String.format("%08d", getID()));
         getters.put("firstName", () -> getFirstName());
         getters.put("lastName", () -> getLastName());
         getters.put("email", () -> getEmail());
     }
     protected void defineSetters() {
-        setters.put("id", (String value) -> setId(Integer.parseInt(value)));
+        setters.put("id", (String value) -> setID(Integer.parseInt(value)));
         setters.put("firstName", (String value) -> setFirstName(value));
         setters.put("lastName", (String value) -> setLastName(value));
         setters.put("email", (String value) -> setEmail(value));
@@ -58,8 +58,8 @@ public class Person extends WarehouseElement implements Comparable<Object> {
         super.set(data);
     }
 
-    public int getId() { return id; }
-    protected void setId(int id) { this.id = id; }
+    public int getID() { return id; }
+    protected void setID(int id) { this.id = id; }
     
     public String getFirstName() { return firstName; }
     protected void setFirstName(String firstName) { this.firstName = firstName; }
@@ -88,7 +88,7 @@ public class Person extends WarehouseElement implements Comparable<Object> {
     @Override
     public int compareTo(Object o) {
         try {
-            return Integer.valueOf(id).compareTo(((Person) o).getId());
+            return Integer.valueOf(id).compareTo(((Person) o).getID());
         }
         catch (ClassCastException e) {
             throw new IllegalArgumentException("Cannot compare a Person with a " + o.getClass().getName());
