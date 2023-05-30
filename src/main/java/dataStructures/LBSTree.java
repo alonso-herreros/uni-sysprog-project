@@ -2,19 +2,17 @@ package dataStructures;
 
 public class LBSTree<T extends Comparable<T>, E> implements BSTree<T, E>, Comparable<LBSTree<T,E>> {
 
-    private T rootKey;
-    private E rootData;
-    private LBSTree<T, E> left;
-    private LBSTree<T, E> right;
+    protected T rootKey;
+    protected E rootData;
+    protected LBSTree<T, E> left;
+    protected LBSTree<T, E> right;
 
 
     public LBSTree() {
-        rootKey = null;
-        rootData = null;
+        this(null, null);
     }
     public LBSTree(T rootKey, E rootData) {
-        this.rootKey = rootKey;
-        this.rootData = rootData;
+        setRoot(rootKey, rootData);
     }
 
 
@@ -22,6 +20,7 @@ public class LBSTree<T extends Comparable<T>, E> implements BSTree<T, E>, Compar
     public boolean isEmpty() {
         return (rootData == null || rootKey == null);
     }
+
 
     @Override
     public E getInfo() {
@@ -31,39 +30,50 @@ public class LBSTree<T extends Comparable<T>, E> implements BSTree<T, E>, Compar
     public T getKey() {
         return rootKey;
     }
+    protected void setRoot(T key, E data) {
+        rootKey = key;
+        rootData = data;
+    }
+    
     @Override
-    public BSTree<T,E> getLeft() {
+    public LBSTree<T,E> getLeft() {
         return left;
     }
+    protected void setLeft(LBSTree<T,E> left) {
+        this.left = left;
+    }
+
     @Override
-    public BSTree<T,E> getRight() {
+    public LBSTree<T,E> getRight() {
         return right;
+    }
+    protected void setRight(LBSTree<T,E> right) {
+        this.right = right;
     }
 
     @Override
     public void insert(T key, E data) {
         if (isEmpty()) {
-            rootKey = key;
-            rootData = data;
+            setRoot(key, data);
             return;
         }
-        int comparison = key.compareTo(rootKey);
+        int comparison = getKey().compareTo(key);
         if (comparison < 0) {
-            try { left.insert(key, data); }
-            catch (NullPointerException e) { left = new LBSTree<T,E>(key, data); }
+            try { getLeft().insert(key, data); }
+            catch (NullPointerException e) { setLeft(new LBSTree<T,E>(key, data)); }
         }
         else if (comparison > 0) {
-            try { right.insert(key, data); }
-            catch (NullPointerException e) { right = new LBSTree<T,E>(key, data); }
+            try { getRight().insert(key, data); }
+            catch (NullPointerException e) { setRight(new LBSTree<T,E>(key, data)); }
         }
         else  throw new IllegalArgumentException("This key is already in the tree.");
     }
     @Override
-    public BSTree<T,E> search(T key) {
+    public LBSTree<T,E> search(T key) {
         try {
-            int comparison = key.compareTo(rootKey);
-            if (comparison < 0)  return left.search(key);
-            else if (comparison > 0)  return right.search(key);
+            int comparison = getKey().compareTo(key);
+            if (comparison < 0)  return getLeft().search(key);
+            else if (comparison > 0)  return getLeft().search(key);
             return this;
         } catch (NullPointerException e) {
             return null;
@@ -90,9 +100,9 @@ public class LBSTree<T extends Comparable<T>, E> implements BSTree<T, E>, Compar
     private String toString(int mode) {
         if (isEmpty())  return "";
 
-        final String D = rootData.toString();
-        final String L = (left != null) ? left.toString(mode) : "";
-        final String R = (right != null) ? right.toString(mode) : "";
+        final String D = getInfo().toString();
+        final String L = (getLeft() != null) ? getLeft().toString(mode) : "";
+        final String R = (getRight() != null) ? getRight().toString(mode) : "";
         switch (mode) {
             case 0 : return String.join(", ", L, D, R);
             case 1 : return String.join(", ", L, R, D);
@@ -103,7 +113,7 @@ public class LBSTree<T extends Comparable<T>, E> implements BSTree<T, E>, Compar
     
     @Override
     public int compareTo(LBSTree<T,E> other) {
-        return rootKey.compareTo(other.rootKey);
+        return getKey().compareTo(other.getKey());
     }
     
 }
