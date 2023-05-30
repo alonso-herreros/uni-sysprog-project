@@ -174,6 +174,23 @@ public class StoreManager extends WarehouseElement {
         return new StoreManager(stringFromFile(filepath));
     }
 
+    
+    public ArrayList<Person> readPersonsFromFile(String file) {
+        ArrayList<Person> persons = new ArrayList<Person>();
+        for (String s : stringsFromFile(file)) {
+            persons.add(Person.readFromString(s));
+        }
+        return persons;
+    }
+    public ArrayList<Provider> readProvidersFromFile(String file) {
+        ArrayList<Provider> providers = new ArrayList<Provider>();
+        for (String s : stringsFromFile(file)) {
+            providers.add(Provider.readFromString(s));
+        }
+        return providers;
+    }
+
+
     @Override
     public String toString() {
         return String.join("|", storeDataInfo);
