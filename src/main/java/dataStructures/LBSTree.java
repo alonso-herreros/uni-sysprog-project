@@ -18,7 +18,7 @@ public class LBSTree<T extends Comparable<T>, E> implements BSTree<T, E>, Compar
 
     @Override
     public boolean isEmpty() {
-        return (rootData == null || rootKey == null);
+        return (getInfo() == null || getKey() == null);
     }
 
 
@@ -30,11 +30,15 @@ public class LBSTree<T extends Comparable<T>, E> implements BSTree<T, E>, Compar
     public T getKey() {
         return rootKey;
     }
+    
+    protected void setRoot(LBSTree<T,E> tree) {
+        setRoot(tree.getKey(), tree.getInfo());
+    }
     protected void setRoot(T key, E data) {
         rootKey = key;
         rootData = data;
     }
-    
+
     @Override
     public LBSTree<T,E> getLeft() {
         return left;
@@ -53,21 +57,25 @@ public class LBSTree<T extends Comparable<T>, E> implements BSTree<T, E>, Compar
 
     @Override
     public void insert(T key, E data) {
+        insert(new LBSTree<T,E>(key, data));
+    }
+    protected void insert(LBSTree<T,E> tree) {
         if (isEmpty()) {
-            setRoot(key, data);
+            setRoot(tree);
             return;
         }
-        int comparison = getKey().compareTo(key);
+        int comparison = compareTo(tree);
         if (comparison < 0) {
-            try { getLeft().insert(key, data); }
-            catch (NullPointerException e) { setLeft(new LBSTree<T,E>(key, data)); }
+            try { getLeft().insert(tree); }
+            catch (NullPointerException e) { setLeft(tree); }
         }
         else if (comparison > 0) {
-            try { getRight().insert(key, data); }
-            catch (NullPointerException e) { setRight(new LBSTree<T,E>(key, data)); }
+            try { getRight().insert(tree); }
+            catch (NullPointerException e) { setRight(tree); }
         }
-        else  throw new IllegalArgumentException("This key is already in the tree.");
+        else  throw new IllegalArgumentException("There is an insertion conflict with key '" + tree.getKey() + "''");
     }
+
     @Override
     public LBSTree<T,E> search(T key) {
         try {
