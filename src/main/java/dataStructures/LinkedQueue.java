@@ -1,6 +1,8 @@
 package dataStructures;
 
-public class LinkedQueue<E> implements Queue<E> {
+import java.util.Iterator;
+
+public class LinkedQueue<E> implements Queue<E>, Iterable<E> {
 
     private class Node<T> {
         private T data;
@@ -60,6 +62,25 @@ public class LinkedQueue<E> implements Queue<E> {
             return null;
         }
         return head.data;
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        return new Iterator<E>() {
+            private Node<E> current = head;
+
+            @Override
+            public boolean hasNext() {
+                return (current != null);
+            }
+
+            @Override
+            public E next() {
+                E element = current.data;
+                current = current.next;
+                return element;
+            }
+        };
     }
     
 }
