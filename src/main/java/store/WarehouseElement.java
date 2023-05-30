@@ -1,6 +1,7 @@
 package store;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -145,28 +146,26 @@ public abstract class WarehouseElement {
     
     public static String stringFromFile(String filepath) {
         try {
-            Scanner reader = new Scanner(new File(filepath));
-            String string = reader.nextLine();
-            reader.close();
-            return string;
+            return stringsFromFile(filepath).get(0);
         }
-        catch (Exception e) {
-            throw new RuntimeException(String.format("Exception while reading from '%s': %s", filepath, e.getMessage()));
+        catch (IndexOutOfBoundsException e) {
+            return "";
         }
     }
     public static ArrayList<String> stringsFromFile(String filepath) {
+        ArrayList<String> strings = new ArrayList<String>();
         try {
             Scanner reader = new Scanner(new File(filepath));
-            ArrayList<String> strings = new ArrayList<String>();
             while (reader.hasNextLine()) {
                 strings.add(reader.nextLine());
             }
             reader.close();
-            return strings;
         }
-        catch (Exception e) {
+        catch (FileNotFoundException e) { } // Will return the empty ArrayList
+        catch (Exception e) { // Something went very wrong
             throw new RuntimeException(String.format("Exception while reading from '%s': %s", filepath, e.getMessage()));
         }
+        return strings;
     }
     public void stringToFile(String filepath, String string) {
         try {
