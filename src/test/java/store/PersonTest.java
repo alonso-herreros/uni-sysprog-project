@@ -247,6 +247,7 @@ public class PersonTest {
     }
 
     @Test
+    @SuppressWarnings("unlikely-arg-type")
     public void testEqualsWrongObject() {
         String string = "notComparable";
         assertThrows(IllegalArgumentException.class, () -> personUnderTest.equals(string));
