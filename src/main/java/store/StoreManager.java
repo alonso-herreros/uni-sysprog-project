@@ -174,7 +174,7 @@ public class StoreManager extends WarehouseElement {
         return new StoreManager(stringFromFile(filepath));
     }
 
-    
+
     public ArrayList<Person> readPersonsFromFile(String file) {
         ArrayList<Person> persons = new ArrayList<Person>();
         for (String s : stringsFromFile(file)) {
@@ -188,6 +188,11 @@ public class StoreManager extends WarehouseElement {
             providers.add(Provider.readFromString(s));
         }
         return providers;
+    }
+    public ArrayList<Order> readOrdersFromFolder(String folder) {
+        ArrayList<Order> orders = new ArrayList<Order>();
+        forFilesInDir(folder, (File f) -> orders.add(Order.readFromFile(f.getAbsolutePath())));
+        return orders;
     }
 
 
