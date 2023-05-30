@@ -2,23 +2,86 @@ package store;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import dataStructures.*;
 
 public class StoreManager extends WarehouseElement {
 
-    protected class PersonBSTree extends SKLBSTree<Integer, Person> {
+    protected class PersonBSTree extends SKLBSTree<Integer, Person> implements SMContext<Person> {
         public PersonBSTree() { this(null); }
         public PersonBSTree(Person person) { super(person, (Person p) -> p.getID()); }
+
+        @Override public Person remove(int ID, int amount) {
+            if (amount > 1) throw new UnsupportedOperationException("Can't remove an amount of persons. Use remove(ID, 0).");
+            return remove(ID);
+        }
+        @Override public Person remove() { return remove(Integer.valueOf(stringFromStdio("Enter ID of the person to remove:")), 0); }
+        @Override public Person search(int ID) { return super.search(ID).getInfo(); }
+        @Override public void modify(int ID, Person person) {
+            remove(ID);
+            insert(person);
+        }
     }
-    protected class ProviderBSTree extends SKLBSTree<Integer, Provider> {
+
+    protected class ProviderBSTree extends SKLBSTree<Integer, Provider> implements SMContext<Provider> {
         public ProviderBSTree() { this(null); }
         public ProviderBSTree(Provider provider) { super(provider, (Provider p) -> p.getVat()); }
+
+        @Override public Provider remove(int Vat, int amount) {
+            if (amount > 1) throw new UnsupportedOperationException("Can't remove an amount of providers. Use remove(Vat, 0).");
+            return remove(Vat);
+        }
+        @Override public Provider remove() { return remove(Integer.valueOf(stringFromStdio("Enter Vat of the provider to remove:")), 0); }
+        @Override public Provider search(int Vat) { return super.search(Vat).getInfo(); }
+        @Override public void modify(int Vat, Provider person) {
+            remove(Vat);
+            insert(person);
+        }
+    }
+
+    protected class OrderQueue extends LinkedQueue<Order> implements SMContext<Order> {
+        public OrderQueue() { super(); }
+
+        @Override public void insert(Order data) { enqueue(data); }
+        @Override public Order remove(int orderID, int amount) {
+            if (orderID > 0 || amount > 1) throw new UnsupportedOperationException("Can't remove from a queue. Use remove(0, 0).");
+            return dequeue();
+        }
+        @Override public Order remove() { return remove(0,0); }
+        @Override public Order search(int identifier) { throw new UnsupportedOperationException("Can't search in a queue."); }
+        @Override public void modify(int identifier, Order data) { throw new UnsupportedOperationException("Can't modify elements in a queue."); }
+        
+    }
+
+    protected class OrderList extends LinkedList<Order> implements SMContext<Order> {
+        public OrderList() { super(); }
+
+        @Override public void insert(Order data) { add(data); }
+        @Override public Order remove(int orderID, int amount) {
+            if (amount > 1) throw new UnsupportedOperationException("Can't remove an amount from an order. Use remove(orderID, 0).");
+            int index = indexOf(orderID);
+            if (index == -1)  return null;
+            return remove(index);
+        }
+        @Override public Order remove() { return remove(Integer.valueOf(stringFromStdio("Enter ID of the element to remove:")), 0); }
+        @Override public Order search(int identifier) { throw new UnsupportedOperationException("Can't search in a list."); }
+        @Override public void modify(int identifier, Order data) { throw new UnsupportedOperationException("Can't modify elements in a list."); }
+        
+        public int indexOf(int orderID) {
+            int i = 0;
+            for (Order e : this) {
+                if (e.getOrderID() == orderID)  return i;
+                i++;
+            }
+            return -1;
+        }
     }
 
 
     protected ProductList stock;
-    protected LinkedQueue<Order> ordersToProcess;
-    protected LinkedList<Order> ordersProcessed;
+    protected OrderQueue ordersToProcess;
+    protected OrderList ordersProcessed;
     protected PersonBSTree storeCustomers;
     protected ProviderBSTree storeProviders;
     protected PersonBSTree storeEmployees;
@@ -33,6 +96,16 @@ public class StoreManager extends WarehouseElement {
     // 6 - storeEmployees (txt)
 
     protected String dataDir;
+
+    @SuppressWarnings("rawtypes")
+    protected final HashMap<String, SMContext> contextMap = new HashMap<String, SMContext>() {{
+        put("stock", stock);
+        put("ordersToProcess", ordersToProcess);
+        put("ordersProcessed", ordersProcessed);
+        put("storeCustomers", storeCustomers);
+        put("storeProviders", storeProviders);
+        put("storeEmployees", storeEmployees);
+    }};
 
 
     protected static final String[] DEF = {"Name", ""};
@@ -103,19 +176,19 @@ public class StoreManager extends WarehouseElement {
         setStock(ProductList.readFromFile(filepath));
     }
 
-    public LinkedQueue<Order> getOrdersToProcess() { return ordersToProcess; }
-    public void setOrdersToProcess(LinkedQueue<Order> ordersToProcess) { this.ordersToProcess = ordersToProcess; }
+    public OrderQueue getOrdersToProcess() { return ordersToProcess; }
+    public void setOrdersToProcess(OrderQueue ordersToProcess) { this.ordersToProcess = ordersToProcess; }
     public void setOrdersToProcess(String path) {
         storeDataInfo[2] = path;
-        setOrdersToProcess(new LinkedQueue<Order>());
+        setOrdersToProcess(new OrderQueue());
         forFilesInDir(path, (File f) -> getOrdersToProcess().enqueue(Order.readFromFile(f.getAbsolutePath())));
     }
 
-    public LinkedList<Order> getOrdersProcessed() { return ordersProcessed; }
-    public void setOrdersProcessed(LinkedList<Order> ordersProcessed) { this.ordersProcessed = ordersProcessed; }
+    public OrderList getOrdersProcessed() { return ordersProcessed; }
+    public void setOrdersProcessed(OrderList ordersProcessed) { this.ordersProcessed = ordersProcessed; }
     public void setOrdersProcessed(String path) {
         storeDataInfo[3] = path;
-        setOrdersProcessed(new LinkedList<Order>());
+        setOrdersProcessed(new OrderList());
         forFilesInDir(path, (File f) -> getOrdersProcessed().add(Order.readFromFile(f.getAbsolutePath())) );
     }
 
@@ -159,6 +232,20 @@ public class StoreManager extends WarehouseElement {
 
     public double getStockBenefit() { return getStock().getTotalBenefit(); }
     //#endregion Getters and Setters
+
+    public void insert(String context) {
+        contextMap.get(context).insert();
+    }
+    public Object remove(String context) {
+        return contextMap.get(context).remove();
+    }
+    public Object search(String context) {
+        return contextMap.get(context).search();
+    }
+    public void modify(String context) {
+        contextMap.get(context).modify();
+    }
+
 
     public static StoreManager readFromString(String string) {
         return new StoreManager(string);

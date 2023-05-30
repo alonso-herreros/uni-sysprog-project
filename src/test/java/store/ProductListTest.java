@@ -302,6 +302,6 @@ public class ProductListTest {
 
     public static void main(String[] args) {
         ProductListTest test = new ProductListTest();
-        test.testModify(); // Use input 'Product|Brand|m|true|oz|10|5.0|10.0'
+        test.testModify(); // Use input '1|Product|Brand|m|true|oz|10|5.0|10.0'
     }
 }

@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class ProductList extends WarehouseElement implements List<StockableProduct> {
+public class ProductList extends WarehouseElement implements List<StockableProduct>, SMContext<StockableProduct> {
 
     protected ArrayList<StockableProduct> list = new ArrayList<StockableProduct>();
     protected double totalCost, totalPrice, totalBenefit;
@@ -128,9 +128,6 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
     public boolean isEmpty() {
         return list.isEmpty();
     }
-    public void insert(StockableProduct e) { // Required by specs
-        add(e);
-    } // vv SAME vv
     @Override
     public boolean add(StockableProduct e) {
         int indexFound = indexOf(e.getProductID());
@@ -169,22 +166,6 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
         }
         return out;
     }
-    public StockableProduct remove(int productID, int numUnits) {
-        int index = indexOf(productID);
-        if (index == -1) {
-            return null;
-        }
-        StockableProduct out = remove(index);
-
-        if (out.getNumUnits() < numUnits) {
-            throw new IllegalArgumentException("Cannot remove " + numUnits + " units of product with ID " + productID + " because there are only " + out.getNumUnits() + " units.");
-        }
-        else if (out.getNumUnits() > numUnits){
-            out.setNumUnits(out.getNumUnits() - numUnits);
-            add(index, out);
-        }
-        return out;
-    }
     @Override
     public boolean remove(Object o) {
         try {
@@ -209,20 +190,6 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
             out = remove(product) || out;
         }
         return out;
-    }
-
-    public void modify(int productID) {
-        int index = indexOf(productID);
-        if (index == -1) {
-            throw new IllegalArgumentException("Product with ID " + productID + " not found.");
-        }
-        StockableProduct product = remove(index);
-        System.out.println("Product selected: " + product.toString());
-        String msg = "Enter new data in the format 'name|brand|category|isCountable|measurementUnit|numUnits|costPerUnit|pricePerUnit': ";
-        ArrayList<String> data = paramsFromString(stringFromStdio(msg));
-        data.add(0, Integer.toString(productID));
-        product.set(data);
-        add(index, product);
     }
 
 
@@ -266,13 +233,6 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
     public int lastIndexOf(Object o) {
         return list.lastIndexOf(o);
     }
-    public StockableProduct search(int productID) {
-        int index = indexOf(productID);
-        if (index == -1) {
-            return null;
-        }
-        return get(index);
-    }
 
 
     @Override
@@ -299,6 +259,44 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
     public List<StockableProduct> subList(int fromIndex, int toIndex) {
         return list.subList(fromIndex, toIndex);
     }
+
+    //#region StoreManagerContext
+    @Override
+    public void insert(StockableProduct product) {
+        add(product);
+    } // vv SAME vv
+    @Override
+    public StockableProduct remove(int productID, int numUnits) {
+        int index = indexOf(productID);
+        if (index == -1)  return null;
+        StockableProduct out = remove(index);
+
+        if (out.getNumUnits() < numUnits) {
+            throw new IllegalArgumentException("Cannot remove " + numUnits + " units of product with ID " + productID + " because there are only " + out.getNumUnits() + " units.");
+        }
+        else if (out.getNumUnits() > numUnits){
+            out.setNumUnits(out.getNumUnits() - numUnits);
+            add(index, out);
+        }
+        return out;
+    }
+    @Override
+    public StockableProduct search(int productID) {
+        int index = indexOf(productID);
+        if (index == -1) {
+            return null;
+        }
+        return get(index);
+    }
+    @Override
+    public void modify(int productID, StockableProduct product) {
+        try {
+            set(indexOf(productID), product);
+        } catch (IndexOutOfBoundsException e) {
+            throw new IllegalArgumentException("Product with ID " + productID + " not found.");
+        }
+    }
+    //#endregion
 
 
     // IO
