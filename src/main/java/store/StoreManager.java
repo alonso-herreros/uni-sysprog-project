@@ -7,12 +7,12 @@ import dataStructures.*;
 public class StoreManager extends WarehouseElement {
 
     protected class PersonBSTree extends SKLBSTree<Integer, Person> {
-        public PersonBSTree() {
-            this(null);
-        }
-        public PersonBSTree(Person person) {
-            super(person, (Person p) -> p.getID());
-        }
+        public PersonBSTree() { this(null); }
+        public PersonBSTree(Person person) { super(person, (Person p) -> p.getID()); }
+    }
+    protected class ProviderBSTree extends SKLBSTree<Integer, Provider> {
+        public ProviderBSTree() { this(null); }
+        public ProviderBSTree(Provider provider) { super(provider, (Provider p) -> p.getVat()); }
     }
 
 
@@ -20,7 +20,7 @@ public class StoreManager extends WarehouseElement {
     protected LinkedQueue<Order> ordersToProcess;
     protected LinkedList<Order> ordersProcessed;
     protected PersonBSTree storeCustomers;
-    protected PersonBSTree storeProviders;
+    protected ProviderBSTree storeProviders;
     protected PersonBSTree storeEmployees;
 
     protected String[] storeDataInfo;
@@ -130,13 +130,13 @@ public class StoreManager extends WarehouseElement {
         }
     }
 
-    public PersonBSTree getStoreProviders() { return storeProviders; }
-    public void setStoreProviders(PersonBSTree storeProviders) { this.storeProviders = storeProviders; }
+    public ProviderBSTree getStoreProviders() { return storeProviders; }
+    public void setStoreProviders(ProviderBSTree storeProviders) { this.storeProviders = storeProviders; }
     public void setStoreProviders(String filepath) {
         storeDataInfo[5] = filepath;
-        setStoreProviders(new PersonBSTree());
+        setStoreProviders(new ProviderBSTree());
         for (String s : stringsFromFile(filepath)) {
-            Person provider = Person.readFromString(s);
+            Provider provider = Provider.readFromString(s);
             getStoreProviders().insert(provider);
         }
     }
