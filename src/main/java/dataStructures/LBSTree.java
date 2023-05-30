@@ -48,8 +48,14 @@ public class LBSTree<T extends Comparable<T>, E> implements BSTree<T, E>, Compar
             return;
         }
         int comparison = key.compareTo(rootKey);
-        if (comparison < 0)  left.insert(key, data);
-        else if (comparison > 0)  right.insert(key, data);
+        if (comparison < 0) {
+            try { left.insert(key, data); }
+            catch (NullPointerException e) { left = new LBSTree<T,E>(key, data); }
+        }
+        else if (comparison > 0) {
+            try { right.insert(key, data); }
+            catch (NullPointerException e) { right = new LBSTree<T,E>(key, data); }
+        }
         else  throw new IllegalArgumentException("This key is already in the tree.");
     }
     @Override
