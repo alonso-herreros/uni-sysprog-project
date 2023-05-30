@@ -8,6 +8,7 @@ import dataStructures.*;
 
 public class StoreManager extends WarehouseElement {
 
+    // Here are some simple class declarations adjusted to the needs of the StoreManager class.
     protected class PersonBSTree extends SKLBSTree<Integer, Person> implements SMContext<Person> {
         public PersonBSTree() { this(null); }
         public PersonBSTree(Person person) { super(person, (Person p) -> p.getID()); }
@@ -16,11 +17,12 @@ public class StoreManager extends WarehouseElement {
             if (amount > 1) throw new UnsupportedOperationException("Can't remove an amount of persons. Use remove(ID, 0).");
             return remove(ID);
         }
-        @Override public Person remove() { return remove(Integer.valueOf(stringFromStdio("Enter ID of the person to remove:")), 0); }
+        @Override public Person remove() { return notAllowedPrint(); }
         @Override public Person search(int ID) { return super.search(ID).getInfo(); }
-        @Override public void modify(int ID, Person person) {
-            remove(ID);
-            insert(person);
+        @Override public void modify(int ID, Person person) { notAllowedPrint(); }
+        protected Person notAllowedPrint() {
+            System.err.println("Modifying people from Store isn't allowed.");
+            return null;
         }
     }
 
@@ -32,11 +34,12 @@ public class StoreManager extends WarehouseElement {
             if (amount > 1) throw new UnsupportedOperationException("Can't remove an amount of providers. Use remove(Vat, 0).");
             return remove(Vat);
         }
-        @Override public Provider remove() { return remove(Integer.valueOf(stringFromStdio("Enter Vat of the provider to remove:")), 0); }
+        @Override public Provider remove() { return notAllowedPrint(); }
         @Override public Provider search(int Vat) { return super.search(Vat).getInfo(); }
-        @Override public void modify(int Vat, Provider person) {
-            remove(Vat);
-            insert(person);
+        @Override public void modify(int Vat, Provider person) { notAllowedPrint(); }
+        protected Provider notAllowedPrint() {
+            System.err.println("Modifying people from Store isn't allowed.");
+            return null;
         }
     }
 
@@ -49,7 +52,12 @@ public class StoreManager extends WarehouseElement {
             return dequeue();
         }
         @Override public Order remove() { return remove(0,0); }
-        @Override public Order search(int identifier) { throw new UnsupportedOperationException("Can't search in a queue."); }
+        @Override public Order search(int identifier) { 
+            for (Order e : this) {
+                if (e.getOrderID() == identifier)  return e;
+            }
+            return null;
+        }
         @Override public void modify(int identifier, Order data) { throw new UnsupportedOperationException("Can't modify elements in a queue."); }
         
     }
