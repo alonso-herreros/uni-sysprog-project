@@ -96,6 +96,18 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
     public double getTotalPrice() { return totalPrice; }
     public double getTotalBenefit() { return totalBenefit; }
 
+    private void addCostAndPrice(StockableProduct product) {
+        addCostAndPrice(product.getTotalCost(), product.getTotalPrice(), 1);
+    }
+    private void removeCostAndPrice(StockableProduct product) {
+        addCostAndPrice(product.getTotalCost(), product.getTotalPrice(), -1);
+    }
+    private void addCostAndPrice(double cost, double price, int factor) {
+        totalCost += factor * cost;
+        totalPrice += factor * price;
+        totalBenefit = totalPrice-totalCost;
+    }
+
 
     // List methods
     @Override
@@ -141,9 +153,7 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
         list.add(index, e);
         getters.put(Integer.toString(list.size()-1), () -> e.toString());
         setters.put(Integer.toString(list.size()-1), (String data) -> e.set(data));
-        totalCost += e.getTotalCost();
-        totalPrice += e.getTotalPrice();
-        totalBenefit = totalCost-totalPrice;
+        addCostAndPrice(e);
     }
     @Override
     public boolean addAll(Collection<? extends StockableProduct> c) {
@@ -187,11 +197,9 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
     @Override
     public StockableProduct remove(int index) {
         StockableProduct out = list.remove(index);
+        removeCostAndPrice(out);
         getters.remove(Integer.toString(index));
         setters.remove(Integer.toString(index));
-        totalCost -= out.getTotalCost();
-        totalPrice -= out.getTotalPrice();
-        totalBenefit = totalCost-totalPrice;
         return out;
     }
     @Override
