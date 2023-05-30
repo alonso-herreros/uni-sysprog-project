@@ -50,7 +50,7 @@ public class StoreManager extends WarehouseElement {
     }
 
 
-    // Getters and Setters
+    //#region Getters and Setters
     @Override
     protected void defineGetters() {
         getters.put("name", () -> getName());
@@ -153,12 +153,12 @@ public class StoreManager extends WarehouseElement {
     }
 
     public String[] getStoreDataInfo() { return storeDataInfo; }
-    public void setStoreDataInfo(String[] storeDataInfo) { this.storeDataInfo = storeDataInfo; }
+    public void setStoreDataInfo(String[] storeDataInfo) { set(storeDataInfo); }
 
     public double getStockCost() { return getStock().getTotalCost(); }
 
     public double getStockBenefit() { return getStock().getTotalBenefit(); }
-
+    //#endregion Getters and Setters
 
     public static StoreManager readFromString(String string) {
         return new StoreManager(string);
