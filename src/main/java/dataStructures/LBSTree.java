@@ -31,12 +31,14 @@ public class LBSTree<T extends Comparable<T>, E> implements BSTree<T, E>, Compar
         return rootKey;
     }
     
-    protected void setRoot(LBSTree<T,E> tree) {
-        setRoot(tree.getKey(), tree.getInfo());
+    protected E setRoot(LBSTree<T,E> tree) {
+        return setRoot(tree.getKey(), tree.getInfo());
     }
-    protected void setRoot(T key, E data) {
+    protected E setRoot(T key, E data) {
+        E oldData = rootData;
         rootKey = key;
         rootData = data;
+        return oldData;
     }
 
     @Override
@@ -74,6 +76,15 @@ public class LBSTree<T extends Comparable<T>, E> implements BSTree<T, E>, Compar
             catch (NullPointerException e) { setRight(tree); }
         }
         else  throw new IllegalArgumentException("There is an insertion conflict with key '" + tree.getKey() + "''");
+    }
+
+    public E remove(T key) {
+        try {
+            return search(key).setRoot(null, null);
+        }
+        catch (NullPointerException e) {
+            return null;
+        }
     }
 
     @Override
