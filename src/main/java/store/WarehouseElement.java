@@ -97,28 +97,7 @@ public abstract class WarehouseElement {
     // Read methods: to be implemented by subclasses, using utility methods (can't generalize these static methods)
 
 
-    // Default equals
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (!(o instanceof WarehouseElement)) {
-            return false;
-        }
-        if(toString() == o.toString()) {
-            return true;
-        }
-        WarehouseElement other = (WarehouseElement) o;
-        for (String key : getters.keySet()) {
-            if (!get(key).equals(other.get(key))) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    
-    // Utility methods    
+    // Utility methods
     public static ArrayList<String> paramsFromString(String string) {
         if(string == null || string.isEmpty()) {
             return new ArrayList<String>();
@@ -133,8 +112,17 @@ public abstract class WarehouseElement {
         }
         return params;
     }
+    
+    public static void forFilesInDir(String path, Consumer<File> consumer) {
+        File dir = new File(path);
+        if (!dir.exists())  return;
+        if (!dir.isDirectory())  throw new IllegalArgumentException("Path must be a directory");
 
-    // String i/o
+        for (File f : dir.listFiles()) {
+            consumer.accept(f);
+        }
+    }
+
     public static String stringFromStdio() {
         return stringFromStdio("Enter full object string representation:");
     }
@@ -177,5 +165,27 @@ public abstract class WarehouseElement {
             throw new RuntimeException(String.format("Exception while writing to '%s': %s", filepath, e.getMessage()));
         }
     }
+    
 
+    // Default equals
+    public boolean equals(Object o) {
+            if (o == this) {
+                return true;
+            }
+            if (!(o instanceof WarehouseElement)) {
+                return false;
+            }
+            if(toString() == o.toString()) {
+                return true;
+            }
+            WarehouseElement other = (WarehouseElement) o;
+            for (String key : getters.keySet()) {
+                if (!get(key).equals(other.get(key))) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+    
 }
