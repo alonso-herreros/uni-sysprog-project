@@ -165,9 +165,24 @@ public class StoreManager extends WarehouseElement {
     }
 
     public static StoreManager readFromStdio() {
-        return new StoreManager(stringFromStdio());
+        return new StoreManager(stringFromStdio("Insert store data in one of the following formats:\n" +
+                "name|stock.txt|ordersToProcess|ordersProcessed|storeCustomers.txt|storeProviders.txt|storeEmployees.txt\n" +
+                "name|parentDir\n"
+            ));
     }
     public static StoreManager readFromFile(String filepath) {
         return new StoreManager(stringFromFile(filepath));
+    }
+
+    @Override
+    public String toString() {
+        return String.join("|", storeDataInfo);
+    }
+
+    @Override
+    public void print() {
+        super.print();
+        System.out.println("Stock cost: " + getStockCost());
+        System.out.println("Stock benefit: " + getStockBenefit());
     }
 }
