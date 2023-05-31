@@ -241,6 +241,43 @@ public class StoreManager extends WarehouseElement {
     public double getStockBenefit() { return getStock().getTotalBenefit(); }
     //#endregion Getters and Setters
 
+
+    public void processOrders() throws Exception {
+        for (Order order : getOrdersToProcess()) {
+            processOrder(order);
+            getOrdersProcessed().add(order);
+        }
+    }
+
+    public void processOrder(Order order) throws Exception {
+        if (order == null) throw new Exception("Found a null order.");
+        else if (getStoreEmployees().search(order.getEmployee().getID())==null)  throw new Exception("Employee not found.");
+
+        for (StockableProduct product : order) {
+            // Neither Orders or StockableProducts have a provider field. I would assume that this refers to the brand,
+            // but the brand is only a string, and the provider is a Provider object. If I have time, I'll change the Product class
+            // to have a Provider field, and then make this search for the provider in the store's providers.
+            if (!productInStock(product))  throw new Exception("Product not in stock.");
+
+            // This remove method is the one that removes a selected amount, unlike remove(product), which removes the exact product.
+            getStock().remove(product.getProductID(), product.getNumUnits());
+
+            try { getStoreCustomers().insert(order.getClient()); }
+            catch (IllegalArgumentException e) { } // Customer already exists
+        }
+    }
+
+    public boolean productInStock(StockableProduct product) {
+        try {
+            return getStock().search(product.getProductID()).getNumUnits() < product.getNumUnits();
+        }
+        catch (NullPointerException e) {
+            return false;
+        }
+    }
+
+
+
     public void insert(String context) {
         contextMap.get(context).insert();
     }
