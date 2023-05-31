@@ -67,11 +67,11 @@ public class LBSTree<T extends Comparable<T>, E> implements BSTree<T, E>, Compar
             return;
         }
         int comparison = compareTo(tree);
-        if (comparison < 0) {
+        if (comparison > 0) {
             try { getLeft().insert(tree); }
             catch (NullPointerException e) { setLeft(tree); }
         }
-        else if (comparison > 0) {
+        else if (comparison < 0) {
             try { getRight().insert(tree); }
             catch (NullPointerException e) { setRight(tree); }
         }
@@ -91,8 +91,8 @@ public class LBSTree<T extends Comparable<T>, E> implements BSTree<T, E>, Compar
     public LBSTree<T,E> search(T key) {
         try {
             int comparison = getKey().compareTo(key);
-            if (comparison < 0)  return getLeft().search(key);
-            else if (comparison > 0)  return getLeft().search(key);
+            if (comparison > 0)  return getLeft().search(key);
+            else if (comparison < 0)  return getLeft().search(key);
             return this;
         } catch (NullPointerException e) {
             return null;
