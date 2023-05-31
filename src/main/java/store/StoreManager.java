@@ -100,17 +100,6 @@ public class StoreManager extends WarehouseElement {
     protected ProviderBSTree storeProviders;
     protected PersonBSTree storeEmployees;
 
-    protected String[] storeDataInfo;
-    // 0 - name (String)
-    // 1 - stock (txt)
-    // 2 - ordersToProcess (dir)
-    // 3 - ordersProcessed (dir)
-    // 4 - storeCustomers (txt)
-    // 5 - storeProviders (txt)
-    // 6 - storeEmployees (txt)
-
-    protected String storeDir;
-
     @SuppressWarnings("rawtypes")
     protected final HashMap<String, SMContext> contextMap = new HashMap<String, SMContext>() {{
         put("stock", stock);
@@ -121,8 +110,14 @@ public class StoreManager extends WarehouseElement {
         put("storeEmployees", storeEmployees);
     }};
 
+    protected String storeDir;
+    protected String[] storeDataInfo;
 
     protected static final String[] DEF = {"Name", ""};
+    public static final String[] DEF_STRUCTURE = {
+        "name", "stock.txt", "ordersToProcess", "ordersProcessed",
+        "storeCustomers.txt", "storeProviders.txt", "storeEmployees.txt"
+    };
 
 
     // Constructors
@@ -177,8 +172,8 @@ public class StoreManager extends WarehouseElement {
             storeDir = dir; // It's fine to use assignment here, since the dir setters actually call this method.
 
             storeData = new String[] {
-                name, dir + "stock.txt", dir + "ordersToProcess", dir + "ordersProcessed",
-                dir + "storeCustomers.txt", dir + "storeProviders.txt", dir + "storeEmployees.txt"
+                name, dir + DEF_STRUCTURE[1], dir + DEF_STRUCTURE[2], dir + DEF_STRUCTURE[3],
+                dir + DEF_STRUCTURE[4], dir + DEF_STRUCTURE[5], dir + DEF_STRUCTURE[6]
             };
         }
         super.set(storeData);
