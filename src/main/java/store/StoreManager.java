@@ -171,10 +171,8 @@ public class StoreManager extends WarehouseElement {
 
         if (storeData.length == 2) { // Name and parent directory
             String name = storeData[0];
-            String dir = storeData[1] + File.separator;
-            // If the parent directory doesn't already end with the store name, add add a subdirectory. Otherwise, don't.
-            if(dir.length()<name.length())  dir += name + File.separator;
-            else if(!dir.substring(dir.length()-name.length()-1, dir.length()-1).equals(name))  dir += name + File.separator;
+            // If the parent directory doesn't already end with the store name, add add a subdirectory to the path.
+            String dir = storeData[1] + (storeData[1].endsWith(name)? "" : File.separator + name ) + File.separator;
 
             storeDir = dir; // It's fine to use assignment here, since the dir setters actually call this method.
 
