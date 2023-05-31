@@ -109,7 +109,7 @@ public class StoreManager extends WarehouseElement {
     // 5 - storeProviders (txt)
     // 6 - storeEmployees (txt)
 
-    protected String baseDir;
+    protected String storeDir;
 
     @SuppressWarnings("rawtypes")
     protected final HashMap<String, SMContext> contextMap = new HashMap<String, SMContext>() {{
@@ -171,7 +171,13 @@ public class StoreManager extends WarehouseElement {
 
         if (storeData.length == 2) { // Name and parent directory
             String name = storeData[0];
-            String dir = storeData[1] + File.separator + name + File.separator;
+            String dir = storeData[1] + File.separator;
+            // If the parent directory doesn't already end with the store name, add add a subdirectory. Otherwise, don't.
+            if(dir.length()<name.length())  dir += name + File.separator;
+            else if(!dir.substring(dir.length()-name.length()-1, dir.length()-1).equals(name))  dir += name + File.separator;
+
+            storeDir = dir; // It's fine to use assignment here, since the dir setters actually call this method.
+
             storeData = new String[] {
                 name, dir + "stock.txt", dir + "ordersToProcess", dir + "ordersProcessed",
                 dir + "storeCustomers.txt", dir + "storeProviders.txt", dir + "storeEmployees.txt"
@@ -182,6 +188,9 @@ public class StoreManager extends WarehouseElement {
 
     public String getName() { return storeDataInfo[0]; }
     public void setName(String name) { storeDataInfo[0] = name; }
+
+    public String getStoreDir() { return storeDir; }
+    public void setStoreDir(String storeDir) { set(getName(), storeDir); }
 
     public ProductList getStock() { return stock; }
     private void setStock(ProductList stock) { this.stock = stock; }
