@@ -10,6 +10,7 @@ public class StoreManager extends WarehouseElement {
 
     // Here are some simple class declarations adjusted to the needs of the StoreManager class.
     protected class PersonBSTree extends SKLBSTree<Integer, Person> implements SMContext<Person> {
+        @Override public Class<Person> getElementClass() { return Person.class; }
         public PersonBSTree() { this(null); }
         public PersonBSTree(Person person) { super(person, (Person p) -> p.getID()); }
 
@@ -27,6 +28,7 @@ public class StoreManager extends WarehouseElement {
     }
 
     protected class ProviderBSTree extends SKLBSTree<Integer, Provider> implements SMContext<Provider> {
+        @Override public Class<Provider> getElementClass() { return Provider.class; }
         public ProviderBSTree() { this(null); }
         public ProviderBSTree(Provider provider) { super(provider, (Provider p) -> p.getVat()); }
 
@@ -44,6 +46,7 @@ public class StoreManager extends WarehouseElement {
     }
 
     protected class OrderQueue extends LinkedQueue<Order> implements SMContext<Order> {
+        @Override public Class<Order> getElementClass() { return Order.class; }
         public OrderQueue() { super(); }
 
         @Override public void insert(Order data) { enqueue(data); }
@@ -63,6 +66,7 @@ public class StoreManager extends WarehouseElement {
     }
 
     protected class OrderList extends LinkedList<Order> implements SMContext<Order> {
+        @Override public Class<Order> getElementClass() { return Order.class; }
         public OrderList() { super(); }
 
         @Override public void insert(Order data) { add(data); }

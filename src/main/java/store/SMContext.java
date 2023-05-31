@@ -6,6 +6,8 @@ import static store.WarehouseElement.stringFromStdio;
 
 public interface SMContext<E extends WarehouseElement> {
 
+    public Class<E> getElementClass();
+
     /**
      * Inserts the specified element into the data structure. The position is
      * to be decided by the implementation. 
@@ -84,7 +86,7 @@ public interface SMContext<E extends WarehouseElement> {
     @SuppressWarnings("unchecked")
     default E fromString(String string) {
         try {
-            return (E) getClass().getMethod("readFromString", String.class).invoke(string);
+            return (E) getElementClass().getMethod("readFromString", String.class).invoke(null, string);
         } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             throw new RuntimeException(e); // I really hope we don't get here
         }

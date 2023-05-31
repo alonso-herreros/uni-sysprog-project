@@ -9,6 +9,8 @@ import java.util.ListIterator;
 
 public class ProductList extends WarehouseElement implements List<StockableProduct>, SMContext<StockableProduct> {
 
+    @Override public Class<StockableProduct> getElementClass() { return StockableProduct.class; }
+
     protected ArrayList<StockableProduct> list = new ArrayList<StockableProduct>();
     protected double totalCost, totalPrice, totalBenefit;
 
