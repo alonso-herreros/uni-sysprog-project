@@ -181,21 +181,6 @@ public class ProductListTest {
         assertEquals(800.0, pl.getTotalCost(), 0.001);
     }
 
-    public void testModify() {
-        pl.add(sp1);
-        pl.add(sp2);
-        assertEquals(2, pl.size());
-        assertEquals(30, pl.get(0).getNumUnits());
-        assertEquals(1100.0, pl.getTotalCost(), 0.001);
-
-        pl.modify(sp1.getProductID());
-
-        assertEquals(2, pl.size());
-        assertEquals(10, pl.get(0).getNumUnits());
-        assertEquals(850.0, pl.getTotalCost(), 0.001);
-    }
-
-
     @Test
     public void testSize() {
         assertEquals(0, pl.size());
@@ -299,9 +284,22 @@ public class ProductListTest {
         assertEquals(sp2, pl2.getList().get(1));
     }
 
+    public void testModify() {
+        pl.add(sp1);
+        pl.add(sp2);
+        assertEquals(2, pl.size());
+        assertEquals(30, pl.get(0).getNumUnits());
+        assertEquals(1100.0, pl.getTotalCost(), 0.001);
+
+        pl.modify();
+
+        assertEquals(2, pl.size());
+        assertEquals(10, pl.get(0).getNumUnits());
+        assertEquals(850.0, pl.getTotalCost(), 0.001);
+    }
 
     public static void main(String[] args) {
         ProductListTest test = new ProductListTest();
-        test.testModify(); // Use input '1|Product|Brand|m|true|oz|10|5.0|10.0'
+        test.testModify(); // Use inputs '1' and '1|Product|Brand|m|true|oz|10|5.0|10.0'
     }
 }
