@@ -197,6 +197,7 @@ public class StoreManager extends WarehouseElement {
      */
     protected boolean updateStoredPath(int index, String path) {
         if (index < 1 || index > 6) throw new IllegalArgumentException("Index out of bounds.");
+        if (storeDataInfo[index] == path) return true;
         storeDataInfo[index] = path;
         
         String expected = DEF_STRUCTURE[index];
@@ -207,7 +208,7 @@ public class StoreManager extends WarehouseElement {
         return true;
     }
 
-    
+
     public ProductList getStock() { return stock; }
     private void setStock(ProductList stock) { this.stock = stock; }
     public void setStock(String filepath) {
