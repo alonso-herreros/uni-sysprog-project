@@ -1,5 +1,6 @@
 package store;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
@@ -113,17 +114,16 @@ public class Order extends ProductList {
         for (String line : stringsFromFile(filepath)) {
             order.add(StockableProduct.readFromString(line));
         }
-        
+        order.setDir(filepath.substring(0, filepath.lastIndexOf(File.separator)));
         return order;
     }
 
     public void writeToFile() {
-        if (getDir() == null) {
-            throw new IllegalStateException("Order directory not set.");
-        }
+        if (getDir() == null)  throw new IllegalStateException("Order directory not set."); 
+
         String filename = String.format("%03d_%08d_%08d.txt", getOrderID(), getClient().getID(), getEmployee().getID());
 
-        writeToFile(getDir() +  "\\" + filename);
+        writeToFile(getDir() +  File.separator + filename);
     }
 
     protected static String[] getParamsFromFilename(String filepath) {
