@@ -158,7 +158,7 @@ public class StoreManagerTest {
         assertEquals(4, manager.getStock().size());
         assertEquals(2, manager.getOrdersToProcess().size());
         assertEquals(1, manager.getOrdersProcessed().size());
-        assertEquals("Jane", manager.getStoreCustomers().search(2).getInfo().getFirstName());
+        assertEquals("Jane", manager.getStoreCustomers().search(2).getFirstName());
         
         String[] info = manager.getStoreDataInfo();
         assertEquals(TEST_DIR + "\\TestStore2\\stock.txt", info[1]);
