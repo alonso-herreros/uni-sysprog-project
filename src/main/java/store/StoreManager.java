@@ -51,7 +51,9 @@ public class StoreManager extends WarehouseElement {
 
         @Override public void insert(Order data) { enqueue(data); }
         @Override public Order remove(int orderID, int amount) {
-            if (orderID > 0 || amount > 1) throw new UnsupportedOperationException("Can't remove from a queue. Use remove(0, 0).");
+            if ((orderID != front().getOrderID() && orderID != 0) || amount > 1) { // remove(0) is allowed, so is removing the front element.
+                throw new UnsupportedOperationException("Can't remove from a queue. Use remove(0, 0).");
+            }
             return dequeue();
         }
         @Override public Order remove() { return remove(0,0); }
@@ -107,7 +109,7 @@ public class StoreManager extends WarehouseElement {
     // 5 - storeProviders (txt)
     // 6 - storeEmployees (txt)
 
-    protected String dataDir;
+    protected String baseDir;
 
     @SuppressWarnings("rawtypes")
     protected final HashMap<String, SMContext> contextMap = new HashMap<String, SMContext>() {{
@@ -246,29 +248,48 @@ public class StoreManager extends WarehouseElement {
     //#endregion Getters and Setters
 
 
+    //#region Processing Orders
     public void processOrders() throws Exception {
-        for (Order order : getOrdersToProcess()) {
-            processOrder(order);
-            getOrdersProcessed().add(order);
+        while (!getOrdersToProcess().isEmpty()) {
+            processOrder(getOrdersToProcess().dequeue()); // Careful! The order is extracted right here.
         }
     }
 
     public void processOrder(Order order) throws Exception {
-        if (order == null) throw new Exception("Found a null order.");
-        else if (getStoreEmployees().search(order.getEmployee().getID())==null)  throw new Exception("Employee not found.");
+        // Instead of throwing an Exception, if the order is invalid, it is reinserted into the queue.
+        // Perhaps it will be valid later, or it can be fixed.
+        switch (validateOrder(order)) {
+            case -1:
+            case -2:
+            case -3:
+            case -5:
+                getOrdersToProcess().enqueue(order);
+                return;
+        } // Non-negative values mean the order is valid.
 
-        for (StockableProduct product : order) {
-            // Neither Orders or StockableProducts have a provider field. I would assume that this refers to the brand,
-            // but the brand is only a string, and the provider is a Provider object. If I have time, I'll change the Product class
-            // to have a Provider field, and then make this search for the provider in the store's providers.
-            if (!productInStock(product))  throw new Exception("Product not in stock.");
-
+        // We may loop over this twice, but the performace should be similar than looping once and performing all operations in the same loop.
+        // In fact, if the validation fails, only the checks are performed, and no items are changed.
+        for (StockableProduct product : order) { 
             // This remove method is the one that removes a selected amount, unlike remove(product), which removes the exact product.
             getStock().remove(product.getProductID(), product.getNumUnits());
-
-            try { getStoreCustomers().insert(order.getClient()); }
-            catch (IllegalArgumentException e) { } // Customer already exists
         }
+        getOrdersProcessed().add(order); // If we don't do this, the order will be lost forever.
+
+        try { getStoreCustomers().insert(order.getClient()); }
+        catch (IllegalArgumentException e) { } // Customer already exists
+    }
+
+    public int validateOrder(Order order) {
+        if (order == null) return -1;
+        else if (getStoreEmployees().search(order.getEmployee().getID())==null)  return -2;
+        // Neither Orders or StockableProducts have a provider field. I would assume that this refers to the brand,
+        // but the brand is only a string, and the provider is a Provider object. If I have time, I'll change the Product class
+        // to have a Provider field, and then make this search for the provider in the store's providers.
+
+        for (StockableProduct product : order) {
+            if (!productInStock(product))  return -5;
+        }
+        return 1;
     }
 
     public boolean productInStock(StockableProduct product) {
@@ -279,7 +300,7 @@ public class StoreManager extends WarehouseElement {
             return false;
         }
     }
-
+    //#endregion Processing Orders
 
 
     public void insert(String context) {
