@@ -132,7 +132,7 @@ public class StoreManager extends WarehouseElement {
     }
 
 
-    //#region Getters and Setters
+    //#region Getters/Setters Readers/Savers
     @Override
     protected void defineGetters() {
         getters.put("name", () -> getName());
@@ -185,17 +185,40 @@ public class StoreManager extends WarehouseElement {
     public String getStoreDir() { return storeDir; }
     public void setStoreDir(String storeDir) { set(getName(), storeDir); }
 
+    /**
+     * This method is intended for use after setting/saving an attribute.
+     * It will check if the given directory fits in the standard store directory structure,
+     * and if it doesn't, the storeDir will be set to null and the method will return false.
+     * Then, it will update the storeDataInfo array.
+     * @param index Index of the path in the storeDataInfo array. 0 isn't allowed, that's the name.
+     * @param path New directory to be saved
+     * @throws IllegalArgumentException if the index is out of bounds.
+     * @return True if the path fits in the directory structure, false otherwise.
+     */
+    protected boolean updateStoredPath(int index, String path) {
+        if (index < 1 || index > 6) throw new IllegalArgumentException("Index out of bounds.");
+        storeDataInfo[index] = path;
+        
+        String expected = DEF_STRUCTURE[index];
+        if (getStoreDir() != null && !new File(path).equals(new File(getStoreDir() + expected))){
+            storeDir = null;
+            return false;
+        }
+        return true;
+    }
+
+    
     public ProductList getStock() { return stock; }
     private void setStock(ProductList stock) { this.stock = stock; }
     public void setStock(String filepath) {
-        storeDataInfo[1] = filepath;
+        updateStoredPath(1, filepath);
         setStock(ProductList.readFromFile(filepath));
     }
 
     public OrderQueue getOrdersToProcess() { return ordersToProcess; }
     public void setOrdersToProcess(OrderQueue ordersToProcess) { this.ordersToProcess = ordersToProcess; }
     public void setOrdersToProcess(String path) {
-        storeDataInfo[2] = path;
+        updateStoredPath(2, path);
         setOrdersToProcess(new OrderQueue());
         forFilesInDir(path, (File f) -> getOrdersToProcess().enqueue(Order.readFromFile(f.getAbsolutePath())));
     }
@@ -203,7 +226,7 @@ public class StoreManager extends WarehouseElement {
     public OrderList getOrdersProcessed() { return ordersProcessed; }
     public void setOrdersProcessed(OrderList ordersProcessed) { this.ordersProcessed = ordersProcessed; }
     public void setOrdersProcessed(String path) {
-        storeDataInfo[3] = path;
+        updateStoredPath(3, path);
         setOrdersProcessed(new OrderList());
         forFilesInDir(path, (File f) -> getOrdersProcessed().add(Order.readFromFile(f.getAbsolutePath())) );
     }
@@ -211,7 +234,7 @@ public class StoreManager extends WarehouseElement {
     public PersonBSTree getStoreCustomers() { return storeCustomers; }
     public void setStoreCustomers(PersonBSTree storeCustomers) { this.storeCustomers = storeCustomers; }
     public void setStoreCustomers(String filepath) {
-        storeDataInfo[4] = filepath;
+        updateStoredPath(4, filepath);
         setStoreCustomers(new PersonBSTree());
         for (String s : stringsFromFile(filepath)) {
             Person customer = Person.readFromString(s);
@@ -222,7 +245,7 @@ public class StoreManager extends WarehouseElement {
     public ProviderBSTree getStoreProviders() { return storeProviders; }
     public void setStoreProviders(ProviderBSTree storeProviders) { this.storeProviders = storeProviders; }
     public void setStoreProviders(String filepath) {
-        storeDataInfo[5] = filepath;
+        updateStoredPath(5, filepath);
         setStoreProviders(new ProviderBSTree());
         for (String s : stringsFromFile(filepath)) {
             Provider provider = Provider.readFromString(s);
@@ -233,7 +256,7 @@ public class StoreManager extends WarehouseElement {
     public PersonBSTree getStoreEmployees() { return storeEmployees; }
     public void setStoreEmployees(PersonBSTree storeEmployees) { this.storeEmployees = storeEmployees; }
     public void setStoreEmployees(String filepath) {
-        storeDataInfo[6] = filepath;
+        updateStoredPath(6, filepath);
         setStoreEmployees(new PersonBSTree());
         for (String s : stringsFromFile(filepath)) {
             Person employee = Person.readFromString(s);
@@ -247,7 +270,7 @@ public class StoreManager extends WarehouseElement {
     public double getStockCost() { return getStock().getTotalCost(); }
 
     public double getStockBenefit() { return getStock().getTotalBenefit(); }
-    //#endregion Getters and Setters
+    //#endregion  Getters/Setters Readers/Savers
 
 
     //#region Processing Orders
