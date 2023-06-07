@@ -31,8 +31,8 @@ public class RunApp {
     @PostMapping("/create-store")
     public static ModelAndView createStore(ModelMap model, @RequestParam(value = "storeName", defaultValue = "Store") String name) {
         storeManager = new StoreManager(name, DATA_DIR);
-        model.addAttribute("from", "create-store");
-        return new ModelAndView("redirect:/", model);
+        model.addAttribute("feedback", "newStore");
+        return new ModelAndView("redirect:home", model);
     }
 
     @GetMapping("/store/getvar")
