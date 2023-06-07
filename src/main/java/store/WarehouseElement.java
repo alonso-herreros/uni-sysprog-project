@@ -156,8 +156,12 @@ public abstract class WarehouseElement {
         return strings;
     }
     public void stringToFile(String filepath, String string) {
+        File file = new File(filepath);
+        if (! file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
         try {
-            FileWriter writer = new FileWriter(filepath);
+            FileWriter writer = new FileWriter(file);
             writer.write(string);
             writer.close();
         }
