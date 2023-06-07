@@ -2,7 +2,7 @@ package app;
 
 import org.xml.sax.SAXException;
 
-import warehouse.StoreManager;
+import store.StoreManager;
 
 import java.io.IOException;
 
