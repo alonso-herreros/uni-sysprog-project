@@ -9,14 +9,23 @@ public interface BSTree<T extends Comparable<T>, E> extends Iterable<E> {
     public abstract class TreeIterator<T extends Comparable<T>, E> implements Iterator<E> {
         protected BSTree<T,E> current;
         protected Stack<BSTree<T,E>> stack = new Stack<BSTree<T,E>>();
-    
+
+        abstract protected void processNext();
+
         public TreeIterator(BSTree<T,E> top) {
             stack = new Stack<BSTree<T,E>>() {{ push(top); }};
         }
 
         @Override
         public boolean hasNext() {
-            return !stack.isEmpty() || current != null;
+            return !stack.isEmpty();
+        }
+        @Override
+        public E next() {
+            if (!hasNext())  throw new java.util.NoSuchElementException();
+            current = stack.pop();
+            processNext();
+            return current.getInfo();
         }
     }
 
@@ -26,9 +35,6 @@ public interface BSTree<T extends Comparable<T>, E> extends Iterable<E> {
     T getKey();
     BSTree<T,E> getLeft();
     BSTree<T,E> getRight();
-    String toStringPreOrder();
-    String toStringInOrder();
-    String toStringPostOrder();
     String toString(); // pre-order
     void insert(T key, E info);
     BSTree<T,E> search(T key);
@@ -45,11 +51,9 @@ public interface BSTree<T extends Comparable<T>, E> extends Iterable<E> {
     default public Iterator<E> iteratorPreOrder() {
         return new TreeIterator<T,E>(BSTree.this) {
             @Override
-            public E next() {
-                current = stack.pop();
+            protected void processNext() {
                 if (current.hasRight())  stack.push(current.getRight());
                 if (current.hasLeft())  stack.push(current.getLeft());
-                return current.getInfo();
             }
         };
     }
@@ -57,15 +61,13 @@ public interface BSTree<T extends Comparable<T>, E> extends Iterable<E> {
     default public Iterator<E> iteratorInOrder() {
         return new TreeIterator<T, E>(BSTree.this) {
             @Override
-            public E next() {
-                current = stack.pop();
+            protected void processNext() {
                 while (current != null) {
                     stack.push(current);
                     current = current.getLeft();
                 }
                 current = stack.pop();
                 stack.push(current.getRight());
-                return current.getInfo();
             }
         };
     }
@@ -73,8 +75,7 @@ public interface BSTree<T extends Comparable<T>, E> extends Iterable<E> {
     default public Iterator<E> iteratorPostOrder() {
         return new TreeIterator<T,E>(BSTree.this) {
             @Override
-            public E next() {
-                current = stack.pop();
+            protected void processNext() {
                 while (current != null) {
                     stack.push(current);
                     if (current.hasChildren())  stack.push(null);
@@ -82,9 +83,24 @@ public interface BSTree<T extends Comparable<T>, E> extends Iterable<E> {
                     current = current.getLeft();
                 }
                 current = stack.pop();
-                return current.getInfo();
             }
         };
     }
-    
+
+    default String toStringPreOrder() {
+        return joinedIterable(iteratorPreOrder(), ", ");
+    }
+    default String toStringInOrder() {
+        return joinedIterable(iteratorInOrder(), ", ");
+    }
+    default String toStringPostOrder() {
+        return joinedIterable(iteratorPostOrder(), ", ");
+    }
+
+    default String joinedIterable(Iterator<E> iter, String delimiter) {
+        StringBuilder sb = new StringBuilder();
+        while (iter.hasNext())  sb.append(iter.next().toString()).append(delimiter);
+        return sb.substring(0, sb.length() - delimiter.length());
+    }
+
 }

@@ -100,33 +100,8 @@ public class LBSTree<T extends Comparable<T>, E> implements BSTree<T, E>, Compar
     }
 
     @Override
-    public String toStringPreOrder() {
-        return toString(-1);
-    }
-    @Override
-    public String toStringInOrder() {
-        return toString(0);
-    }
-    @Override
-    public String toStringPostOrder() {
-        return toString(1);
-    }
-    @Override
     public String toString() {
-        return toString(-1);
-    }
-
-    private String toString(int mode) {
-        if (isEmpty())  return "";
-
-        final String D = getInfo().toString();
-        final String L = (getLeft() != null) ? getLeft().toString(mode) : "";
-        final String R = (getRight() != null) ? getRight().toString(mode) : "";
-        switch (mode) {
-            case 0 : return String.join(", ", L, D, R);
-            case 1 : return String.join(", ", L, R, D);
-            default: return String.join(", ", D, L, R);
-        }
+        return toStringPreOrder();
     }
 
     
