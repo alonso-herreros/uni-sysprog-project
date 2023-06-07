@@ -166,16 +166,8 @@ public class StoreManager extends WarehouseElement {
         if (storeData.length == 0)  storeData = getDef();
 
         if (storeData.length == 2) { // Name and parent directory
-            String name = storeData[0];
-            // If the parent directory doesn't already end with the store name, add add a subdirectory to the path.
-            String dir = storeData[1] + (storeData[1].endsWith(name)? "" : File.separator + name ) + File.separator;
-
-            storeDir = dir; // It's fine to use assignment here, since the dir setters actually call this method.
-
-            storeData = new String[] {
-                name, dir + DEF_STRUCTURE[1], dir + DEF_STRUCTURE[2], dir + DEF_STRUCTURE[3],
-                dir + DEF_STRUCTURE[4], dir + DEF_STRUCTURE[5], dir + DEF_STRUCTURE[6]
-            };
+            storeDir = storeData[1];
+            storeData = dataInfo(storeData[0], storeData[1]);
         }
         super.set(storeData);
     }
@@ -302,7 +294,16 @@ public class StoreManager extends WarehouseElement {
         }
     }
 
-    public String[] getStoreDataInfo() { return storeDataInfo; }
+    public String[] getStoreDataInfo(String... baseInfo) {
+        switch(baseInfo.length) {
+            case 0: return storeDataInfo;
+            case 1: return dataInfo(baseInfo[0]);
+            case 2: return dataInfo(baseInfo[0], baseInfo[1]);
+            case 6:
+            case 7: return baseInfo;
+            default: throw new IllegalArgumentException("Wrong number of base info fields.");
+        }
+    }
     public void setStoreDataInfo(String... storeDataInfo) { set(storeDataInfo); }
 
     public double getStockCost() { return getStock().getTotalCost(); }
@@ -310,22 +311,16 @@ public class StoreManager extends WarehouseElement {
     public double getStockBenefit() { return getStock().getTotalBenefit(); }
 
 
-    public void saveStore(String... storeDataInfo) {
-        if (storeDataInfo.length == 7)  storeDataInfo = Arrays.copyOfRange(storeDataInfo, 1,6); // Omit the store name
-        if (storeDataInfo.length != 6)  throw new IllegalArgumentException("Wrong number of data fields.");
+    public void saveStore(String... dataInfo) {
+        dataInfo = getStoreDataInfo(dataInfo);
+        if (dataInfo.length == 7)  dataInfo = Arrays.copyOfRange(dataInfo, 1,7);
 
-        saveStock(storeDataInfo[0]);
-        saveOrdersToProcess(storeDataInfo[1]);
-        saveOrdersProcessed(storeDataInfo[2]);
-        saveStoreCustomers(storeDataInfo[3]);
-        saveStoreProviders(storeDataInfo[4]);
-        saveStoreEmployees(storeDataInfo[5]);
-    }
-    public void saveStore(String dir) {
-        saveStore(dataInfoPaths(dir));
-    }
-    public void saveStore() {
-        saveStore(getStoreDataInfo());
+        saveStock(dataInfo[0]);
+        saveOrdersToProcess(dataInfo[1]);
+        saveOrdersProcessed(dataInfo[2]);
+        saveStoreCustomers(dataInfo[3]);
+        saveStoreProviders(dataInfo[4]);
+        saveStoreEmployees(dataInfo[5]);
     }
 
     //#endregion  Getters/Setters Readers/Savers
@@ -437,11 +432,13 @@ public class StoreManager extends WarehouseElement {
 
 
     /**
-     * Accepts a directory path and returns the 6 fundamental paths according to the standard structure.
+     * Accepts a store name and a directory path, and returns the full array of store data info.
      * 
-     * @param dir the directory path where the store information is stored
-     * @return an array of 6 Strings containing the following store information fields:
+     * @param name the name of the store
+     * @param path the parent directory path or the store directory path
+     * @return an array of 7 Strings containing the following store information fields:
      * <ol>
+     * <li>Store name
      * <li>Stock file
      * <li>Orders to process folder
      * <li>Orders processed folder
@@ -449,12 +446,19 @@ public class StoreManager extends WarehouseElement {
      * <li>Store providers file
      * <li>Store employees file
      */
-    public String[] dataInfoPaths(String dir) {
-        String[] dataInfo = new String[6];
+    public static String[] dataInfo(String name, String path) {
+        // If the parent directory doesn't already end with the store name, add add a subdirectory to the path.
+        String storeDir = path + (path.endsWith(name)? "" : File.separator + name ) + File.separator;
+        String[] storeData = new String[7];
+        storeData[0] = name;
         for (int i = 1; i<DEF_STRUCTURE.length; i++) {
-            dataInfo[i] = dir + File.separator + DEF_STRUCTURE[i];
+            storeData[i] = storeDir + DEF_STRUCTURE[i];
         }
-        return dataInfo;
+        return storeData;
+    }
+    public static String[] dataInfo(String path) {
+        String name = path.substring(path.lastIndexOf(File.separator)+1);
+        return dataInfo(name, path);
     }
 
 
