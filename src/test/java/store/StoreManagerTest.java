@@ -2,6 +2,9 @@ package store;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
+import java.util.Scanner;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +14,7 @@ import dataStructures.*;
 public class StoreManagerTest {
 
     static final String TEST_DIR = "src\\test\\resources\\store";
+    static final String TEST_TMP = "src\\test\\tmp";
     private StoreManager manager;
 
     @BeforeEach
@@ -152,7 +156,7 @@ public class StoreManagerTest {
     }
 
     @Test
-    public void testSet() {
+    public void testSetNameAndDir() {
         manager.set("TestStore2", TEST_DIR);
         assertEquals("TestStore2", manager.getName());
         assertEquals(4, manager.getStock().size());
@@ -166,6 +170,35 @@ public class StoreManagerTest {
         assertEquals(TEST_DIR + "\\TestStore2\\storeCustomers.txt", info[4]);
     }
 
-    // TODO: test file writing
+    @Test
+    public void testSave() {
+        manager.saveStore("SavedStore", TEST_TMP);
+
+        File stockFile = new File(TEST_TMP + "\\SavedStore\\stock.txt");
+        File expectedStockFile = new File(TEST_DIR + "\\TestStore\\stock.txt");
+        assertTrue(stockFile.exists() && expectedStockFile.exists());
+        try { // read both files and compare contents
+            Scanner stockScanner = new Scanner(stockFile);
+            Scanner expectedStockScanner = new Scanner(expectedStockFile);
+            while (stockScanner.hasNextLine()) {
+                assertEquals(expectedStockScanner.nextLine(), stockScanner.nextLine());
+            }
+            stockScanner.close();
+            expectedStockScanner.close();
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+
+        File ordersToProcessDir = new File(TEST_TMP + "\\SavedStore\\ordersToProcess");
+        // check that the files in both directories have the same names
+        File[] ordersToProcessFiles = ordersToProcessDir.listFiles();
+        File[] expectedOrdersToProcessFiles = new File(TEST_DIR + "\\TestStore\\ordersToProcess").listFiles();
+        assertEquals(expectedOrdersToProcessFiles.length, ordersToProcessFiles.length);
+        for (int i = 0; i < ordersToProcessFiles.length; i++) {
+            assertEquals(expectedOrdersToProcessFiles[i].getName(), ordersToProcessFiles[i].getName());
+        }
+
+        // Check the rest of the files manually if needed
+    }
 
 }
