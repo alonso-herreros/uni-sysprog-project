@@ -2,6 +2,7 @@ package store;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import dataStructures.*;
@@ -215,6 +216,10 @@ public class StoreManager extends WarehouseElement {
         updateStoredPath(1, filepath);
         setStock(ProductList.readFromFile(filepath));
     }
+    public void saveStock(String filepath) {
+        updateStoredPath(1, filepath);
+        getStock().writeToFile(filepath);
+    }
 
     public OrderQueue getOrdersToProcess() { return ordersToProcess; }
     public void setOrdersToProcess(OrderQueue ordersToProcess) { this.ordersToProcess = ordersToProcess; }
@@ -223,6 +228,13 @@ public class StoreManager extends WarehouseElement {
         setOrdersToProcess(new OrderQueue());
         forFilesInDir(path, (File f) -> getOrdersToProcess().enqueue(Order.readFromFile(f.getAbsolutePath())));
     }
+    public void saveOrdersToProcess(String path) {
+        updateStoredPath(2, path);
+        for (Order order : getOrdersToProcess()) {
+            order.setDir(path);
+            order.writeToFile();
+        }
+    }
 
     public OrderList getOrdersProcessed() { return ordersProcessed; }
     public void setOrdersProcessed(OrderList ordersProcessed) { this.ordersProcessed = ordersProcessed; }
@@ -230,6 +242,13 @@ public class StoreManager extends WarehouseElement {
         updateStoredPath(3, path);
         setOrdersProcessed(new OrderList());
         forFilesInDir(path, (File f) -> getOrdersProcessed().add(Order.readFromFile(f.getAbsolutePath())) );
+    }
+    public void saveOrdersProcessed(String path) {
+        updateStoredPath(3, path);
+        for (Order order : getOrdersProcessed()) {
+            order.setDir(path);
+            order.writeToFile();
+        }
     }
 
     public PersonBSTree getStoreCustomers() { return storeCustomers; }
@@ -240,6 +259,12 @@ public class StoreManager extends WarehouseElement {
         for (String s : stringsFromFile(filepath)) {
             Person customer = Person.readFromString(s);
             getStoreCustomers().insert(customer);
+        }
+    }
+    public void saveStoreCustomers(String filepath) {
+        updateStoredPath(4, filepath);
+        for (Person customer : getStoreCustomers()) {
+            customer.writeToFile(filepath);
         }
     }
 
@@ -253,6 +278,12 @@ public class StoreManager extends WarehouseElement {
             getStoreProviders().insert(provider);
         }
     }
+    public void saveStoreProviders(String filepath) {
+        updateStoredPath(5, filepath);
+        for (Provider provider : getStoreProviders()) {
+            provider.writeToFile(filepath);
+        }
+    }
 
     public PersonBSTree getStoreEmployees() { return storeEmployees; }
     public void setStoreEmployees(PersonBSTree storeEmployees) { this.storeEmployees = storeEmployees; }
@@ -264,13 +295,39 @@ public class StoreManager extends WarehouseElement {
             getStoreEmployees().insert(employee);
         }
     }
+    public void saveStoreEmployees(String filepath) {
+        updateStoredPath(6, filepath);
+        for (Person employee : getStoreEmployees()) {
+            employee.writeToFile(filepath);
+        }
+    }
 
     public String[] getStoreDataInfo() { return storeDataInfo; }
-    public void setStoreDataInfo(String[] storeDataInfo) { set(storeDataInfo); }
+    public void setStoreDataInfo(String... storeDataInfo) { set(storeDataInfo); }
 
     public double getStockCost() { return getStock().getTotalCost(); }
 
     public double getStockBenefit() { return getStock().getTotalBenefit(); }
+
+
+    public void saveStore(String... storeDataInfo) {
+        if (storeDataInfo.length == 7)  storeDataInfo = Arrays.copyOfRange(storeDataInfo, 1,6); // Omit the store name
+        if (storeDataInfo.length != 6)  throw new IllegalArgumentException("Wrong number of data fields.");
+
+        saveStock(storeDataInfo[0]);
+        saveOrdersToProcess(storeDataInfo[1]);
+        saveOrdersProcessed(storeDataInfo[2]);
+        saveStoreCustomers(storeDataInfo[3]);
+        saveStoreProviders(storeDataInfo[4]);
+        saveStoreEmployees(storeDataInfo[5]);
+    }
+    public void saveStore(String dir) {
+        saveStore(dataInfoPaths(dir));
+    }
+    public void saveStore() {
+        saveStore(getStoreDataInfo());
+    }
+
     //#endregion  Getters/Setters Readers/Savers
 
 
@@ -376,6 +433,28 @@ public class StoreManager extends WarehouseElement {
         ArrayList<Order> orders = new ArrayList<Order>();
         forFilesInDir(folder, (File f) -> orders.add(Order.readFromFile(f.getAbsolutePath())));
         return orders;
+    }
+
+
+    /**
+     * Accepts a directory path and returns the 6 fundamental paths according to the standard structure.
+     * 
+     * @param dir the directory path where the store information is stored
+     * @return an array of 6 Strings containing the following store information fields:
+     * <ol>
+     * <li>Stock file
+     * <li>Orders to process folder
+     * <li>Orders processed folder
+     * <li>Store customers file
+     * <li>Store providers file
+     * <li>Store employees file
+     */
+    public String[] dataInfoPaths(String dir) {
+        String[] dataInfo = new String[6];
+        for (int i = 1; i<DEF_STRUCTURE.length; i++) {
+            dataInfo[i] = dir + File.separator + DEF_STRUCTURE[i];
+        }
+        return dataInfo;
     }
 
 
