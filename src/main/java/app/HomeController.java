@@ -17,6 +17,10 @@ public class HomeController {
     public String home(Model model) {
         return "index";
     }
+    @GetMapping("/home")
+    public String home2(Model model) {
+        return home(model);
+    }
 
 
     @GetMapping("/create")
