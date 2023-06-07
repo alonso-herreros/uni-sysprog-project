@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create Store</title>
+	<link th:replace="/fragments/commonHead :: favicon" />
+	<div th:replace="/fragments/commonHead :: styles"></div>
+	<div th:replace="/fragments/commonHead :: scripts"></div>
+</head>
+<body>
+	<header th:replace="/fragments/header :: header"></header>
+
+	<main>
+		<h2>Create Store</h2>
+		<form action="/create-store" method="post">
+			<div class="form-group">
+				<label for="storeName">Store Name:</label>
+				<input type="text" id="storeName" name="storeName" required>
+			</div>
+			<button type="submit">Create</button>
+		</form>
+	</main>
+
+	<footer th:replace="/fragments/footer :: footer"></footer>
+</body>
+</html>

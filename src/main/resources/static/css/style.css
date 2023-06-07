@@ -190,3 +190,45 @@ footer {
   color: #fff;
 }
 /* #endregion */
+
+
+/* #region Form styles */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 18px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+button[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background-color: #555;
+}
+
+/* #endregion */
+
