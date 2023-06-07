@@ -18,7 +18,7 @@ public interface BSTree<T extends Comparable<T>, E> extends Iterable<E> {
 
         @Override
         public boolean hasNext() {
-            return !(stack.isEmpty() || stack.peek() == null || stack.peek().isEmpty());
+            return !(stack.isEmpty() || (stack.peek() != null && stack.peek().isEmpty()));
         }
         @Override
         public E next() {
