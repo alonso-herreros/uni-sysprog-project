@@ -2,7 +2,7 @@ package app;
 
 import org.xml.sax.SAXException;
 
-import warehouse.StoreManager;
+import store.StoreManager;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class RunApp {
-	
+
     public static void main(String[] args) throws SAXException, IOException {
       SpringApplication.run(RunApp.class, args);
     }
