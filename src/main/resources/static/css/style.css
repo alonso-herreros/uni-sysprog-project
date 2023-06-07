@@ -5,7 +5,7 @@
 	padding: 0;
 }
 
-/* Style the store name heading */
+/* #region Store name heading */
 h1 {
 	font-size: 36px;
 	font-weight: bold;
@@ -15,8 +15,16 @@ h1 a {
 	color: #fff;
 	text-decoration: none;
 }
+/* #endregion */
 
-/* Style headers and paragraphs */
+/* #region body, headers and paragraphs */
+
+/* Set the page font */
+body {
+	min-height: 100vh;
+	position: relative;
+	font-family: 'Open Sans', sans-serif;
+}
 
 h2 {
 	margin: 40px 0 10px;
@@ -33,15 +41,10 @@ p {
 	margin-bottom: 10px;
 	font-size: 18px;
 }
+/* #endregion */
 
-/* Set the page font */
-body {
-	min-height: 100vh;
-	position: relative;
-	font-family: 'Open Sans', sans-serif;
-}
 
-/* Style the page header */
+/* #region Page header */
 header {
 	margin: 0 0 20px;
 	padding: 20px;
@@ -51,8 +54,9 @@ header {
 	justify-content: space-between;
 	align-items: center;
 }
+/* #endregion */
 
-/* Style the navigation menu */
+/* #region Navigation menu */
 nav ul {
 	list-style: none;
 	display: flex;
@@ -93,8 +97,9 @@ nav ul li a:hover {
 nav ul li a.active {
 	font-weight: bold;
 }
+/* #endregion */
 
-/* Style the footer */
+/* #region Footer */
 footer {
 	background-color: #333;
 	color: #fff;
@@ -104,9 +109,10 @@ footer {
 	bottom: 0;
 	width: 100%;
 }
+/* #endregion */
 
 
-/* Style the main content */
+/* #region Main content */
 .info-card {
 	max-width: 800px;
 	margin: 10px auto 10px;
@@ -119,8 +125,9 @@ footer {
 	font-size: 24px;
 	margin: 20px 0;
 }
+/* #endregion */
 
-/* Style the operations list for the manage page */
+/* #region Operations list for the manage page */
 .operations {
   list-style: none;
   padding: 0;
@@ -145,8 +152,9 @@ footer {
   background-color: #333;
   color: #f2f2f2;
 }
+/* #endregion */
 
-/* Style for error page */
+/* #region Error page */
 .error {
   max-width: 800px;
   margin: 30px auto 50px;
@@ -181,3 +189,4 @@ footer {
   background-color: #777;
   color: #fff;
 }
+/* #endregion */
