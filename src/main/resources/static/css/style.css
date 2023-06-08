@@ -247,30 +247,33 @@ form {
     margin-bottom: 20px;
 }
 
-label {
+.form-group label {
     font-size: 18px;
+	margin: 0 10px;
+	text-align: center;
 }
 
-input[type="text"] {
+.form-group input[type="text"] {
     width: 100%;
     padding: 10px;
-    border-radius: 5px;
+	margin: 10px 0;
+    border-radius: 50px;
     border: 1px solid #ccc;
     font-size: 16px;
 }
 
-button[type="submit"] {
+form button[type="submit"] {
     background-color: #333;
     color: #fff;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 50px;
     border: none;
     font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
 }
 
-button[type="submit"]:hover {
+form button[type="submit"]:hover {
     background-color: #555;
 }
 
