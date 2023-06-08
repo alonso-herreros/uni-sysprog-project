@@ -123,6 +123,11 @@ public class HomeController {
         setupElementList(model, "orders/unprocessed");
         return "list";
     }
+    @GetMapping("manage/orders/processed/list")
+    public String pOrdersList(Model model) {
+        setupElementList(model, "orders/processed");
+        return "list";
+    }
     // #endregion
 
 

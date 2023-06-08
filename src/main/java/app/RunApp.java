@@ -48,6 +48,7 @@ public class RunApp {
         }
     }
 
+    // #region List Objects
     @GetMapping("/manage/stock/list/listObject")
     public static String getStockList() {
         return storeManager.getStock().getJSON("products");
@@ -56,6 +57,11 @@ public class RunApp {
     public static String getUPOrdersList() {
         return storeManager.getOrdersToProcess().toJSON();
     }
+    @GetMapping("/manage/orders/processed/list/listObject")
+    public static String getPOrdersList() {
+        return storeManager.getOrdersProcessed().toJSON();
+    }
+    // #endregion
 
 
 }
