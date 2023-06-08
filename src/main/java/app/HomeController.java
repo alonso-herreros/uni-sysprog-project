@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -58,53 +59,18 @@ public class HomeController {
 
 
     // #region Manage menus
-    @GetMapping("manage/stock")
-    public String stock(Model model) {
-        setupManageMenu(model, "stock");
-        return "manage";
-    }
-    @GetMapping("manage/orders-unprocessed")
-    public String unprocessedOrders(Model model) {
-        setupManageMenu(model, "orders-unprocessed");
-        return "manage";
-    }
-    @GetMapping("manage/orders-processed")
-    public String processedOrders(Model model) {
-        setupManageMenu(model, "orders-processed");
-        return "manage";
-    }
-    @GetMapping("manage/clients")
-    public String clients(Model model) {
-        setupManageMenu(model, "clients");
-        return "manage";
-    }
-    @GetMapping("manage/providers")
-    public String providers(Model model) {
-        setupManageMenu(model, "providers");
-        return "manage";
-    }
-    @GetMapping("manage/employees")
-    public String employees(Model model) {
-        setupManageMenu(model, "employees");
+    @GetMapping("manage/{variantName}")
+    public String stock(Model model, @PathVariable String variantName) {
+        setupManageMenu(model, variantName);
         return "manage";
     }
     // #endregion
 
 
     // #region List menus
-    @GetMapping("manage/stock/list")
-    public String stockList(Model model) {
-        setupElementList(model, "stock");
-        return "list";
-    }
-    @GetMapping("manage/orders-unprocessed/list")
-    public String upOrdersList(Model model) {
-        setupElementList(model, "orders-unprocessed");
-        return "list";
-    }
-    @GetMapping("manage/orders-processed/list")
-    public String pOrdersList(Model model) {
-        setupElementList(model, "orders-processed");
+    @GetMapping("manage/{variantName}/list")
+    public String stockList(Model model, @PathVariable String variantName) {
+        setupElementList(model, variantName);
         return "list";
     }
     // #endregion
