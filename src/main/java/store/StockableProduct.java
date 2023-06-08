@@ -51,7 +51,7 @@ public class StockableProduct extends Product implements Comparable<Object> {
     @Override
     public void defineGettersJSON() {
         gettersJSON.put("productID", () -> Integer.toString(getProductID()));
-        super.defineGetters();
+        super.defineGettersJSON();
         gettersJSON.put("numUnits", () -> Integer.toString(getNumUnits()));
         gettersJSON.put("costPerUnit", () -> String.format("%.2f", getCostPerUnit()));
         gettersJSON.put("pricePerUnit", () -> String.format("%.2f", getPricePerUnit()));
