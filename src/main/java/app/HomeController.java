@@ -32,6 +32,11 @@ public class HomeController {
         setupManageMenu(model, "Stock", "stock", "stock");
         return "manage";
     }
+    @GetMapping("manage/stock/list")
+    public String stockList(Model model) {
+        setupManageMenu(model, "Stock", "stock", "stock");
+        return "stockList";
+    }
 
     @GetMapping("manage/orders/unprocessed")
     public String unprocessedOrders(Model model) {

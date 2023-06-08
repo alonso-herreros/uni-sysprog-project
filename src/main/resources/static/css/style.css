@@ -41,6 +41,23 @@ p {
 	margin-bottom: 10px;
 	font-size: 18px;
 }
+.inline-header {
+	display: inline-block;
+	margin: 0 0 10px;
+}
+.titlebar-container {
+	display: flex;
+	margin: 0 0 40px;
+	justify-content: space-between;
+	align-items: center;
+	vertical-align: center;
+}
+.titlebar-elements {
+	width: 50%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 /* #endregion */
 
 
@@ -284,4 +301,133 @@ form button[type="submit"]:hover {
 code.toString {
 	word-wrap: break-word;
 }
+/* #endregion */
+
+
+/* #region List page */
+/* Style the stock container */
+.stock-container {
+    max-width: 800px;
+    margin: 30px auto;
+}
+
+/* #region Style the search bar */
+.search-bar {
+	height: 40px;
+    display: flex;
+    align-items: center;
+	float: right;
+    width: 80%;
+    margin: 10px;
+    border-radius: 50px;
+	border: 1px solid #ccc;
+    overflow: hidden;
+}
+
+.search-bar.selected {
+	border: 1px solid #333;
+}
+
+.search-input {
+    flex-grow: 1;
+    padding: 10px;
+	border: none !important;
+    border-radius: 20px 0 0 20px;
+}
+.search-input:focus {
+	outline: none !important;
+}
+
+.search-button {
+    background-color: transparent;
+    border: none;
+    color: #333;
+    padding: 10px;
+	margin: 0 5px;
+    border-radius: 0 20px 20px 0;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.search-button:hover {
+    background-color: transparent;
+    cursor: pointer;
+    color: #666;
+}
+/* #endregion */
+
+/* #region Style the insert buttons */
+.insert-buttons {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.insert-buttons button {
+	height: 39px;
+	width: 39px;
+	text-align: center;
+	vertical-align: center;
+    background-color: transparent;
+    color: #666;
+    padding: 10px;
+    border: 1px solid #bbb;
+	border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.insert-buttons button:hover {
+    background-color: #eee;
+    color: #333;
+}
+/* #endregion */
+
+/* #region Style the stock table */
+.stock-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.stock-table th,
+.stock-table td {
+    padding: 12px 12px;
+    text-align: left;
+}
+
+.stock-table th {
+    border-bottom: 1px solid #ccc;
+    font-weight: normal;
+}
+.stock-table col.id {
+	width: 55px ;
+}
+.stock-table col.brand {
+	width: 250px;
+}
+.stock-table col.button {
+	width: 40px;
+}
+
+
+.stock-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.stock-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.open-button {
+	width: 20px;
+    background-color: transparent;
+    border: none;
+    color: #333;
+    padding: 10px;
+	margin: 0 5px;
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+/* #endregion */
+
 /* #endregion */

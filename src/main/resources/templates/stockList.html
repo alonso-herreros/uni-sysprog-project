@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Store Management System</title>
+	<link th:replace="/fragments/commonHead :: favicon" />
+	<div th:replace="/fragments/commonHead :: styles"></div>
+	<div th:replace="/fragments/commonHead :: scripts"></div>
+</head>
+<body>
+	<header th:replace="/fragments/header :: header"></header>
+
+	<main>
+        <div class="stock-container">
+			<div class="titlebar-container">
+				<h2 class="inline-header">Stock Listing</h2>
+				<div class="titlebar-elements">
+					<div class="search-bar">
+						<input type="text" placeholder="Search ID..." class="search-input" />
+						<button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+					</div>
+					<div class="insert-buttons">
+						<button type="button" class="insert-top-button"><i class="fas fa-plus"></i></button>
+					</div>
+				</div>
+			</div>
+            <table class="stock-table">
+				<colgroup>
+					<col class="id" />
+					<col class="name" />
+					<col class="brand" />
+					<col class="button" />
+				</colgroup>
+                <thead>
+                    <tr>
+                        <th class="id">ID</th>
+                        <th class="name">Name</th>
+                        <th class="brand">Brand</th>
+                        <th class="button"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Product A</td>
+                        <td>Brand A</td>
+                        <td>
+                            <button type="button" class="open-button"><i class="fas fa-xl fa-circle-info"></i></button>
+                        </td>
+                    </tr>
+                    <!-- Add more rows here -->
+                </tbody>
+            </table>
+            <div class="insert-buttons">
+                <button type="button" class="insert-bottom-button"><i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+	</main>
+
+	<footer th:replace="/fragments/footer :: footer"></footer>
+</body>
+</html>
