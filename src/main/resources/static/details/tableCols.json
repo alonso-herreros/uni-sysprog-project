@@ -30,7 +30,7 @@
         }
     ],
 
-    "orders": [
+    "orders/unprocessed": [
         {
             "class": "id",
             "title": "ID",

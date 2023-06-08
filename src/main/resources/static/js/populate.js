@@ -22,7 +22,7 @@ async function populateTable() {
   populateTableHead(tableCols)
 
   var listObject = await fetchListObject()
-  populateTableBody(listObject, Object.keys(tableCols))
+  populateTableBody(listObject, tableCols)
 }
 
 function populateTableHead(tableCols) {
@@ -30,32 +30,65 @@ function populateTableHead(tableCols) {
   tableHead.innerHTML = ""
 
   tableHead.appendChild(
-    newRowByIteration(Object.keys(tableCols), (key) =>
-      newTHCell(tableCols[key], key)
+    newRowByIteration(tableCols, (col) =>
+      newTHCell(col.title, col.class)
     )
   )
 }
 
-function populateTableBody(listObject, tableColNames) {
+function populateTableBody(listObject, tableCols) {
   var tableBody = document.getElementById("element-table-body")
   tableBody.innerHTML = ""
 
-  listObject.forEach((item) => {
+  for (const element of listObject) {
     tableBody.appendChild(
-      newRowByIteration( tableColNames, (key) => {
-        if (key == "detailsButton") return newButtonCell()
-        return newCell(item[key])
-      })
+      newRowByIteration(tableCols, (col) => getColumnContent(element, col))
     )
-  })
+  }
+}
+
+
+function getColumnContent(element, column) {
+  if (column.class == "detailsButton") return newButtonCell()
+  
+  var cellContent = ""
+  for (const pieceDescriptor of column.content) {
+    cellContent += getContentPiece(element, pieceDescriptor)
+  }
+
+  return newCell(cellContent)
+}
+
+function getContentPiece(element, pieceDesc) {
+  var piece = ""
+  switch (pieceDesc.type) {
+    case "attribute":
+      piece = element
+      for (const attr of pieceDesc.attributePath)  piece = piece[attr]
+      break
+    case "value":
+      piece = pieceDesc.value
+      break
+  }
+  piece = formatData(piece, pieceDesc.format)
+  return piece
+}
+
+function formatData(data, format) {
+  if (!format) return data
+  switch (format.type) {
+    case "float":
+      data = data.toFixed(format.decimalPlaces || 2)
+  }
+  if (format.prefix)  data = format.prefix + data
+  if (format.suffix)  data = data + format.suffix
+  return data
 }
 
 
 function newRowByIteration(iterable, executable) {
   var row = document.createElement("tr")
-  iterable.forEach( (item) => {
-    row.appendChild(executable(item))
-  })
+  for (const item of iterable)  row.appendChild(executable(item))
   return row
 }
 
