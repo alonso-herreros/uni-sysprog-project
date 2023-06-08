@@ -17,7 +17,7 @@
 				<li><a href="#">Remove <span th:text="${menu.elementName}"></span></a></li>
 				<li><a href="#">Modify <span th:text="${menu.elementName}"></span></a></li>
 				<li><a href="#">Search <span th:text="${menu.elementName}"></span></a></li>
-				<li><a th:href="@{{subMenu}/list(subMenu=${menu.name})}">List <span th:text="${menu.elementsName}"></span></a></li>
+				<li><a th:href="@{/manage/{subMenu}/list(subMenu=${menu.name})}">List <span th:text="${menu.elementsName}"></span></a></li>
 			</ul>
 		</div>
 	</main>
