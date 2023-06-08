@@ -10,7 +10,7 @@ import dataStructures.*;
 public class StoreManager extends WarehouseElement {
 
     // Here are some simple class declarations adjusted to the needs of the StoreManager class.
-    protected class PersonBSTree extends SKLBSTree<Integer, Person> implements SMContext<Person>, JSONAble {
+    public final class PersonBSTree extends SKLBSTree<Integer, Person> implements SMContext<Person>, JSONAble {
         @Override public Class<Person> getElementClass() { return Person.class; }
         public PersonBSTree() { this(null); }
         public PersonBSTree(Person person) { super(person, (Person p) -> p.getID()); }
@@ -31,7 +31,7 @@ public class StoreManager extends WarehouseElement {
 
     }
 
-    protected class ProviderBSTree extends SKLBSTree<Integer, Provider> implements SMContext<Provider>, JSONAble {
+    public final class ProviderBSTree extends SKLBSTree<Integer, Provider> implements SMContext<Provider>, JSONAble {
         @Override public Class<Provider> getElementClass() { return Provider.class; }
         public ProviderBSTree() { this(null); }
         public ProviderBSTree(Provider provider) { super(provider, (Provider p) -> p.getVat()); }
@@ -52,7 +52,7 @@ public class StoreManager extends WarehouseElement {
 
     }
 
-    protected class OrderQueue extends LinkedQueue<Order> implements SMContext<Order>, JSONAble {
+    public final class OrderQueue extends LinkedQueue<Order> implements SMContext<Order>, JSONAble {
         @Override public Class<Order> getElementClass() { return Order.class; }
         public OrderQueue() { super(); }
 
@@ -76,7 +76,7 @@ public class StoreManager extends WarehouseElement {
 
     }
 
-    protected class OrderList extends LinkedList<Order> implements SMContext<Order>, JSONAble {
+    public final class OrderList extends LinkedList<Order> implements SMContext<Order>, JSONAble {
         @Override public Class<Order> getElementClass() { return Order.class; }
         public OrderList() { super(); }
 
