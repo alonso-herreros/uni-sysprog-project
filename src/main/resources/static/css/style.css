@@ -369,13 +369,13 @@ code.toString {
 }
 /* #endregion */
 
-/* #region Style the insert buttons */
-.insert-buttons {
+/* #region Insert buttons */
+.insert-button {
     margin: 20px 0;
     text-align: center;
 }
 
-.insert-buttons button {
+.insert-button button {
 	height: 39px;
 	width: 39px;
 	text-align: center;
