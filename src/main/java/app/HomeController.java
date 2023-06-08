@@ -1,12 +1,19 @@
 package app;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import store.StoreManager;
 
@@ -144,11 +151,26 @@ public class HomeController {
         return model.addAttribute("menu", menu);
     }
 
-    public Model setupElementList(Model model, String listName) {
-        return setupElementList(model, new ListBuildData(listName));
+
+    // #region Utility methods
+    @SuppressWarnings("unchecked")
+    public LinkedHashMap<String, Object> getVariant(String dir, String variantName) {
+        Object variant = readJSON(dir + variantName.replace("/", ".") + ".json");
+
+        if (!(variant instanceof LinkedHashMap))
+            throw new RuntimeException("Invalid variant file: " + variantName  + " in " + dir);
+
+        return (LinkedHashMap<String, Object>) variant;
     }
-    public Model setupElementList(Model model, ListBuildData list) {
-        return model.addAttribute("list", list);
+
+    public static Object readJSON(String jsonFilePath) {
+        try {
+            String jsonString = new String(Files.readString(Paths.get(jsonFilePath)));
+            return new ObjectMapper().readValue(jsonString, new TypeReference<Object>() {});
+        } catch (IOException e) {
+            return "IOException: " + e.getMessage();
+        }
     }
+    // #endregion
 
 }
