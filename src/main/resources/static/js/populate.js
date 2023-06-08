@@ -1,47 +1,91 @@
-window.onload = populateTable;
+window.onload = populateTable
 
 
-function populateTable() {
-  // Make AJAX requests to retrieve the data from server
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", "list/listObject", true);
-  xhr.onload = function () {
-    if (xhr.status === 200) {
-      var data = JSON.parse(xhr.responseText);
-      
-      // Clear the existing table rows
-      var tableBody = document.getElementById("element-table-body");
-      tableBody.innerHTML = "";
+async function fetchTableCols() {
+  return fetch("/var/tableCols.json").then( (response) =>
+    response.json()
+  ).then( (allOptions) =>
+    allOptions[LIST_NAME]
+  )
+}
 
-      // Loop through the data and create table rows dynamically
-      data.list.forEach(function (item) {
-        var row = document.createElement("tr");
 
-        // Create table cells for each data field
-        var idCell = document.createElement("td");
-        idCell.textContent = item.productID;
-        row.appendChild(idCell);
+async function fetchListObject() {
+  return fetch("list/listObject").then( (response) =>
+    response.json()
+  ).then( (listObject) =>
+    listObject.list
+  )
+}
 
-        var nameCell = document.createElement("td");
-        nameCell.textContent = item.name;
-        row.appendChild(nameCell);
 
-        var brandCell = document.createElement("td");
-        brandCell.textContent = item.brand;
-        row.appendChild(brandCell);
+async function populateTable() {
+  var tableCols = await fetchTableCols()
+  populateTableHead(tableCols)
 
-        var buttonCell = document.createElement("td");
-        var button = document.createElement("button");
-        button.setAttribute("type", "button");
-        button.setAttribute("class", "open-button");
-        button.innerHTML = '<i class="fas fa-xl fa-circle-info"></i>';
-        buttonCell.appendChild(button);
-        row.appendChild(buttonCell);
+  var listObject = await fetchListObject()
+  populateTableBody(listObject, Object.keys(tableCols))
+}
 
-        // Append the row to the table body
-        tableBody.appendChild(row);
-      });
-    }
-  };
-  xhr.send();
+function populateTableHead(tableCols) {
+  var tableHead = document.getElementById("element-table-head")
+  tableHead.innerHTML = ""
+
+  tableHead.appendChild(
+    newRowByIteration(Object.keys(tableCols), (key) =>
+      newTHCell(tableCols[key], key)
+    )
+  )
+}
+
+function populateTableBody(listObject, tableColNames) {
+  var tableBody = document.getElementById("element-table-body")
+  tableBody.innerHTML = ""
+
+  listObject.forEach((item) => {
+    tableBody.appendChild(
+      newRowByIteration( tableColNames, (key) => {
+        if (key == "detailsButton") return newButtonCell()
+        return newCell(item[key])
+      })
+    )
+  })
+}
+
+
+function newRowByIteration(iterable, executable) {
+  var row = document.createElement("tr")
+  iterable.forEach( (item) => {
+    row.appendChild(executable(item))
+  })
+  return row
+}
+
+function newCell(content) {
+  return newElement("td", content)
+}
+function newTHCell(content) {
+  return newElement("td", content)
+}
+function newTHCell(content, className) {
+  var cell = newElement("th", content)
+  cell.setAttribute("class", className)
+  return cell
+}
+
+// Add an ID parameter to make the button unique to its row
+function newButtonCell() {
+  var cell = document.createElement("td")
+  var button = document.createElement("button")
+  button.setAttribute("type", "button")
+  button.setAttribute("class", "open-button")
+  button.innerHTML = '<i class="fas fa-xl fa-circle-info"></i>'
+  cell.appendChild(button)
+  return cell
+}
+
+function newElement(tag, content) {
+  var element = document.createElement(tag)
+  element.textContent = content
+  return element
 }

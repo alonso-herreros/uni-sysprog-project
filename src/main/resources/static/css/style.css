@@ -399,13 +399,13 @@ code.toString {
     border-bottom: 1px solid #ccc;
     font-weight: normal;
 }
-.element-table col.id {
+.element-table th.productID {
 	width: 55px ;
 }
-.element-table col.brand {
+.element-table th.brand {
 	width: 250px;
 }
-.element-table col.button {
+.element-table th.detailsButton {
 	width: 40px;
 }
 
