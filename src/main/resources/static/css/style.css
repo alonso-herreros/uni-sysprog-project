@@ -417,11 +417,15 @@ code.toString {
     background-color: transparent;
     border: none;
     color: #333;
-    padding: 10px;
+    padding: 5px;
 	margin: 0 10px;
     border-radius: 0 20px 20px 0;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
+}
+
+.open-button:hover {
+    color: #555;
 }
 /* #endregion */
 
