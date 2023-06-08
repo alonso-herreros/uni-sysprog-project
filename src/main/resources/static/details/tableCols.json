@@ -1,0 +1,89 @@
+{
+    "stock": [
+        {
+            "class": "id",
+            "title": "ID",
+            "content": [{
+                "type": "attribute",
+                "attributePath": ["productID"]
+            }]
+        },
+        {
+            "class": "name",
+            "title": "Name",
+            "content": [{
+                "type": "attribute",
+                "attributePath": ["name"]
+            }]
+        },
+        {
+            "class": "brand",
+            "title": "Brand",
+            "content": [{
+                "type": "attribute",
+                "attributePath": ["brand"]
+            }]
+        },
+        {
+            "class": "detailsButton",
+            "title": ""
+        }
+    ],
+
+    "orders": [
+        {
+            "class": "id",
+            "title": "ID",
+            "content": [{
+                "type": "attribute",
+                "attributePath": ["orderID"]
+            }]
+        },
+        {
+            "class": "name",
+            "title": "Employee",
+            "type": "compound",
+            "content": [{
+                "type": "attribute",
+                "attributePath": ["employee", "firstName"],
+                "format": {
+                    "suffix": " "
+                }
+            },
+            {
+                "type": "attribute",
+                "attributePath": ["employee", "lastName"]
+            }]
+        },
+        {
+            "class": "price",
+            "title": "Cost",
+            "content": [{
+                "type": "attribute",
+                "attributePath": ["totalCost"],
+                "format": {
+                    "type": "float",
+                    "decimalPlaces": 2,
+                    "suffix": " €"
+                }
+            }]
+        },
+        {
+            "class": "price",
+            "title": "Price",
+            "content": [{
+                "type": "attribute",
+                "attributePath": ["totalPrice"],
+                "format": {
+                    "type": "float",
+                    "decimalPlaces": 2,
+                    "suffix": " €"
+                }
+            }]
+        },
+        {
+            "class": "detailsButton",
+            "title": ""
+        }
+    ]
+}

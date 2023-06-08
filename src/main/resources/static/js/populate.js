@@ -2,7 +2,7 @@ window.onload = populateTable
 
 
 async function fetchTableCols() {
-  return fetch("/var/tableCols.json").then( (response) =>
+  return fetch("/details/tableCols.json").then( (response) =>
     response.json()
   ).then( (allOptions) =>
     allOptions[LIST_NAME]
