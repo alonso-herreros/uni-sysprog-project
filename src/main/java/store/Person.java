@@ -31,12 +31,21 @@ public class Person extends WarehouseElement implements Comparable<Person> {
 
 
     // Getters and Setters
+    @Override
     protected void defineGetters() {
         getters.put("id", () -> String.format("%08d", getID()));
         getters.put("firstName", () -> getFirstName());
         getters.put("lastName", () -> getLastName());
         getters.put("email", () -> getEmail());
     }
+    @Override
+    protected void defineGettersJSON() {
+        gettersJSON.put("id", () -> Integer.toString(getID()) );
+        gettersJSON.put("firstName", () -> quote(getFirstName()) );
+        gettersJSON.put("lastName", () -> quote(getLastName()) );
+        gettersJSON.put("email", () -> quote(getEmail())) ;
+    }
+    @Override
     protected void defineSetters() {
         setters.put("id", (String value) -> setID(Integer.parseInt(value)));
         setters.put("firstName", (String value) -> setFirstName(value));

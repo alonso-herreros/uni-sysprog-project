@@ -1,1 +1,1 @@
-(2|Cap'n Crunch Original|Cap'n Crunch|f|true|boxes|5|5.0|7.5)
+(2|Cap'n Crunch Original|Cap'n Crunch|f|true|boxes|5|5.00|7.50)

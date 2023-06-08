@@ -24,8 +24,8 @@ public class OrderTest {
     public void setUp() {
         try {
             order = new Order();
-            sp1 = new StockableProduct("1|Pods|Tide|f|true|fl oz|30|10.0|20.0");
-            sp2 = new StockableProduct("2|Product2|Tide|f|true|fl oz|40|20.0|30.0");
+            sp1 = new StockableProduct("1|Pods|Tide|f|true|fl oz|30|10.00|20.00");
+            sp2 = new StockableProduct("2|Product2|Tide|f|true|fl oz|40|20.00|30.00");
         }
         catch (Exception e) {
             System.out.println(e);
@@ -89,6 +89,29 @@ public class OrderTest {
         String filepath = "src\\test\\resources\\orders\\001_00000001_00000002";
 
         assertThrows(IllegalArgumentException.class, () -> Order.getParamsFromFilename(filepath), "Invalid filepath: " + filepath + ".");
+    }
+
+    @Test
+    public void testToJSON() {
+        order.setClient(new Person(person1String));
+        order.setEmployee(new Person(person2String));
+        order.add(sp1);
+        order.add(sp2);
+
+        String expectedJSON = "{\n" +
+                "\"orderID\": " + Order.maxOrderID + ",\n" +
+                "\"client\": " + new Person(person1String).toJSON() + ",\n" +
+                "\"employee\": " + new Person(person2String).toJSON() + ",\n" +
+                "\"dir\": \"null\",\n"+
+                "\"totalCost\": 1100.00,\n" +
+                "\"totalPrice\": 1800.00,\n" +
+                "\"totalBenefit\": 700.00,\n" +
+                "\"products\": [\n" +
+                sp1.toJSON() + ",\n" +
+                sp2.toJSON() + "\n" +
+                "]\n" +
+                "}";
+        assertEquals(expectedJSON, order.toJSON());
     }
 
     @Test 

@@ -33,13 +33,13 @@ public class WarehouseElementTest {
                 add("(bruuuuh|(frfr|wthevenisthis))");
                 add("test3");
             }}),
-            Arguments.of("((1|Pods|Tide|f|true|fl oz|30|10.0|20.0)|(2|Product2|Tide|f|true|fl oz|40|20.0|30.0))", new ArrayList<String>() {{
-                add("(1|Pods|Tide|f|true|fl oz|30|10.0|20.0)");
-                add("(2|Product2|Tide|f|true|fl oz|40|20.0|30.0)");
+            Arguments.of("((1|Pods|Tide|f|true|fl oz|30|10.00|20.00)|(2|Product2|Tide|f|true|fl oz|40|20.00|30.00))", new ArrayList<String>() {{
+                add("(1|Pods|Tide|f|true|fl oz|30|10.00|20.00)");
+                add("(2|Product2|Tide|f|true|fl oz|40|20.00|30.00)");
             }}),
-            Arguments.of("(1|Pods|Tide|f|true|fl oz|30|10.0|20.0)|(2|Product2|Tide|f|true|fl oz|40|20.0|30.0)", new ArrayList<String>() {{
-                add("(1|Pods|Tide|f|true|fl oz|30|10.0|20.0)");
-                add("(2|Product2|Tide|f|true|fl oz|40|20.0|30.0)");
+            Arguments.of("(1|Pods|Tide|f|true|fl oz|30|10.00|20.00)|(2|Product2|Tide|f|true|fl oz|40|20.00|30.00)", new ArrayList<String>() {{
+                add("(1|Pods|Tide|f|true|fl oz|30|10.00|20.00)");
+                add("(2|Product2|Tide|f|true|fl oz|40|20.00|30.00)");
             }})
         );
     }

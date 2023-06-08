@@ -41,11 +41,19 @@ public class Order extends ProductList {
     // Getters and Setters
     @Override
     protected void defineGetters() {
-        super.defineGetters();
         getters.put("orderID", () -> Integer.toString(getOrderID()));
         getters.put("client", () -> getClient().toString());
         getters.put("employee", () -> getEmployee().toString());
         getters.put("dir", () -> getDir());
+        super.defineGetters();
+    }
+    @Override
+    protected void defineGettersJSON() {
+        gettersJSON.put("orderID", () -> Integer.toString(getOrderID()));
+        gettersJSON.put("client", () -> getClient().toJSON());
+        gettersJSON.put("employee", () -> getEmployee().toJSON());
+        gettersJSON.put("dir", () -> quote(getDir()));
+        super.defineGettersJSON();
     }
     @Override
     protected void defineSetters() {
@@ -82,16 +90,16 @@ public class Order extends ProductList {
     }
 
     public int getOrderID() { return orderID; }
-    private void setOrderID(int orderID) {
+    public void setOrderID(int orderID) {
         this.orderID = orderID;
         maxOrderID = Math.max(maxOrderID, orderID);
     }
 
     public Person getClient() { return client; }
-    private void setClient(Person client) { this.client = client; }
+    public void setClient(Person client) { this.client = client; }
 
     public Person getEmployee() { return employee; }
-    private void setEmployee(Person employee) { this.employee = employee; }
+    public void setEmployee(Person employee) { this.employee = employee; }
     
     public String getDir() { return dir; }
     public void setDir(String dir) {
