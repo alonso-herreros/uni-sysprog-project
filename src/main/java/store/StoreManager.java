@@ -10,7 +10,7 @@ import dataStructures.*;
 public class StoreManager extends WarehouseElement {
 
     // Here are some simple class declarations adjusted to the needs of the StoreManager class.
-    protected class PersonBSTree extends SKLBSTree<Integer, Person> implements SMContext<Person> {
+    protected class PersonBSTree extends SKLBSTree<Integer, Person> implements SMContext<Person>, JSONAble {
         @Override public Class<Person> getElementClass() { return Person.class; }
         public PersonBSTree() { this(null); }
         public PersonBSTree(Person person) { super(person, (Person p) -> p.getID()); }
@@ -26,9 +26,12 @@ public class StoreManager extends WarehouseElement {
             System.err.println("Modifying people from Store isn't allowed.");
             return null;
         }
+
+        @Override public String toJSON() { return JsonDictFromSKIterable(this, (Person p) -> p.toJSON()); }
+
     }
 
-    protected class ProviderBSTree extends SKLBSTree<Integer, Provider> implements SMContext<Provider> {
+    protected class ProviderBSTree extends SKLBSTree<Integer, Provider> implements SMContext<Provider>, JSONAble {
         @Override public Class<Provider> getElementClass() { return Provider.class; }
         public ProviderBSTree() { this(null); }
         public ProviderBSTree(Provider provider) { super(provider, (Provider p) -> p.getVat()); }
@@ -44,9 +47,12 @@ public class StoreManager extends WarehouseElement {
             System.err.println("Modifying people from Store isn't allowed.");
             return null;
         }
+
+        @Override public String toJSON() { return JsonDictFromSKIterable(this, (Provider p) -> p.toJSON()); }
+
     }
 
-    protected class OrderQueue extends LinkedQueue<Order> implements SMContext<Order> {
+    protected class OrderQueue extends LinkedQueue<Order> implements SMContext<Order>, JSONAble {
         @Override public Class<Order> getElementClass() { return Order.class; }
         public OrderQueue() { super(); }
 
@@ -66,9 +72,11 @@ public class StoreManager extends WarehouseElement {
         }
         @Override public void modify(int identifier, Order data) { throw new UnsupportedOperationException("Can't modify elements in a queue."); }
         
+        @Override public String toJSON() { return JsonListFromIterable(this); }
+
     }
 
-    protected class OrderList extends LinkedList<Order> implements SMContext<Order> {
+    protected class OrderList extends LinkedList<Order> implements SMContext<Order>, JSONAble {
         @Override public Class<Order> getElementClass() { return Order.class; }
         public OrderList() { super(); }
 
@@ -82,7 +90,7 @@ public class StoreManager extends WarehouseElement {
         @Override public Order remove() { return remove(Integer.valueOf(stringFromStdio("Enter ID of the element to remove:")), 0); }
         @Override public Order search(int identifier) { throw new UnsupportedOperationException("Can't search in a list."); }
         @Override public void modify(int identifier, Order data) { throw new UnsupportedOperationException("Can't modify elements in a list."); }
-        
+
         public int indexOf(int orderID) {
             int i = 0;
             for (Order e : this) {
@@ -91,6 +99,9 @@ public class StoreManager extends WarehouseElement {
             }
             return -1;
         }
+
+        @Override public String toJSON() { return JsonListFromIterable(this); }
+
     }
 
 
@@ -145,6 +156,18 @@ public class StoreManager extends WarehouseElement {
         getters.put("storeEmployees", () -> getStoreEmployees().toString());
         getters.put("stockCost", () -> Double.toString(getStockCost()));
         getters.put("stockBenefit", () -> Double.toString(getStockBenefit()));
+    }
+    @Override
+    protected void defineGettersJSON() {
+        gettersJSON.put("name", () -> quote(getName()));
+        gettersJSON.put("stock", () -> getStock().toJSON());
+        gettersJSON.put("ordersToProcess", () -> getOrdersToProcess().toJSON());
+        gettersJSON.put("ordersProcessed", () -> getOrdersProcessed().toJSON());
+        gettersJSON.put("storeCustomers", () -> getStoreCustomers().toJSON());
+        gettersJSON.put("storeProviders", () -> getStoreProviders().toJSON());
+        gettersJSON.put("storeEmployees", () -> getStoreEmployees().toJSON());
+        gettersJSON.put("stockCost", () -> Double.toString(getStockCost()));
+        gettersJSON.put("stockBenefit", () -> Double.toString(getStockBenefit()));
     }
     @Override
     protected void defineSetters() {

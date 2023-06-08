@@ -42,6 +42,14 @@ public class Product extends WarehouseElement {
         getters.put("measurementUnit", () -> getMeasurementUnit());
     }
     @Override
+    protected void defineGettersJSON() {
+        gettersJSON.put("name", () -> quote(getName()) );
+        gettersJSON.put("brand", () -> quote(getBrand()) );
+        gettersJSON.put("category", () -> quote(Character.toString(getCategory())) );
+        gettersJSON.put("isCountable", () -> Boolean.toString(isCountable()) );
+        gettersJSON.put("measurementUnit", () -> quote(getMeasurementUnit()) );
+    }
+    @Override
     protected void defineSetters() {
         setters.put("name", (String value) -> {setName(value);});
         setters.put("brand", (String value) -> setBrand(value));
