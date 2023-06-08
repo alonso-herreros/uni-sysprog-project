@@ -7,7 +7,8 @@
 	<div th:replace="/fragments/commonHead :: scripts"></div>
 	<script src="/js/populate.js"></script>
 	<script th:inline="javascript">
-		const LIST_NAME = /*[[${list.name}]]*/ "";
+		const TABLE_COLS = /*[[${tableCols}]]*/ ""
+		const VARIANT = /*[[${variant}]]*/ ""
 	</script>
 </head>
 <body>
@@ -16,7 +17,7 @@
 	<main>
         <div class="list-container">
 			<div class="titlebar-container">
-				<h2 class="inline-header"><span th:text="${list.title}"></span></h2>
+				<h2 class="inline-header"><span th:text="${variant.listTitle}"></span></h2>
 				<div class="titlebar-elements">
 					<div class="search-bar">
 						<input type="text" placeholder="Search ID..." class="search-input" />

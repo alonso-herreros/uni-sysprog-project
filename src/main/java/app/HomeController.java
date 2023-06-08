@@ -47,25 +47,8 @@ public class HomeController {
         }
     }
 
-    public static final class ListBuildData {
-        public static final HashMap<String, String[]> DEFAULT_TEXTS = new HashMap<String, String[]>() {{
-            put("default", new String[] {"Elements"});
-            put("stock", new String[] {"Stock"});
-            put("orders/unprocessed", new String[] {"Unprocessed Orders"});
-            put("orders/processed", new String[] {"Processed Orders"});
-            put("clients", new String[] {"Clients"});
-            put("providers", new String[] {"Providers"});
-            put("employees", new String[] {"Employees"});
-        }};
-        public final String name;
-        public final String title;
-
-        public ListBuildData(String name) {
-            String[] texts = DEFAULT_TEXTS.get(name);
-            this.name = name;
-            this.title = texts[0];
-        }
-    }
+    public static final String DETAILS = "src\\main\\resources\\static\\details\\";
+    public static final String TABLE_COLS_DIR = DETAILS + "\\list\\tableCols\\";
 
     
     @GetMapping("/")
@@ -143,14 +126,24 @@ public class HomeController {
     // #endregion
 
 
-    // Utility methods
-    public Model setupManageMenu(Model model, String menuName) {
-        return setupManageMenu(model, new MenuBuildData(menuName));
+    // #region Setup methods
+    public Model setupManageMenu(Model model, String variantName) {
+        return setupManageMenu(model, new MenuBuildData(variantName));
     }
     public Model setupManageMenu(Model model, MenuBuildData menu) {
         return model.addAttribute("menu", menu);
     }
 
+    public Model setupElementList(Model model, String variantName) {
+        LinkedHashMap<String, Object> variant = getVariant(DETAILS + "list\\variants\\", variantName);
+
+        model.addAttribute("variant", variant);
+        model.addAttribute("tableCols",
+            readJSON(TABLE_COLS_DIR + (String) variant.get("tableColsClass")  + ".json")
+        );
+        return model;
+    }
+    // #endregion
 
     // #region Utility methods
     @SuppressWarnings("unchecked")

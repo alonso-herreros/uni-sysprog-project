@@ -1,15 +1,6 @@
 window.onload = populateTable
 
 
-async function fetchTableCols() {
-  return fetch("/details/tableCols.json").then( (response) =>
-    response.json()
-  ).then( (allOptions) =>
-    allOptions[LIST_NAME]
-  )
-}
-
-
 async function fetchListObject() {
   return fetch("list/listObject").then( (response) =>
     response.json()
@@ -18,11 +9,10 @@ async function fetchListObject() {
 
 
 async function populateTable() {
-  var tableCols = await fetchTableCols()
-  populateTableHead(tableCols)
+  populateTableHead(TABLE_COLS)
 
   var listObject = await fetchListObject()
-  populateTableBody(listObject, tableCols)
+  populateTableBody(listObject, TABLE_COLS)
 }
 
 function populateTableHead(tableCols) {
