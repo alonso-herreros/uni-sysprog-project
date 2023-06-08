@@ -40,6 +40,26 @@ public class HomeController {
         }
     }
 
+    public static final class ListBuildData {
+        public static final HashMap<String, String[]> DEFAULT_TEXTS = new HashMap<String, String[]>() {{
+            put("default", new String[] {"Elements"});
+            put("stock", new String[] {"Stock"});
+            put("orders/unprocessed", new String[] {"Unprocessed Orders"});
+            put("orders/processed", new String[] {"Processed Orders"});
+            put("clients", new String[] {"Clients"});
+            put("providers", new String[] {"Providers"});
+            put("employees", new String[] {"Employees"});
+        }};
+        public final String name;
+        public final String title;
+
+        public ListBuildData(String name) {
+            String[] texts = DEFAULT_TEXTS.get(name);
+            this.name = name;
+            this.title = texts[0];
+        }
+    }
+
     
     @GetMapping("/")
     public String home(Model model) {
@@ -51,61 +71,65 @@ public class HomeController {
     }
 
 
+    @ModelAttribute("store")
+    public StoreManager store() {
+        return RunApp.storeManager;
+    }
+
+
     @GetMapping("/create")
-    public String create() { return "create"; }
-
-
-    @GetMapping("manage/stock")
-    public String stock(Model model) {
-        setupManageMenu(model, "stock");
-        return "manage";
+    public String create() {
+        return "create";
     }
-    @GetMapping("manage/stock/list")
-    public String stockList(Model model) {
-        setupManageMenu(model, "stock");
-        return "stockList";
-    }
-
-    @GetMapping("manage/orders/unprocessed")
-    public String unprocessedOrders(Model model) {
-        setupManageMenu(model, "orders/unprocessed");
-        return "manage";
-    }
-
-    @GetMapping("manage/orders/processed")
-    public String processedOrders(Model model) {
-        setupManageMenu(model, "orders/processed");
-        return "manage";
-    }
-
-    @GetMapping("manage/clients")
-    public String clients(Model model) {
-        setupManageMenu(model, "clients");
-        return "manage";
-    }
-
-    @GetMapping("manage/providers")
-    public String providers(Model model) {
-        setupManageMenu(model, "providers");
-        return "manage";
-    }
-
-    @GetMapping("manage/employees")
-    public String employees(Model model) {
-        setupManageMenu(model, "employees");
-        return "manage";
-    }
-
     
     @GetMapping("print")
     public String print(Model model) {
         return "print";
     }
 
-    @ModelAttribute("store")
-    public StoreManager store() {
-        return RunApp.storeManager;
+
+    // #region Manage menus
+    @GetMapping("manage/stock")
+    public String stock(Model model) {
+        setupManageMenu(model, "stock");
+        return "manage";
     }
+    @GetMapping("manage/orders/unprocessed")
+    public String unprocessedOrders(Model model) {
+        setupManageMenu(model, "orders/unprocessed");
+        return "manage";
+    }
+    @GetMapping("manage/orders/processed")
+    public String processedOrders(Model model) {
+        setupManageMenu(model, "orders/processed");
+        return "manage";
+    }
+    @GetMapping("manage/clients")
+    public String clients(Model model) {
+        setupManageMenu(model, "clients");
+        return "manage";
+    }
+    @GetMapping("manage/providers")
+    public String providers(Model model) {
+        setupManageMenu(model, "providers");
+        return "manage";
+    }
+    @GetMapping("manage/employees")
+    public String employees(Model model) {
+        setupManageMenu(model, "employees");
+        return "manage";
+    }
+    // #endregion
+
+
+    // #region List menus
+    @GetMapping("manage/stock/list")
+    public String stockList(Model model) {
+        setupElementList(model, "stock");
+        return "list";
+    }
+    // #endregion
+
 
     // Utility methods
     public Model setupManageMenu(Model model, String menuName) {
@@ -113,6 +137,13 @@ public class HomeController {
     }
     public Model setupManageMenu(Model model, MenuBuildData menu) {
         return model.addAttribute("menu", menu);
+    }
+
+    public Model setupElementList(Model model, String listName) {
+        return setupElementList(model, new ListBuildData(listName));
+    }
+    public Model setupElementList(Model model, ListBuildData list) {
+        return model.addAttribute("list", list);
     }
 
 }
