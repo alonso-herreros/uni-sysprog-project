@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class ProductListTest {
 
     private ProductList pl = new ProductList();
-    private StockableProduct sp1 = new StockableProduct("1|Pods|Tide|f|true|fl oz|30|10.0|20.0");
-    private StockableProduct sp2 = new StockableProduct("2|Product2|Tide|f|true|fl oz|40|20.0|30.0");
+    private StockableProduct sp1 = new StockableProduct("1|Pods|Tide|f|true|fl oz|30|10.00|20.00");
+    private StockableProduct sp2 = new StockableProduct("2|Product2|Tide|f|true|fl oz|40|20.00|30.00");
 
     @Test
     public void testConstructorEmpty() {
@@ -20,14 +20,14 @@ public class ProductListTest {
 
     @Test
     public void testConstructor1Product() {
-        ProductList pl = new ProductList("((0|Pods|Tide|f|true|fl oz|30|10.0|20.0))");
+        ProductList pl = new ProductList("((0|Pods|Tide|f|true|fl oz|30|10.00|20.00))");
         assertEquals(1, pl.size());
     }
 
     @Test
     public void testConstructor2Products() {
-        String p1String = "(0|Pods|Tide|f|true|fl oz|30|10.0|20.0)";
-        String p2String = "(1|Product2|Tide|f|true|fl oz|40|20.0|30.0)";
+        String p1String = "(0|Pods|Tide|f|true|fl oz|30|10.00|20.00)";
+        String p2String = "(1|Product2|Tide|f|true|fl oz|40|20.00|30.00)";
         ProductList pl = new ProductList(String.join("|", p1String, p2String));
         assertEquals(2, pl.size());
     }
@@ -201,7 +201,7 @@ public class ProductListTest {
         ProductList pl = new ProductList();
         pl.add(sp1);
         pl.add(sp2);
-        String expected = "(1|Pods|Tide|f|true|fl oz|30|10.0|20.0)\n(2|Product2|Tide|f|true|fl oz|40|20.0|30.0)\n";
+        String expected = "(1|Pods|Tide|f|true|fl oz|30|10.00|20.00)\n(2|Product2|Tide|f|true|fl oz|40|20.00|30.00)\n";
         StringBuilder sb = new StringBuilder();
         for (StockableProduct sp : pl) {
             sb.append(sp.toString() + "\n");
@@ -254,7 +254,7 @@ public class ProductListTest {
         ProductList pl = new ProductList();
         pl.add(sp1);
         pl.add(sp2);
-        String expected = "((1|Pods|Tide|f|true|fl oz|30|10.0|20.0)|(2|Product2|Tide|f|true|fl oz|40|20.0|30.0))";
+        String expected = "((1|Pods|Tide|f|true|fl oz|30|10.00|20.00)|(2|Product2|Tide|f|true|fl oz|40|20.00|30.00))";
         assertEquals(expected, pl.toString());
     }
 
@@ -300,6 +300,6 @@ public class ProductListTest {
 
     public static void main(String[] args) {
         ProductListTest test = new ProductListTest();
-        test.testModify(); // Use inputs '1' and '1|Product|Brand|m|true|oz|10|5.0|10.0'
+        test.testModify(); // Use inputs '1' and '1|Product|Brand|m|true|oz|10|5.00|10.00'
     }
 }

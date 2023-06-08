@@ -42,11 +42,11 @@ public class StockableProduct extends Product implements Comparable<Object> {
         getters.put("productID", () -> Integer.toString(getProductID()));
         super.defineGetters();
         getters.put("numUnits", () -> Integer.toString(getNumUnits()));
-        getters.put("costPerUnit", () -> Float.toString(getCostPerUnit()));
-        getters.put("pricePerUnit", () -> Float.toString(getPricePerUnit()));
+        getters.put("costPerUnit", () -> String.format("%.2f", getCostPerUnit()));
+        getters.put("pricePerUnit", () -> String.format("%.2f", getPricePerUnit()));
 
-        getters.put("totalCost", () -> Float.toString(getTotalCost()));
-        getters.put("totalPrice", () -> Float.toString(getTotalPrice()));
+        getters.put("totalCost", () -> String.format("%.2f", getTotalCost()));
+        getters.put("totalPrice", () -> String.format("%.2f", getTotalPrice()));
     }
     @Override
     public void defineSetters() {

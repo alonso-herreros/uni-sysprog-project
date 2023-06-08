@@ -24,8 +24,8 @@ public class OrderTest {
     public void setUp() {
         try {
             order = new Order();
-            sp1 = new StockableProduct("1|Pods|Tide|f|true|fl oz|30|10.0|20.0");
-            sp2 = new StockableProduct("2|Product2|Tide|f|true|fl oz|40|20.0|30.0");
+            sp1 = new StockableProduct("1|Pods|Tide|f|true|fl oz|30|10.00|20.00");
+            sp2 = new StockableProduct("2|Product2|Tide|f|true|fl oz|40|20.00|30.00");
         }
         catch (Exception e) {
             System.out.println(e);

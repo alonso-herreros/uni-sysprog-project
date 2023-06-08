@@ -75,9 +75,9 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
     // Getters and Setters
     @Override
     protected void defineGetters() {
-        getters.put("totalCost", () -> Double.toString(getTotalCost()));
-        getters.put("totalPrice", () -> Double.toString(getTotalPrice()));
-        getters.put("totalBenefit", () -> Double.toString(getTotalBenefit()));
+        getters.put("totalCost", () -> String.format("%.2f", getTotalCost()));
+        getters.put("totalPrice", () -> String.format("%.2f", getTotalPrice()));
+        getters.put("totalBenefit", () -> String.format("%.2f", getTotalBenefit()));
     }
     @Override
     protected void defineSetters() { }

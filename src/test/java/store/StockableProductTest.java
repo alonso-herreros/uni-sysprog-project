@@ -50,10 +50,10 @@ class StockableProductTest {
         assertEquals("true", sp.get("isCountable"));
         assertEquals("unit", sp.get("measurementUnit"));
         assertEquals("10", sp.get("numUnits"));
-        assertEquals("1.5", sp.get("costPerUnit"));
-        assertEquals("2.5", sp.get("pricePerUnit"));
-        assertEquals("15.0", sp.get("totalCost"));
-        assertEquals("25.0", sp.get("totalPrice"));
+        assertEquals("1.50", sp.get("costPerUnit"));
+        assertEquals("2.50", sp.get("pricePerUnit"));
+        assertEquals("15.00", sp.get("totalCost"));
+        assertEquals("25.00", sp.get("totalPrice"));
     }
 
     @Test
