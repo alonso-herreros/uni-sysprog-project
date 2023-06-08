@@ -49,7 +49,7 @@ public class RunApp {
         }
     }
 
-    @GetMapping("/stockList")
+    @GetMapping("/manage/stock/list/listObject")
     public static String getStockList() {
         return toJson(storeManager.getStock());
     }

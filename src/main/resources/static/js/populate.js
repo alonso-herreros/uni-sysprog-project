@@ -4,11 +4,9 @@ window.onload = populateTable;
 function populateTable() {
   // Make an AJAX request to retrieve the data from your server
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', '/stockList', true); // Replace '/your-server-endpoint' with the actual endpoint on your server
+  xhr.open('GET', 'list/listObject', true);
   xhr.onload = function () {
     if (xhr.status === 200) {
-      console.log(xhr.responseText)
-      // Parse the JSON response from the server
       var data = JSON.parse(xhr.responseText);
       
       // Clear the existing table rows
@@ -17,7 +15,6 @@ function populateTable() {
 
       // Loop through the data and create table rows dynamically
       data.list.forEach(function (item) {
-        console.log(item);
         var row = document.createElement('tr');
 
         // Create table cells for each data field
