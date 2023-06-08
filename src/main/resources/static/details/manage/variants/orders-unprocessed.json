@@ -1,0 +1,6 @@
+{
+    "name": "orders-unprocessed",
+    "title": "Unprocessed Orders",
+    "elementName": "order",
+    "elementsName": "orders"
+}

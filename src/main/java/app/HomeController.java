@@ -3,7 +3,6 @@ package app;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -22,33 +21,9 @@ import store.StoreManager;
 @EnableAutoConfiguration
 public class HomeController {
 
-    protected static final class MenuBuildData {
-        public static final HashMap<String, String[]> DEFAULT_TEXTS = new HashMap<String, String[]>() {{
-            put("default", new String[] {"Elements", "element", "elements"});
-            put("stock", new String[] {"Stock", "stock", "stock"});
-            put("orders-unprocessed", new String[] {"Unprocessed Orders", "order", "orders"});
-            put("orders-processed", new String[] {"Processed Orders", "order (processed)", "orders (processed)"});
-            put("clients", new String[] {"Clients", "client", "clients"});
-            put("providers", new String[] {"Providers", "provider", "providers"});
-            put("employees", new String[] {"Employees", "employee", "employees"});
-        }};
-
-        public final String name;
-        public final String title;
-        public final String elementName;
-        public final String elementsName;
-
-        public MenuBuildData(String name) {
-            String[] texts = DEFAULT_TEXTS.get(name);
-            this.name = name;
-            this.title = texts[0];
-            this.elementName = texts[1];
-            this.elementsName = texts[2];
-        }
-    }
-
     public static final String DETAILS_PATH = "src\\main\\resources\\static\\details\\";
 
+    public static final String MANAGE_PAGE_PATH = "manage\\";
     public static final String LIST_PAGE_PATH = "list\\";
 
     public static final String VARIANTS_PATH = "variants\\";
@@ -137,10 +112,9 @@ public class HomeController {
 
     // #region Setup methods
     public Model setupManageMenu(Model model, String variantName) {
-        return setupManageMenu(model, new MenuBuildData(variantName));
-    }
-    public Model setupManageMenu(Model model, MenuBuildData menu) {
-        return model.addAttribute("menu", menu);
+        LinkedHashMap<String, Object> variant = getVariant(MANAGE_PAGE_PATH, variantName);
+        model.addAttribute("variant", variant);
+        return model;
     }
 
     public Model setupElementList(Model model, String variantName) {
