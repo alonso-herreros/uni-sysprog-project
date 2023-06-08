@@ -47,8 +47,12 @@ public class HomeController {
         }
     }
 
-    public static final String DETAILS = "src\\main\\resources\\static\\details\\";
-    public static final String TABLE_COLS_DIR = DETAILS + "\\list\\tableCols\\";
+    public static final String DETAILS_PATH = "src\\main\\resources\\static\\details\\";
+
+    public static final String LIST_PAGE_PATH = "list\\";
+
+    public static final String VARIANTS_PATH = "variants\\";
+    public static final String TABLE_COLS_PATH = "tableCols\\";
 
     
     @GetMapping("/")
@@ -140,11 +144,11 @@ public class HomeController {
     }
 
     public Model setupElementList(Model model, String variantName) {
-        LinkedHashMap<String, Object> variant = getVariant(DETAILS + "list\\variants\\", variantName);
+        LinkedHashMap<String, Object> variant = getVariant(LIST_PAGE_PATH, variantName);
 
         model.addAttribute("variant", variant);
         model.addAttribute("tableCols",
-            readJSON(TABLE_COLS_DIR + (String) variant.get("tableColsClass")  + ".json")
+            readJSON(DETAILS_PATH + LIST_PAGE_PATH + TABLE_COLS_PATH + (String) variant.get("tableColsClass")  + ".json")
         );
         return model;
     }
@@ -152,8 +156,9 @@ public class HomeController {
 
     // #region Utility methods
     @SuppressWarnings("unchecked")
-    public LinkedHashMap<String, Object> getVariant(String dir, String variantName) {
-        Object variant = readJSON(dir + variantName.replace("/", ".") + ".json");
+    public LinkedHashMap<String, Object> getVariant(String pagePath, String variantName) {
+        final String dir = DETAILS_PATH + pagePath + VARIANTS_PATH;
+        final Object variant = readJSON(dir + variantName.replace("/", ".") + ".json");
 
         if (!(variant instanceof LinkedHashMap))
             throw new RuntimeException("Invalid variant file: " + variantName  + " in " + dir);
