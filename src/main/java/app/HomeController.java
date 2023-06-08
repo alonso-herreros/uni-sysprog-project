@@ -26,8 +26,8 @@ public class HomeController {
         public static final HashMap<String, String[]> DEFAULT_TEXTS = new HashMap<String, String[]>() {{
             put("default", new String[] {"Elements", "element", "elements"});
             put("stock", new String[] {"Stock", "stock", "stock"});
-            put("orders/unprocessed", new String[] {"Unprocessed Orders", "order", "orders"});
-            put("orders/processed", new String[] {"Processed Orders", "order (processed)", "orders (processed)"});
+            put("orders-unprocessed", new String[] {"Unprocessed Orders", "order", "orders"});
+            put("orders-processed", new String[] {"Processed Orders", "order (processed)", "orders (processed)"});
             put("clients", new String[] {"Clients", "client", "clients"});
             put("providers", new String[] {"Providers", "provider", "providers"});
             put("employees", new String[] {"Employees", "employee", "employees"});
@@ -88,14 +88,14 @@ public class HomeController {
         setupManageMenu(model, "stock");
         return "manage";
     }
-    @GetMapping("manage/orders/unprocessed")
+    @GetMapping("manage/orders-unprocessed")
     public String unprocessedOrders(Model model) {
-        setupManageMenu(model, "orders/unprocessed");
+        setupManageMenu(model, "orders-unprocessed");
         return "manage";
     }
-    @GetMapping("manage/orders/processed")
+    @GetMapping("manage/orders-processed")
     public String processedOrders(Model model) {
-        setupManageMenu(model, "orders/processed");
+        setupManageMenu(model, "orders-processed");
         return "manage";
     }
     @GetMapping("manage/clients")
@@ -122,14 +122,14 @@ public class HomeController {
         setupElementList(model, "stock");
         return "list";
     }
-    @GetMapping("manage/orders/unprocessed/list")
+    @GetMapping("manage/orders-unprocessed/list")
     public String upOrdersList(Model model) {
-        setupElementList(model, "orders/unprocessed");
+        setupElementList(model, "orders-unprocessed");
         return "list";
     }
-    @GetMapping("manage/orders/processed/list")
+    @GetMapping("manage/orders-processed/list")
     public String pOrdersList(Model model) {
-        setupElementList(model, "orders/processed");
+        setupElementList(model, "orders-processed");
         return "list";
     }
     // #endregion
