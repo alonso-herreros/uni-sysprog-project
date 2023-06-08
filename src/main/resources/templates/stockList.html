@@ -5,6 +5,7 @@
 	<link th:replace="/fragments/commonHead :: favicon" />
 	<div th:replace="/fragments/commonHead :: styles"></div>
 	<div th:replace="/fragments/commonHead :: scripts"></div>
+	<script src="/js/populate.js"></script>
 </head>
 <body>
 	<header th:replace="/fragments/header :: header"></header>
@@ -38,7 +39,7 @@
                         <th class="button"></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="table-body">
                     <tr>
                         <td>1</td>
                         <td>Product A</td>

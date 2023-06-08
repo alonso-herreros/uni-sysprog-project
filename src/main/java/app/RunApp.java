@@ -3,6 +3,7 @@ package app;
 import org.xml.sax.SAXException;
 
 import store.StoreManager;
+import store.WarehouseElement;
 
 import java.io.IOException;
 
@@ -47,5 +48,34 @@ public class RunApp {
             return "null";
         }
     }
+
+    @GetMapping("/stockList")
+    public static String getStockList() {
+        return toJson(storeManager.getStock());
+    }
+
+    // #region toJson
+    public static String toJson(Object o) {
+        if (o instanceof Iterable<?>)  return toJsonList((Iterable<?>) o);
+        if (o instanceof WarehouseElement)  return toJsonWE((WarehouseElement) o);
+        return "null";
+    }
+    public static String toJsonList(Iterable<?> list) {
+        String out = "{\"list\":[\n";
+        for (Object o : list) {
+            out += toJson(o) + ",\n";
+        }
+        return out.substring(0, Math.max(9, out.length()-2)) + "\n]}";
+    }
+    public static String toJsonWE(WarehouseElement o) {
+        String out = "{\n";
+        for (String key : o.getters.keySet()) {
+            if(o.setters.containsKey(key)) {
+                out += "\"" + key + "\": \"" + o.get(key) + "\",\n";
+            }
+        }
+        return out.substring(0, Math.max(1, out.length()-2)) + "\n}";
+    }
+    // #endregion
 
 }
