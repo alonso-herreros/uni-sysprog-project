@@ -91,6 +91,29 @@ public class OrderTest {
         assertThrows(IllegalArgumentException.class, () -> Order.getParamsFromFilename(filepath), "Invalid filepath: " + filepath + ".");
     }
 
+    @Test
+    public void testToJSON() {
+        order.setClient(new Person(person1String));
+        order.setEmployee(new Person(person2String));
+        order.add(sp1);
+        order.add(sp2);
+
+        String expectedJSON = "{\n" +
+                "\"orderID\": " + Order.maxOrderID + ",\n" +
+                "\"client\": " + new Person(person1String).toJSON() + ",\n" +
+                "\"employee\": " + new Person(person2String).toJSON() + ",\n" +
+                "\"dir\": \"null\",\n"+
+                "\"totalCost\": 1100.00,\n" +
+                "\"totalPrice\": 1800.00,\n" +
+                "\"totalBenefit\": 700.00,\n" +
+                "\"products\": [\n" +
+                sp1.toJSON() + ",\n" +
+                sp2.toJSON() + "\n" +
+                "]\n" +
+                "}";
+        assertEquals(expectedJSON, order.toJSON());
+    }
+
     @Test 
     public void testReadFromFile() {
         String filepath = "src\\test\\resources\\orders\\001_00000001_00000002.txt";

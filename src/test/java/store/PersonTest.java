@@ -200,6 +200,18 @@ public class PersonTest {
     }
 
     @Test
+    public void testToJSON() {
+        String expectedJSON = "{\n" +
+                "\"id\": " + Integer.valueOf(testID) + ",\n" +
+                "\"firstName\": \"" + testFirstName + "\",\n" +
+                "\"lastName\": \"" + testLastName + "\",\n" +
+                "\"email\": \"" + testEmail + "\"\n" +
+                "}";
+        String actualJSON = personUnderTest.toJSON();
+        assertEquals(expectedJSON, actualJSON);
+    }
+
+    @Test
     public void testWriteToFile() {
         String filepath = "src\\test\\tmp\\testWriteToFile.txt";
 

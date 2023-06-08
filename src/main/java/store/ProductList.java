@@ -80,6 +80,13 @@ public class ProductList extends WarehouseElement implements List<StockableProdu
         getters.put("totalBenefit", () -> String.format("%.2f", getTotalBenefit()));
     }
     @Override
+    protected void defineGettersJSON() {
+        gettersJSON.put("totalCost", () -> String.format("%.2f", getTotalCost()));
+        gettersJSON.put("totalPrice", () -> String.format("%.2f", getTotalPrice()));
+        gettersJSON.put("totalBenefit", () -> String.format("%.2f", getTotalBenefit()));
+        gettersJSON.put("products", () -> JsonListFromIterable(list) );
+    }
+    @Override
     protected void defineSetters() { }
     @Override
     public void set(String... data) {

@@ -8,13 +8,18 @@ import java.util.LinkedHashMap;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public abstract class WarehouseElement {
+import dataStructures.JSONAble;
+
+
+public abstract class WarehouseElement implements JSONAble {
     
     private static Scanner scanner = new Scanner(System.in);
     public LinkedHashMap<String, Callable<String>> getters = new LinkedHashMap<String, Callable<String>>();
+    public LinkedHashMap<String, Callable<String>> gettersJSON = new LinkedHashMap<String, Callable<String>>();
     public LinkedHashMap<String, Consumer<String>> setters = new LinkedHashMap<String, Consumer<String>>();
 
 
@@ -31,12 +36,15 @@ public abstract class WarehouseElement {
     // Global getters and setters
     // Must include getters and setters for all fields
     protected void defineGettersAndSetters() {
+        gettersJSON = new LinkedHashMap<String, Callable<String>>();
         getters = new LinkedHashMap<String, Callable<String>>();
         setters = new LinkedHashMap<String, Consumer<String>>();
         defineGetters();
+        defineGettersJSON();
         defineSetters();
     }
     protected abstract void defineGetters();
+    protected abstract void defineGettersJSON();
     protected abstract void defineSetters();
     public abstract String[] getDef();
 
@@ -44,6 +52,15 @@ public abstract class WarehouseElement {
     public String get(String varID) {
         try {
             return getters.get(varID).call();
+        } catch (NullPointerException e) {
+            throw new IllegalArgumentException(String.format("Invalid varID: %s.", varID));
+        } catch (Exception e) {
+            throw new RuntimeException(String.format("Error retrieving variable: %s.", varID));
+        }
+    }
+    public String getJSON(String varID) {
+        try {
+            return gettersJSON.get(varID).call();
         } catch (NullPointerException e) {
             throw new IllegalArgumentException(String.format("Invalid varID: %s.", varID));
         } catch (Exception e) {
@@ -78,7 +95,7 @@ public abstract class WarehouseElement {
     }
 
 
-    // Writing
+    // #region Writing
     public String toString() { // Generalized
         String out = "(";
         for (String key : getters.keySet()) {
@@ -88,16 +105,27 @@ public abstract class WarehouseElement {
         }
         return out.substring(0, Math.max(1, out.length()-1)) + ")";
     }
+    @Override
+    public String toJSON() { // Generalized
+        String out = "{\n";
+        for (String key : gettersJSON.keySet()) {
+            String value = getJSON(key);
+            value = value.replace("\\", "\\\\");
+            out += "\"" + key + "\": " + value + ",\n";
+        }
+        return out.substring(0, Math.max(1, out.length()-2)) + "\n}";
+    }
     public void print() { // Generalized
         System.out.println(toString());
     }
     public void writeToFile(String filepath) { // Generalized
         stringToFile(filepath, toString());
     }
+    // #endregion
     // Read methods: to be implemented by subclasses, using utility methods (can't generalize these static methods)
 
 
-    // Utility methods
+    // #region Utility methods
     public static ArrayList<String> paramsFromString(String string) {
         if(string == null || string.isEmpty()) {
             return new ArrayList<String>();
@@ -169,7 +197,35 @@ public abstract class WarehouseElement {
             throw new RuntimeException(String.format("Exception while writing to '%s': %s", filepath, e.getMessage()));
         }
     }
-    
+
+
+    public static <E extends JSONAble> String JsonListFromIterable(Iterable<E> iterable) {
+        String out = "[\n";
+        for (E element : iterable) {
+            out += element.toJSON() + ",\n";
+        }
+        return out.substring(0, Math.max(1, out.length()-2)) + "\n]";
+    }
+    public static <E extends JSONAble> String JsonDictFromSKIterable(Iterable<E> iterable, Function<E, String> keyGetter) {
+        String out = "{\n";
+        for (E element : iterable) {
+            out += quote(keyGetter.apply(element)) + ": " + element.toJSON() + ",\n";
+        }
+        return out.substring(0, Math.max(1, out.length()-2)) + "\n}";
+    }
+
+
+    public static String quote(String string) {
+        return enclose(string, "\"");
+    }
+    public static String enclose(String string, String ends) {
+        return enclose(string, ends, ends);
+    }
+    public static String enclose(String string, String open, String close) {
+        return open + string + close;
+    }
+    // #endregion
+
 
     // Default equals
     public boolean equals(Object o) {

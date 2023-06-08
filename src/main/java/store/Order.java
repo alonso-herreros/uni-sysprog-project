@@ -41,11 +41,19 @@ public class Order extends ProductList {
     // Getters and Setters
     @Override
     protected void defineGetters() {
-        super.defineGetters();
         getters.put("orderID", () -> Integer.toString(getOrderID()));
         getters.put("client", () -> getClient().toString());
         getters.put("employee", () -> getEmployee().toString());
         getters.put("dir", () -> getDir());
+        super.defineGetters();
+    }
+    @Override
+    protected void defineGettersJSON() {
+        gettersJSON.put("orderID", () -> Integer.toString(getOrderID()));
+        gettersJSON.put("client", () -> getClient().toJSON());
+        gettersJSON.put("employee", () -> getEmployee().toJSON());
+        gettersJSON.put("dir", () -> quote(getDir()));
+        super.defineGettersJSON();
     }
     @Override
     protected void defineSetters() {

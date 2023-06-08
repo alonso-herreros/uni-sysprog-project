@@ -44,6 +44,13 @@ public class Provider extends WarehouseElement implements Comparable<Object> {
         getters.put("contactPerson", () -> getContactPerson().toString());
     }
     @Override
+    protected void defineGettersJSON() {
+        gettersJSON.put("vat", () -> Integer.toString(getVat()) );
+        gettersJSON.put("name", () -> quote(getName()));
+        gettersJSON.put("taxAddress", () -> quote(getTaxAddress()));
+        gettersJSON.put("contactPerson", () -> getContactPerson().toJSON());
+    }
+    @Override
     protected void defineSetters() {
         setters.put("vat", (String vat) -> setVat(Integer.parseInt(vat)));
         setters.put("name", (String name) -> setName(name));
