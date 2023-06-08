@@ -305,8 +305,22 @@ code.toString {
 
 
 /* #region List page */
-/* Style the stock container */
-.stock-container {
+
+.titlebar-container {
+	display: flex;
+	margin: 0 0 20px;
+	justify-content: space-between;
+	align-items: center;
+	vertical-align: center;
+}
+.titlebar-elements {
+	width: 50%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.list-container {
     max-width: 800px;
     margin: 30px auto;
 }
