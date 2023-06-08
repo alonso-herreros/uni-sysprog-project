@@ -51,11 +51,11 @@ public class RunApp {
 
     @GetMapping("/manage/stock/list/listObject")
     public static String getStockList() {
-        return toJson(storeManager.getStock());
+        return storeManager.getStock().getJSON("products");
     }
     @GetMapping("/manage/orders/unprocessed/list/listObject")
     public static String getUPOrdersList() {
-        return toJson(storeManager.getOrdersToProcess());
+        return storeManager.getOrdersToProcess().toJSON();
     }
 
     // #region toJson
