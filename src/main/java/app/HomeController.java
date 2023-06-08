@@ -128,6 +128,11 @@ public class HomeController {
         setupElementList(model, "stock");
         return "list";
     }
+    @GetMapping("manage/orders/unprocessed/list")
+    public String upOrdersList(Model model) {
+        setupElementList(model, "orders/unprocessed");
+        return "list";
+    }
     // #endregion
 
 

@@ -402,6 +402,9 @@ code.toString {
 .element-table th.productID {
 	width: 55px ;
 }
+.element-table th.orderID {
+    width: 65px ;
+}
 .element-table th.brand {
 	width: 250px;
 }

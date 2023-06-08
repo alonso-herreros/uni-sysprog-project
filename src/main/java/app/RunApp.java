@@ -53,6 +53,10 @@ public class RunApp {
     public static String getStockList() {
         return toJson(storeManager.getStock());
     }
+    @GetMapping("/manage/orders/unprocessed/list/listObject")
+    public static String getUPOrdersList() {
+        return toJson(storeManager.getOrdersToProcess());
+    }
 
     // #region toJson
     public static String toJson(Object o) {
