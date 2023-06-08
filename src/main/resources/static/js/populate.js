@@ -12,7 +12,7 @@ function populateTable() {
       var data = JSON.parse(xhr.responseText);
       
       // Clear the existing table rows
-      var tableBody = document.getElementById('table-body');
+      var tableBody = document.getElementById('element-table-body');
       tableBody.innerHTML = '';
 
       // Loop through the data and create table rows dynamically
