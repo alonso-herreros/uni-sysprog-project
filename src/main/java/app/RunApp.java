@@ -58,21 +58,28 @@ public class RunApp {
     public static String toJson(Object o) {
         if (o instanceof Iterable<?>)  return toJsonList((Iterable<?>) o);
         if (o instanceof WarehouseElement)  return toJsonWE((WarehouseElement) o);
+        if (o instanceof String)  return (String) o;
         return "null";
     }
     public static String toJsonList(Iterable<?> list) {
-        String out = "{\"list\":[\n";
+        String out = "[";
         for (Object o : list) {
-            out += toJson(o) + ",\n";
+            try {
+                out += toJsonWE((WarehouseElement) o) + ", ";
+            }
+            catch (ClassCastException e) {
+                out += toJson(o) + ", ";
+            }
         }
-        return out.substring(0, Math.max(9, out.length()-2)) + "\n]}";
+        return out.substring(0, Math.max(1, out.length()-2)) + "]";
     }
     public static String toJsonWE(WarehouseElement o) {
         String out = "{\n";
         for (String key : o.getters.keySet()) {
-            if(o.setters.containsKey(key)) {
-                out += "\"" + key + "\": \"" + o.get(key) + "\",\n";
-            }
+            String value = toJson(o.get(key));
+            if (value == null) value = "null";
+            value = value.replace("\\", "\\\\");
+            out += "\"" + key + "\": \"" + value + "\",\n";
         }
         return out.substring(0, Math.max(1, out.length()-2)) + "\n}";
     }

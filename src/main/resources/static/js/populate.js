@@ -13,8 +13,6 @@ async function fetchTableCols() {
 async function fetchListObject() {
   return fetch("list/listObject").then( (response) =>
     response.json()
-  ).then( (listObject) =>
-    listObject.list
   )
 }
 
@@ -73,7 +71,7 @@ function newTHCell(content, className) {
   return cell
 }
 
-// Add an ID parameter to make the button unique to its row
+// TODO: Add an ID parameter to make the button unique to its row
 function newButtonCell() {
   var cell = document.createElement("td")
   var button = document.createElement("button")
