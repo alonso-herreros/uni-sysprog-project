@@ -14,8 +14,8 @@ import java.util.regex.Pattern;
 public abstract class WarehouseElement {
     
     private static Scanner scanner = new Scanner(System.in);
-    protected LinkedHashMap<String, Callable<String>> getters = new LinkedHashMap<String, Callable<String>>();
-    protected LinkedHashMap<String, Consumer<String>> setters = new LinkedHashMap<String, Consumer<String>>();
+    public LinkedHashMap<String, Callable<String>> getters = new LinkedHashMap<String, Callable<String>>();
+    public LinkedHashMap<String, Consumer<String>> setters = new LinkedHashMap<String, Consumer<String>>();
 
 
     // Constructors
