@@ -12,6 +12,7 @@ async function populateTable() {
   populateTableHead(TABLE_COLS)
 
   var listObject = await fetchListObject()
+  if (!listObject.length) listObject = Object.values(listObject)
   populateTableBody(listObject, TABLE_COLS)
 }
 
