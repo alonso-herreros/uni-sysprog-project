@@ -61,6 +61,10 @@ public class RunApp {
     public static String getPOrdersList() {
         return storeManager.getOrdersProcessed().toJSON();
     }
+    @GetMapping("/manage/clients/list/listObject")
+    public static String getClientsList() {
+        return storeManager.getStoreCustomers().toJSON();
+    }
     // #endregion
 
 
