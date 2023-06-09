@@ -27,7 +27,12 @@ public class StoreManager extends WarehouseElement {
             return null;
         }
 
-        @Override public String toJSON() { return JsonDictFromSKIterable(this, (Person p) -> p.toJSON()); }
+        @Override public String toJSON() {
+            return JsonDictFromSKIterable(this, (Person p) -> Integer.toString(keyGetter.apply(p)));
+        }
+        public String toJSONList() {
+            return JsonListFromIterable(this);
+        }
 
     }
 
@@ -48,7 +53,12 @@ public class StoreManager extends WarehouseElement {
             return null;
         }
 
-        @Override public String toJSON() { return JsonDictFromSKIterable(this, (Provider p) -> p.toJSON()); }
+        @Override public String toJSON() {
+            return JsonDictFromSKIterable(this, (Provider p) -> Integer.toString(keyGetter.apply(p)));
+        }
+        public String toJSONList() {
+            return JsonListFromIterable(this);
+        }
 
     }
 
