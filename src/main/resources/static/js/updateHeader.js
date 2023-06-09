@@ -5,5 +5,7 @@ $(document).ready(() => {
 
 
 function selectNavbarPage() {
-  $('a[href="' + location.pathname + '"]').addClass('active');
+  var path = location.pathname
+  if (path == "/")  path = "/home"
+  $('a[href="' + path + '"]').addClass('active');
 }
