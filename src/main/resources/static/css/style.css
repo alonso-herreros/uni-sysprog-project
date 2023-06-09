@@ -422,8 +422,11 @@ code.toString {
 /* #endregion */
 
 /* #region Header titles */
-.element-table th.id {
+.element-table th.id-short {
 	width: 65px ;
+}
+.element-table th.id {
+	width: 100px ;
 }
 .element-table th.price {
 	width: 90px;

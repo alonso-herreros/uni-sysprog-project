@@ -1,6 +1,6 @@
 [
     {
-        "class": "id",
+        "class": "id-short",
         "title": "ID",
         "content": [{
             "type": "attribute",
