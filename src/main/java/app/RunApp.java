@@ -65,6 +65,14 @@ public class RunApp {
     public static String getClientsList() {
         return storeManager.getStoreCustomers().toJSON();
     }
+    @GetMapping("/manage/employees/list/listObject")
+    public static String getEmployeesList() {
+        return storeManager.getStoreEmployees().toJSON();
+    }
+    @GetMapping("/manage/providers/list/listObject")
+    public static String getProvidersList() {
+        return storeManager.getStoreProviders().toJSON();
+    }
     // #endregion
 
 
