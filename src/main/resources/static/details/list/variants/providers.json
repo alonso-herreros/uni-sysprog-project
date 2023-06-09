@@ -1,4 +1,5 @@
 {
+    "name": "providers",
     "listTitle": "Providers",
     "tableColsClass": "provider"
 }

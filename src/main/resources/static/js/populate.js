@@ -2,7 +2,8 @@ window.onload = populateTable
 
 
 async function fetchListObject() {
-  return fetch("list/listObject").then( (response) =>
+  var listPath = "/store/" + VARIANT.name + "/list-object"
+  return fetch(listPath).then( (response) =>
     response.json()
   )
 }

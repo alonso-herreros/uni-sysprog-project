@@ -1,4 +1,5 @@
 {
+    "name": "employees",
     "listTitle": "Employees",
     "tableColsClass": "person"
 }

@@ -1,4 +1,5 @@
 {
+    "name": "orders-unprocessed",
     "listTitle": "Unprocessed Orders",
     "tableColsClass": "order"
 }
