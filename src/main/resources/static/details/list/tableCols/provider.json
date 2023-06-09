@@ -1,0 +1,37 @@
+[
+    {
+        "class": "id",
+        "title": "VAT",
+        "content": [{
+            "type": "attribute",
+            "attributePath": ["vat"]
+        }]
+    },
+    {
+        "class": "name",
+        "title": "Name",
+        "content": [{
+            "type": "attribute",
+            "attributePath": ["name"]
+        }]
+    },
+    {
+        "class": "name",
+        "title": "Contact Person",
+        "content": [{
+            "type": "attribute",
+            "attributePath": ["contactPerson", "firstName"],
+            "format": {
+                "suffix": " "
+            }
+        },
+        {
+            "type": "attribute",
+            "attributePath": ["contactPerson", "lastName"]
+        }]
+    },
+    {
+        "class": "detailsButton",
+        "title": ""
+    }
+]
