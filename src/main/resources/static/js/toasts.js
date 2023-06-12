@@ -15,9 +15,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function showVarToast(message) {
   var variableToast = document.getElementById("variableToast")
-  variableToast.classList.remove("show")
+
+  hideVarToast(variableToast)
   variableToast.innerHTML = message
   variableToast.classList.add("show")
+
   setTimeout(hideVarToast, 5000, variableToast)
 }
 
