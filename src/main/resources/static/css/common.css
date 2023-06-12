@@ -44,6 +44,31 @@ p {
 	font-size: 18px;
 }
 
+/* #region Buttons */
+button {
+    margin: 5px 15px;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 50px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    transition:
+		opacity 0.15s ease-in-out,
+		background-color 0.15s ease-in-out,
+		color 0.15s ease-in-out;
+}
+button:hover {
+	opacity: 0.8;
+}
+button:disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+}
+/* #endregion */
+
+
 /* #region Main content */
 .info-card {
 	max-width: 800px;

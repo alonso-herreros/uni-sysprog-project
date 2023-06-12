@@ -27,28 +27,11 @@ form {
 
 form button {
     min-width: 6em;
-    margin: 5px 15px;
-    padding: 10px 20px;
-    background-color: #333;
-    color: #fff;
-    border-radius: 50px;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.15s ease-in-out;
-}
-
-form button.load:hover,
-form button.create:hover {
-    background-color: #555;
 }
 
 form button.create-f {
     background-color: #a22;
     color: #fee;
-}
-form button.create-f:hover {
-    background-color: #c44;
 }
 
 form button.cancel {
@@ -62,7 +45,6 @@ form button.cancel:hover {
 }
 
 form.processing #submit-buttons button {
-    background-color: #777;
     cursor: progress;
 }
 
