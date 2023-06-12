@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head th:fragment="commonHead">
-	<link th:fragment="favicon" rel="icon" href="/img/favicon.png" type="image/x-icon" />
+<head>
+	<title>Store Management System</title>
+	<th:block th:fragment="commonHead">
+		<link th:fragment="favicon" rel="icon" th:href="@{/img/favicon.png}" type="image/x-icon" />
 
-	<div th:fragment="styles">
-		<link rel="stylesheet" href="/css/style.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-	</div>
+		<th:block th:fragment="css-js">
+			<th:block th:fragment="styles">
+				<!-- Font Awesome -->
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+				<link rel="stylesheet" th:href="@{/css/common.css}">
+			</th:block>
 
-	<div th:fragment="scripts">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="/js/updateHeader.js"></script>
-		<script src="/js/toasts.js"></script>
-	</div>
+			<th:block th:fragment="scripts">
+				<!-- JQuery -->
+				<script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			</th:block>
+		</th:block>
+	</th:block>
 </head>
 <body>
 </body>

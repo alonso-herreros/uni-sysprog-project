@@ -2,23 +2,40 @@
 <html>
 <head>
 	<title>Create Store</title>
-	<link th:replace="/fragments/commonHead :: favicon" />
-	<div th:replace="/fragments/commonHead :: styles"></div>
-	<div th:replace="/fragments/commonHead :: scripts"></div>
+	<div th:replace="/fragments/commonHead :: commonHead"></div>
+	<div th:replace="/fragments/header :: css-js"></div>
+	<div th:replace="/fragments/footer :: css-js"></div>
+	<div th:replace="/fragments/varToast :: css-js"></div>
+	<!-- Create -->
+	<link rel="stylesheet" th:href="@{/css/create.css}">
 </head>
 <body>
 	<header th:replace="/fragments/header :: header"></header>
 
 	<main>
 		<h2>Create Store</h2>
-		<form action="/store/create" method="post">
+		<form id="create-form">
 			<div class="form-group">
 				<label for="storeName">Store Name:</label>
 				<input type="text" id="storeName" name="storeName" required>
 			</div>
-			<button type="submit">Create</button>
+			<div>
+				<button class="submit" type="submit" name="create">Create</button>
+				<button class="button" type="submit" name="load">Load</button>
+			</div>
+
+			<div id="popup" class="popup hidden">
+				<div class="popup-content">
+					<h3>A store with the same name already exists.</h3>
+					<p>Do you want to load this store?</p>
+					<button id="cancel-button" type="button" onclick="cancel(event)">Cancel</button>
+					<button type="button" onclick="sendLoadRequest(event)">Load Store</button>
+				</div>
+			</div>
 		</form>
 	</main>
+
+	<div th:replace="/fragments/varToast :: varToast"></div>
 
 	<footer th:replace="/fragments/footer :: footer"></footer>
 </body>

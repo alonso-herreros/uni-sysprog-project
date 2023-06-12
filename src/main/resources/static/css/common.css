@@ -1,0 +1,60 @@
+
+* { /* Reset default browser styles */
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body { /* Set the page font */
+    min-height: 100vh;
+	position: relative;
+	font-family: 'Open Sans', sans-serif;
+}
+
+/* #region Headers */
+h1 {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+h1 a {
+    color: #fff;
+    text-decoration: none;
+}
+
+h2 {
+	margin: 40px 0 10px;
+	font-size: 34px;
+	font-weight: bold;
+	text-align: center;
+}
+h3 {
+	margin: 20px 0 0;
+	font-size: 26px;
+	text-align: center;
+}
+.inline-header {
+	display: inline-block;
+	margin: 0 0 10px;
+}
+/* #endregion */
+
+p {
+	margin-bottom: 10px;
+	font-size: 18px;
+}
+
+/* #region Main content */
+.info-card {
+	max-width: 800px;
+	margin: 10px auto 10px;
+	border: 1px solid #ccc;
+	padding: 20px;
+	border-radius: 5px;
+}
+.info-card h3 {
+	text-align: left;
+	font-size: 24px;
+	margin: 20px 0;
+}
+/* #endregion */

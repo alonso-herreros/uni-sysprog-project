@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<th:block th:fragment="css-js">
+		<!-- VarToast -->
+		<link rel="stylesheet" th:href="@{/css/varToast.css}">
+		<script defer th:src="@{/js/toasts.js}"></script>
+	</th:block>
+</head>
+<body>
+	<div th:fragment="varToast" class="toast" id="variableToast">
+		<!-- Toast content goes here-->
+	</div>
+</body>
+</html>

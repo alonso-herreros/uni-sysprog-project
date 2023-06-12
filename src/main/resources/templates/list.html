@@ -2,9 +2,11 @@
 <html>
 <head>
 	<title>Store Management System</title>
-	<link th:replace="/fragments/commonHead :: favicon" />
-	<div th:replace="/fragments/commonHead :: styles"></div>
-	<div th:replace="/fragments/commonHead :: scripts"></div>
+	<div th:replace="/fragments/commonHead :: commonHead"></div>
+	<div th:replace="/fragments/header :: css-js"></div>
+	<div th:replace="/fragments/footer :: css-js"></div>
+	<!-- List -->
+	<link rel="stylesheet" th:href="@{/css/list.css}">
 	<script src="/js/populate.js"></script>
 	<script th:inline="javascript">
 		const TABLE_COLS = /*[[${tableCols}]]*/ ""

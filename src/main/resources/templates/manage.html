@@ -2,9 +2,10 @@
 <html>
 <head>
 	<title>Store Management System</title>
-	<link th:replace="/fragments/commonHead :: favicon" />
-	<div th:replace="/fragments/commonHead :: styles"></div>
-	<div th:replace="/fragments/commonHead :: scripts"></div>
+	<div th:replace="/fragments/commonHead :: commonHead"></div>
+	<div th:replace="/fragments/header :: css-js"></div>
+	<div th:replace="/fragments/footer :: css-js"></div>
+	<link rel="stylesheet" th:href="@{/css/manage.css}">
 </head>
 <body>
 	<header th:replace="/fragments/header :: header"></header>

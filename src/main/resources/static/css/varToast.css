@@ -1,0 +1,39 @@
+
+.toast {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    z-index: 99999;
+    opacity: 0;
+    transition: top 1s ease-out, opacity 0.5s ease-in-out; /* Add transition for top property */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.toast.show {
+    animation: slideInFadeOut 5s ease-in-out forwards;
+}
+
+@keyframes slideInFadeOut {
+    0% {
+        top: -100px;
+        opacity: 0;
+    }
+    10% {
+        top: 20px; /* Adjusted final position after slide-in */
+        opacity: 1;
+    }
+    85% {
+        top: 20px; /* Maintain position for a while */
+        opacity: 1;
+    }
+    100% {
+        top: 20px;
+        opacity: 0;
+    }
+}
