@@ -5,8 +5,6 @@ window.onload = () => {
   //$("#create-form").on("submit", (e) => sendCreateRequest(e.originalEvent))
   $("#create-form")[0].addEventListener("submit", submitCreateForm)
   $("#create-form")[0].addEventListener("reset", cancel)
-
-  $("#create-form button[name='cancel']").on("click", cancel)
 }
 
 function submitCreateForm(event) {
