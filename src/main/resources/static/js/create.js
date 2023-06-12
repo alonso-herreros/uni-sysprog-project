@@ -1,3 +1,7 @@
+import {
+  parseJsonResponse,
+  showErrorToast,
+} from "./comms.js"
 
 window.onload = () => {
   // Can't simply use on("submit", function) because it hides the submitter
@@ -62,7 +66,7 @@ async function sendLoadRequest(form) {
  * @returns Whether the request is resolved and the form should be enabled
  */
 async function processCreateResponse(form, response) {
-  const [status, resp] = await preprocessResponse(response)
+  const [status, resp] = await parseJsonResponse(response)
 
   switch (status) {
     case 201: // Created
@@ -87,7 +91,7 @@ async function processCreateResponse(form, response) {
  * @returns Whether the request is resolved and the form should be enabled
  */
 async function processLoadResponse(form, response) {
-  const [status, resp] = await preprocessResponse(response)
+  const [status, resp] = await parseJsonResponse(response)
 
   switch (status) {
     case 200: // Loaded
@@ -103,20 +107,6 @@ async function processLoadResponse(form, response) {
       showErrorToast(resp.message)
   }
   return true
-}
-
-
-async function preprocessResponse(response, log=false) {
-  const status = response.status
-  const respRaw = await response.text()
-  if (log)  console.log("Response: " + status + " " + respRaw)
-
-  try {
-    return [status, JSON.parse(respRaw)]
-  }
-  catch (e) {
-    return [false, {message: "Server sent invalid JSON: " + respRaw}]
-  }
 }
 
 
@@ -146,9 +136,4 @@ function showLoadPopup(form, storeName) {
 }
 function hideLoadPopup(form) {
   $("#popup", form)[0].classList.remove("show")
-}
-
-function showErrorToast(serverMessage) {
-  showVarToast("Server said: " + serverMessage)
-  return true
 }
