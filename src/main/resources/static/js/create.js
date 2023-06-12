@@ -22,40 +22,41 @@ function submitCreateForm(event) {
   })
 }
 
-function sendCreateForm(form, action) {
+async function sendCreateForm(form, action) {
   var force
   switch(action) {
     case "create-f":
       force = true
     case "create":
-      return sendCreateRequest(form, force)
+      return await requestCreate(form, force)
     case "load":
-      return sendLoadRequest(form)
+      return await requestLoad(form)
     default:
       return "Unknown form action: " + action
   }
 }
 
-
-async function sendCreateRequest(form, force=false) {
+async function requestCreate(form, force=false) {
   const formData = new FormData(form)
   formData.append("force", force)
   
-  return await fetch('/store/create', {
+  var result = fetch('/store/create', {
     method: 'POST',
     body: formData
-  }).then( (response) =>
+  }).then((response) => 
     processCreateResponse(form, response)
   )
+  return await result
 }
 
-async function sendLoadRequest(form) {
-  return await fetch('/store/load', {
+async function requestLoad(form) {
+  var result = fetch('/store/load', {
     method: 'POST',
     body: new FormData(form)
-  }).then( (response) =>
+  }).then((response) => 
     processLoadResponse(form, response)
   )
+  return await result
 }
 
 
