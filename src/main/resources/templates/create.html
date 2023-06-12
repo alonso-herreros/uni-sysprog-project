@@ -8,28 +8,34 @@
 	<div th:replace="/fragments/varToast :: css-js"></div>
 	<!-- Create -->
 	<link rel="stylesheet" th:href="@{/css/create.css}">
+	<script type="text/javascript" th:src="@{/js/create.js}"></script>
 </head>
 <body>
 	<header th:replace="/fragments/header :: header"></header>
 
 	<main>
-		<h2>Create Store</h2>
+		<h2>Create / Load Store</h2>
 		<form id="create-form">
 			<div class="form-group">
 				<label for="storeName">Store Name:</label>
 				<input type="text" id="storeName" name="storeName" required>
 			</div>
-			<div>
-				<button class="submit" type="submit" name="create">Create</button>
-				<button class="button" type="submit" name="load">Load</button>
+			<div id="submit-buttons">
+				<button class="create" type="submit" name="mode" value="create">Create</button>
+				<button class="load" type="submit" name="mode" value="load">Load</button>
 			</div>
 
-			<div id="popup" class="popup hidden">
+			<div id="popup" class="popup">
 				<div class="popup-content">
-					<h3>A store with the same name already exists.</h3>
-					<p>Do you want to load this store?</p>
-					<button id="cancel-button" type="button" onclick="cancel(event)">Cancel</button>
-					<button type="button" onclick="sendLoadRequest(event)">Load Store</button>
+					<h3>This store already exists</h3>
+					<hr />
+					<p>There is already a store named '<span id="var-storeName"></span>'.</p>
+					<p>Do you want to load the existing store or overwrite it with a new store?</p>
+					<div class="popup-buttons">
+						<button class="cancel" type="reset">Cancel</button>
+						<button class="create-f" type="submit" name="mode" value="create-f">Overwrite</button>
+						<button class="load" type="submit" name="mode" value="load">Load</button>
+					</div>
 				</div>
 			</div>
 		</form>
