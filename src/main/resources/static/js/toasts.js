@@ -18,5 +18,9 @@ function showVarToast(message) {
   variableToast.classList.remove("show")
   variableToast.innerHTML = message
   variableToast.classList.add("show")
-  // The popup will hide itself, and will be reset on next use.
+  setTimeout(hideVarToast, 5000, variableToast)
+}
+
+function hideVarToast(variableToast) {
+  variableToast.classList.remove("show")
 }
