@@ -134,7 +134,6 @@ public class RunApp {
     // #endregion
 
     public static boolean deleteFile(File dir) {
-        System.out.println(dir);
         if (dir.isDirectory()) {
             for (File child : dir.listFiles()) {
                 deleteFile(child);
