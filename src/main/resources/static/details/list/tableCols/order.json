@@ -10,7 +10,6 @@
     {
         "class": "name",
         "title": "Employee",
-        "type": "compound",
         "content": [{
             "type": "attribute",
             "attributePath": ["employee", "firstName"],
