@@ -1,31 +1,43 @@
 
 .titlebar-container {
-	display: flex;
+	display: grid;
 	margin: 0 0 20px;
-	justify-content: space-between;
+    justify-content: space-between;
+	grid-auto-flow: column;
 	align-items: center;
-	vertical-align: center;
+    justify-content: center;
+    grid-template-columns: 0.4fr 0.6fr;
 }
 .titlebar-elements {
-	width: 50%;
+    width: 100%;
+    min-width: 280px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
+.titlebar-container .inline-header {
+    width: 100%;
+    text-align: left;
+}
 
+/* #region List container */
 .list-container {
 	width: 100%;
+    min-width: 500px;
     max-width: 800px;
     margin: 30px auto;
 }
 
-/* #region Style the search bar */
+/* #endregion */
+
+/* #region Search bar */
 .search-bar {
+    width: 80%;
+    min-width: 230px;
 	height: 40px;
     display: flex;
     align-items: center;
 	float: right;
-    width: 80%;
     margin: 10px;
     border-radius: 50px;
 	border: 1px solid #ccc;
