@@ -93,6 +93,26 @@ public class RunApp {
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 
+    @PostMapping("/save")
+    public static ResponseEntity<?> saveStore() {
+
+        Map<String, Object> responseBody = new HashMap<String, Object>();
+
+        if (storeManager.getName().equals("") || storeManager.getName().equals("unnamed")) {
+            responseBody.put("message", "Store must have a name.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+        }
+
+        storeManager.saveStore();
+        if (!checkSavedStore()) {
+            responseBody.put("message", "Store could not be saved.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseBody);
+        }
+
+        responseBody.put("message", "Store saved.");
+        return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+    }
+
     @GetMapping("/getvar")
     public static String getStoreInfo(@RequestParam(value="varID", defaultValue="name") String varId) {
         try {
@@ -140,6 +160,13 @@ public class RunApp {
             }
         }
         return dir.delete();
+    }
+
+    public static boolean checkSavedStore() {
+        File storeDir = new File(DATA_DIR + File.separator + storeManager.getName());
+        if (!storeDir.exists())  return false;
+        StoreManager savedStoreManager = new StoreManager(storeManager.getName(), DATA_DIR);
+        return storeManager.equals(savedStoreManager);
     }
 
 }

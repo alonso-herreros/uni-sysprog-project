@@ -6,6 +6,8 @@
 	<div th:replace="/fragments/header :: css-js"></div>
 	<div th:replace="/fragments/footer :: css-js"></div>
 	<div th:replace="/fragments/varToast :: css-js"></div>
+	<link rel="stylesheet" th:href="@{/css/index.css}">
+	<script type="module" th:src="@{/js/save.js}"></script>
 </head>
 <body>
 	<header th:replace="/fragments/header :: header"></header>
@@ -13,7 +15,10 @@
 	<main>
 		<h2>Main menu</h2>
 		<div class="info-card">
-			<h3>Store name: <span th:text="${store.name}"></span></h3>
+			<div class="spaced-row">
+				<h3>Store name: <span th:text="${store.name}"></span></h3>
+				<button class="save" id="save-button">Save</button>
+			</div>
 			<hr/>
 			<h3>Total Cost and Benefit:</h3>
 			<p>Total Cost: <span th:text="${#numbers.formatDecimal(store.stockCost, 1, 2)}"></span> €</p>

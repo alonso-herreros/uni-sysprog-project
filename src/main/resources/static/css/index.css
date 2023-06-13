@@ -1,0 +1,10 @@
+
+.spaced-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.spaced-row button {
+    margin: 0;
+}
