@@ -186,13 +186,14 @@ function newTHCell(content, className) {
  * 
  * @returns {HTMLTableCellElement} The `<td>` cell element created
  */
-function newButtonCell() {
-  const cell = document.createElement("td")
-  const button = document.createElement("button")
-  button.setAttribute("type", "button")
-  button.setAttribute("class", "open-button")
-  button.innerHTML = '<i class="fas fa-xl fa-circle-info"></i>'
+function newButtonCell(buttonClass="open-button", content) {
+  const cell = newElement("td")
+
+  const button = newElement("button")
+  addContent(button, content || newElement("i", "", "fas fa-xl fa-circle-info"))
+  setClass(button, buttonClass)
   cell.appendChild(button)
+
   return cell
 }
 
@@ -203,8 +204,36 @@ function newButtonCell() {
  * @param {Object} [content] The content to place in the element
  * @returns {HTMLElement} The element created
  */
-function newElement(tag, content) {
+function newElement(tag, content, className) {
   const element = document.createElement(tag)
-  element.textContent = content
+  if (content)  addContent(element, content)
+  if (className)  setClass(element, className)
+  return element
+}
+
+function addContent(element, content) {
+  if (content instanceof Array) {
+    content.forEach((piece) => addContent(element, piece))
+  }
+  else {
+    if (content instanceof Node)  addChild(element, content)
+    else  element.innerHTML = content
+  }
+  return element
+}
+
+
+function addChild(parent, child) {
+  parent.appendChild(child)
+  return parent
+}
+
+function setClass(element, classValue) {
+  element.setAttribute("class", classValue)
+  return element
+}
+
+function addClass(element, className) {
+  element.classList.add(className)
   return element
 }
