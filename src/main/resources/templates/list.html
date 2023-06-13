@@ -7,11 +7,11 @@
 	<div th:replace="/fragments/footer :: css-js"></div>
 	<!-- List -->
 	<link rel="stylesheet" th:href="@{/css/list.css}">
-	<script src="/js/populate.js"></script>
 	<script th:inline="javascript">
 		const TABLE_COLS = /*[[${tableCols}]]*/ ""
 		const VARIANT = /*[[${variant}]]*/ ""
 	</script>
+	<script type="module" th:src="@{/js/list.js}"></script>
 </head>
 <body>
 	<header th:replace="/fragments/header :: header"></header>
