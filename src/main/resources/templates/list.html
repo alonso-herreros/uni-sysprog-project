@@ -17,19 +17,20 @@
 	<header th:replace="/fragments/header :: header"></header>
 
 	<main>
-        <div class="content-card list-container">
-			<div class="titlebar-container">
-				<h2 class="inline-header"><span th:text="${variant.listTitle}"></span></h2>
-				<div class="titlebar-elements">
-					<div class="search-bar">
-						<input type="text" placeholder="Search ID..." class="search-input" />
-						<button type="submit" class="search-button"><i class="fas fa-search"></i></button>
-					</div>
-					<div class="insert-button">
-						<button type="button" class="insert-top-button"><i class="fas fa-plus"></i></button>
-					</div>
+		<div class="titlebar-container">
+			<h2 class="inline-header"><span th:text="${variant.listTitle}"></span></h2>
+			<div class="titlebar-elements">
+				<div class="search-bar">
+					<input type="text" placeholder="Search ID..." class="search-input" />
+					<button type="submit" class="search-button"><i class="fas fa-search"></i></button>
 				</div>
-			</div>
+				<div class="insert-button">
+					<button type="button" class="insert-top-button"><i class="fas fa-plus"></i></button>
+				</div>
+		</div>
+		</div>
+
+        <div class="content-card list-container" id="list-container">
             <table class="element-table">
                 <thead id="element-table-head">
 					<!-- Headers will be added here -->
