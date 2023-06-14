@@ -1,9 +1,10 @@
+ 
 /* #region Titlebar */
 .titlebar-container {
     width: calc(100% - 60px);
     max-width: 800px;
-	margin: 5px 30px;
-    padding: 10px;
+	margin: 15px 30px 5px;
+    grid-column: span 2; /* Menu */
 	display: grid;
     justify-content: space-between;
 	grid-auto-flow: column;
@@ -11,23 +12,26 @@
     justify-content: stretch;
     grid-template-columns: 0.35fr 0.65fr;
 }
+.titlebar-container .inline-header {
+    width: 100%;
+    margin: 0 5px;
+    text-align: left;
+}
 .titlebar-elements {
     width: 100%;
     min-width: 280px;
 	display: flex;
-	justify-content: space-between;
+	grid-auto-flow: column;
+	justify-content: flex-end;
 	align-items: center;
-}
-.titlebar-container .inline-header {
-    width: 100%;
-    text-align: left;
 }
 /* #endregion */
 
+
 /* #region List container */
 .list-container {
-	width: 100%;
-    min-width: 500px;
+	width: calc(100% - 60px);
+    min-width: 450px;
     max-width: 800px;
     text-align: center;
 }
@@ -83,7 +87,7 @@ button.insert-button  {
 	height: 39px;
 	width: 39px;
     padding: 10px;
-    margin: 10px;
+    margin: 5px;
 	text-align: center;
 	vertical-align: center;
     background-color: transparent;
