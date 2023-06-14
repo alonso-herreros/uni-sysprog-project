@@ -29,9 +29,8 @@
 	width: 100%;
     min-width: 500px;
     max-width: 800px;
-    margin: 10px auto 30px;
+    text-align: center;
 }
-
 /* #endregion */
 
 /* #region Search bar */
@@ -80,19 +79,15 @@
 /* #endregion */
 
 /* #region Insert buttons */
-.insert-button {
-    margin: 10px;
-    text-align: center;
-}
-
-.insert-button button {
+button.insert-button  {
 	height: 39px;
 	width: 39px;
+    padding: 10px;
+    margin: 10px;
 	text-align: center;
 	vertical-align: center;
     background-color: transparent;
     color: #666;
-    padding: 10px;
     border: 1px solid #bbb;
 	border-radius: 50px;
     font-size: 16px;
@@ -132,7 +127,7 @@
 
 .open-button {
     padding: 5px;
-	margin: 0 10px;
+	margin: 0 5px;
     background-color: transparent;
     color: #333;
     font-size: 16px;
