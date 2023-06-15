@@ -4,7 +4,7 @@
     width: calc(100% - 60px);
     max-width: 800px;
 	margin: 15px 30px 5px;
-    grid-column: span 2; /* Menu */
+    grid-column: span 2;
 	display: grid;
     justify-content: space-between;
 	grid-auto-flow: column;
@@ -34,6 +34,9 @@
     min-width: 450px;
     max-width: 800px;
     text-align: center;
+    transition: 
+        margin-right 0.3s ease-in-out,
+        width 0.3s ease-in-out;
 }
 /* #endregion */
 
@@ -152,3 +155,42 @@ button.insert-button  {
 	width: 40px;
 }
 /* #endregion */
+
+
+/* #region Details modal */
+.side-menu {
+    width: 400px;
+    transition:
+        width 0.3s ease-in-out,
+        margin 0.3s ease-in-out,
+        padding 0.3s ease-in-out;
+}
+.side-menu.hide {
+    width: 0;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.side-menu-content {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+.side-menu-content.hide,
+.side-menu.hide .side-menu-content {
+    display: none;
+    opacity: 0;
+}
+.side-menu-content.show {
+    opacity: 1;
+}
+
+.side-menu h3 {
+    margin: 0 0 10px 0;
+    padding: 5px;
+    font-size: 14pt;
+    text-align: left;
+}
+/* #endregion */
+
