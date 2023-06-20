@@ -11,6 +11,7 @@ var list
 
 $(document).ready(async ()=> {
   await populateList(list)
+  $(".open-button").on("click", openDetailsModal)
 })
 
 
@@ -33,3 +34,28 @@ async function populateList() {
   )
 }
 
+function openDetailsModal(event) {
+  if (!list)  throw "List not loaded."
+
+  const button = event.target
+  const selectedRow = button.closest("tr");
+  const sideMenu = $("#side-menu")
+
+  toggleSideMenu(sideMenu)
+
+}
+
+function toggleSideMenu(sideMenu) {
+  sideMenu.toggleClass("hide")
+  
+  const menuContent = $(".side-menu-content", sideMenu)
+
+  setTimeout(() =>
+    toggleMenuContent(menuContent, !sideMenu.hasClass("hide")),
+    150)
+}
+
+function toggleMenuContent(menuContent, show) {
+  menuContent.toggleClass("hide", !show)
+  setTimeout(() => menuContent.toggleClass("show", show), 1)
+}
