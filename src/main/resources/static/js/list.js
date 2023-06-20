@@ -12,6 +12,7 @@ var list
 $(document).ready(async ()=> {
   await populateList(list)
   $(".open-button").on("click", openDetailsModal)
+  $(".close-button").on("click", () => toggleSideMenu($("#side-menu"), false))
 })
 
 
@@ -45,14 +46,14 @@ function openDetailsModal(event) {
 
 }
 
-function toggleSideMenu(sideMenu) {
-  sideMenu.toggleClass("hide")
-  
-  const menuContent = $(".content", sideMenu)
-
+function toggleSideMenu(sideMenu, show) {
+  show = (show!=null && show) || sideMenu.hasClass("hide")
+  show = !sideMenu.toggleClass("hide", !show).hasClass("hide")
   setTimeout(() =>
-    toggleMenuContent(menuContent, !sideMenu.hasClass("hide")),
-    150)
+    toggleMenuContent($(".content", sideMenu), show),
+    250
+  )
+  return show
 }
 
 function toggleMenuContent(menuContent, show) {

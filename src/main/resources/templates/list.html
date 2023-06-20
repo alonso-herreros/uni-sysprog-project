@@ -43,7 +43,23 @@
             
             <aside class="content-card side-menu hide" id="side-menu">
                 <div class="content hide">
-                    <h3 class="side-menu-title">Edit element</h3>
+                    <div class="titlebar">
+                        <h3>[Element] details</h3> <!-- TODO: Unify variants into contexts -->
+                        <div class="corner-buttons">
+                            <button type="button" class="edit-button"><i class="fas fa-pen-to-square"></i></button>
+                            <button type="button" class="close-button"><i class="fas fa-xmark"></i></button>
+                        </div>
+                    </div>
+                    <form class="details-form">
+                        <div class="field">
+                            <label for="id">ID</label>
+                            <input type="text" id="id" name="id" value="2" readonly />
+                        </div>
+                        <div class="field">
+                            <label for="id">Name</label>
+                            <input type="text" id="id" name="id" value="Product" readonly />
+                        </div>
+                    </form>
                 </div>
             </aside>
         </div>
