@@ -146,8 +146,8 @@ function formatData(data, format) {
 
 
 function setMeta(row, element, meta) {
-  for (const metaField of Object.keys(meta)) {
-    row.dataset[metaField] = getContentPiece(element, meta[metaField])
+  for (const [fieldName, fieldContent] of Object.entries(meta)) {
+    row.dataset[fieldName] = getContentPiece(element, fieldContent)
   }
 }
 
