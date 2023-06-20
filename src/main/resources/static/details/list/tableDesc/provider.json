@@ -1,4 +1,14 @@
 {
+    "meta": {
+        "elementID": {
+            "type": "attribute",
+            "attributePath": ["vat"]
+        },
+        "elementClass": {
+            "type": "const",
+            "value": "Provider"
+        }
+    },
     "fields": [
         {
             "class": "id",

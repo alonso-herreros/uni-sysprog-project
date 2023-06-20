@@ -1,4 +1,14 @@
 {
+    "meta": {
+        "elementID": {
+            "type": "attribute",
+            "attributePath": ["orderID"]
+        },
+        "elementClass": {
+            "type": "const",
+            "value": "Order"
+        }
+    },
     "fields": [
         {
             "class": "id-short",
