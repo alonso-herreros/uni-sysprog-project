@@ -28,23 +28,25 @@
             </div>
         </div>
 
-        <div class="content-card table-container" id="list-container">
-            <table class="context-table">
-                <thead id="context-table-head">
-                    <!-- Headers will be added here -->
-                </thead>
-                <tbody id="context-table-body">
-                    <!-- Items will be added here here -->
-                </tbody>
-            </table>
-            <button type="button" class="insert-button"><i class="fas fa-plus"></i></button>
-        </div>
-        
-        <aside class="content-card side-menu hide" id="side-menu">
-            <div class="side-menu-content hide">
-                <h3 class="side-menu-title">Edit element</h3>
+        <div class="list-ui-container">
+            <div class="content-card table-container" id="list-container">
+                <table class="context-table">
+                    <thead id="context-table-head">
+                        <!-- Headers will be added here -->
+                    </thead>
+                    <tbody id="context-table-body">
+                        <!-- Items will be added here here -->
+                    </tbody>
+                </table>
+                <button type="button" class="insert-button"><i class="fas fa-plus"></i></button>
             </div>
-        </aside>
+            
+            <aside class="content-card side-menu hide" id="side-menu">
+                <div class="side-menu-content hide">
+                    <h3 class="side-menu-title">Edit element</h3>
+                </div>
+            </aside>
+        </div>
     </main>
 
     <footer th:replace="/fragments/footer :: footer"></footer>

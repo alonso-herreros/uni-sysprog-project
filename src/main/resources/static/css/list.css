@@ -4,7 +4,6 @@
     width: calc(100% - 60px);
     max-width: 800px;
 	margin: 15px 30px 5px;
-    grid-column: span 2;
 	display: grid;
     justify-content: space-between;
 	grid-auto-flow: column;
@@ -95,6 +94,12 @@ button.insert-button  {
 }
 /* #endregion */
 
+/* #region List container */
+.list-ui-container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
 .table-container {
 	width: calc(100% - 60px);
     min-width: 450px;
