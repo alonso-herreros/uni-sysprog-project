@@ -27,19 +27,6 @@
 }
 /* #endregion */
 
-
-/* #region List container */
-.list-container {
-	width: calc(100% - 60px);
-    min-width: 450px;
-    max-width: 800px;
-    text-align: center;
-    transition: 
-        margin-right 0.3s ease-in-out,
-        width 0.3s ease-in-out;
-}
-/* #endregion */
-
 /* #region Search bar */
 .search-bar {
     width: 80%;
@@ -108,27 +95,38 @@ button.insert-button  {
 }
 /* #endregion */
 
-/* #region Element table */
-.element-table {
+.table-container {
+	width: calc(100% - 60px);
+    min-width: 450px;
+    max-width: 800px;
+    text-align: center;
+    transition: 
+        margin-right 0.3s ease-in-out,
+        width 0.3s ease-in-out;
+}
+/* #endregion */
+
+/* #region Context table */
+.context-table {
     border-collapse: collapse;
     width: 100%;
 }
 
-.element-table th,
-.element-table td {
+.context-table th,
+.context-table td {
     padding: 8px 12px;
     text-align: left;
 }
 
-.element-table th {
+.context-table th {
     border-bottom: 1px solid #ccc;
     font-weight: normal;
 }
 
-.element-table tbody tr {
+.context-table tbody tr {
     transition: background-color 0.15s ease-in-out;
 }
-.element-table tbody tr:hover {
+.context-table tbody tr:hover {
     background-color: #f0f0f0;
 }
 
@@ -139,22 +137,24 @@ button.insert-button  {
     color: #333;
     font-size: 16px;
 }
-/* #endregion */
 
 /* #region Header titles */
-.element-table th.id-short {
+.context-table th.id-short {
 	width: 65px ;
 }
-.element-table th.id {
+.context-table th.id {
 	width: 100px ;
 }
-.element-table th.price {
+.context-table th.price {
 	width: 90px;
 }
-.element-table th.detailsButton {
+.context-table th.detailsButton {
 	width: 40px;
 }
 /* #endregion */
+
+/* #endregion */
+
 
 
 /* #region Details modal */

@@ -18,7 +18,7 @@ async function populateList() {
   var list = await fetchListObject(VARIANT.name)
   if (!list.length)  list = Object.values(list) // Convert object to array
   populateTable(
-    $(".element-table")[0],
+    $(".context-table")[0],
     TABLE_COLS,
     list
   )
