@@ -30,8 +30,9 @@ async function populateList() {
   if (!list.length)  list = Object.values(list) // Convert object to array
   populateTable(
     $(".context-table")[0],
+    list,
     TABLE_DESC["fields"],
-    list
+    TABLE_DESC["meta"]
   )
 }
 
@@ -44,6 +45,10 @@ function openDetailsModal(event) {
 
   toggleSideMenu(sideMenu)
 
+  const elementId = 2 //button.getAttribute("data-element-id")
+  var element = list.filter((element) => (element.productID == elementId))[0]
+  console.log(element)
+  //populateSideMenu(sideMenu, element)
 }
 
 function toggleSideMenu(sideMenu, show) {

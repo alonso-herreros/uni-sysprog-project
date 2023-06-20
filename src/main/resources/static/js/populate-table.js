@@ -24,20 +24,21 @@
  * given `fields` array.
  * 
  * @param {HTMLTableElement} table the `<table>` element to populate. Will be emptied.
- * @param {TableField[]} fields the fields to include in the table
  * @param {Object[]} list the list object to populate the table with
+ * @param {TableField[]} fields the fields to include in the table
+ * @param {Object} [meta] the the metadata fields to include in each row
  * 
  * @returns {HTMLTableElement} The `<table>` element populated
  */
-export function populateTable(table, fields, list) {
-  if (!table || !fields || !list)  throw "Missing arguments"
+export function populateTable(table, list, fields, meta) {
+  if (!table || !list || !fields)  throw "Missing critical arguments"
 
   table.innerHTML = ""
   const thead = table.appendChild(newElement("thead"))
   const tbody = table.appendChild(newElement("tbody"))
 
   populateTableHead(thead, fields)
-  populateTableBody(tbody, list, fields)
+  populateTableBody(tbody, list, fields, meta)
 
   return table
 }
@@ -68,14 +69,15 @@ function populateTableHead(tableHead, fields) {
  * @param {HTMLTableSectionElement} tableBody the `<tbody>` table body to populate
  * @param {Object[]} list the list to populate the table with
  * @param {TableField[]} fields the fields to include in the table
+ * @param {Object} [meta] the the metadata fields to include
  * 
  * @returns {HTMLTableSectionElement} The `<tbody>` element populated
  */
-function populateTableBody(tableBody, list, fields) {
+function populateTableBody(tableBody, list, fields, meta) {
   for (const element of list) {
-    tableBody.appendChild(
-      newRowByIteration(fields, (field) => getContentCell(element, field))
-    )
+    const row = newRowByIteration(fields, (field) => buildContentCell(element, field))
+    if (meta)  setMeta(row, element, meta)
+    tableBody.appendChild(row)
   }
   return tableBody
 }
@@ -90,7 +92,7 @@ function populateTableBody(tableBody, list, fields) {
  * @param {TableField} field the field to extract the content from
  * @returns {HTMLTableCellElement} The `<td>` cell element created
  */
-function getContentCell(element, field) {
+function buildContentCell(element, field) {
   if (field.class == "detailsButton") return newButtonCell()
   if (!field.content)  throw "Missing content"
   
@@ -117,7 +119,7 @@ function getContentPiece(element, pieceDesc) {
       piece = element
       for (const attr of pieceDesc.attributePath)  piece = piece[attr]
       break
-    case "value":
+    case "const":
       piece = pieceDesc.value || ""
       break
   }
@@ -140,6 +142,14 @@ function formatData(data, format) {
   if (format.prefix)  data = format.prefix + data
   if (format.suffix)  data = data + format.suffix
   return String(data)
+}
+
+
+function setMeta(row, element, meta) {
+  for (const metaField of Object.keys(meta)) {
+    row.dataset[metaField] = getContentPiece(element, meta[metaField])
+  }
+  console.log(row.dataset)
 }
 
 
