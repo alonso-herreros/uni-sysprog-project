@@ -149,7 +149,6 @@ function setMeta(row, element, meta) {
   for (const metaField of Object.keys(meta)) {
     row.dataset[metaField] = getContentPiece(element, meta[metaField])
   }
-  console.log(row.dataset)
 }
 
 
