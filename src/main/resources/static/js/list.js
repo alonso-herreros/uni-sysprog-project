@@ -30,7 +30,7 @@ async function populateList() {
   if (!list.length)  list = Object.values(list) // Convert object to array
   populateTable(
     $(".context-table")[0],
-    TABLE_COLS,
+    TABLE_DESC["fields"],
     list
   )
 }

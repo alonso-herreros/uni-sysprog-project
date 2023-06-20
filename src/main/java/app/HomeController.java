@@ -28,7 +28,7 @@ public class HomeController {
     public static final String LIST_PAGE_PATH = "list\\";
 
     public static final String VARIANTS_PATH = "variants\\";
-    public static final String TABLE_COLS_PATH = "tableCols\\";
+    public static final String TABLE_DESC_PATH = "tableDesc\\";
 
     
     @GetMapping("/")
@@ -88,7 +88,7 @@ public class HomeController {
 
         model.addAttribute("variant", variant);
         model.addAttribute("tableCols",
-            readJSON(DETAILS_PATH + LIST_PAGE_PATH + TABLE_COLS_PATH + (String) variant.get("tableColsClass")  + ".json")
+            readJSON(DETAILS_PATH + LIST_PAGE_PATH + TABLE_DESC_PATH + (String) variant.get("tableColsClass")  + ".json")
         );
         return model;
     }

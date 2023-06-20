@@ -1,0 +1,57 @@
+{
+    "fields": [
+        {
+            "class": "id-short",
+            "title": "ID",
+            "content": [{
+                "type": "attribute",
+                "attributePath": ["orderID"]
+            }]
+        },
+        {
+            "class": "name",
+            "title": "Employee",
+            "content": [{
+                "type": "attribute",
+                "attributePath": ["employee", "firstName"],
+                "format": {
+                    "suffix": " "
+                }
+            },
+            {
+                "type": "attribute",
+                "attributePath": ["employee", "lastName"]
+            }]
+        },
+        {
+            "class": "price",
+            "title": "Cost",
+            "content": [{
+                "type": "attribute",
+                "attributePath": ["totalCost"],
+                "format": {
+                    "type": "float",
+                    "decimalPlaces": 2,
+                    "suffix": " €"
+                }
+            }]
+        },
+        {
+            "class": "price",
+            "title": "Price",
+            "content": [{
+                "type": "attribute",
+                "attributePath": ["totalPrice"],
+                "format": {
+                    "type": "float",
+                    "decimalPlaces": 2,
+                    "suffix": " €"
+                }
+            }]
+        },
+        {
+            "class": "detailsButton",
+            "title": ""
+        }
+    ]
+}
