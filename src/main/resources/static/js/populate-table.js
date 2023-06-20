@@ -213,7 +213,7 @@ function newButtonCell(buttonClass="open-button", content) {
  * @param {Object} [content] The content to place in the element
  * @returns {HTMLElement} The element created
  */
-function newElement(tag, content, className) {
+export function newElement(tag, content, className) {
   const element = document.createElement(tag)
   if (content)  addContent(element, content)
   if (className)  setClass(element, className)
