@@ -48,7 +48,7 @@ function openDetailsModal(event) {
 function toggleSideMenu(sideMenu) {
   sideMenu.toggleClass("hide")
   
-  const menuContent = $(".side-menu-content", sideMenu)
+  const menuContent = $(".content", sideMenu)
 
   setTimeout(() =>
     toggleMenuContent(menuContent, !sideMenu.hasClass("hide")),

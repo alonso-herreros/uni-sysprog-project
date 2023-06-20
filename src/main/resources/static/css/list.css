@@ -178,16 +178,16 @@ button.insert-button  {
     padding-right: 0;
 }
 
-.side-menu-content {
+.side-menu .content {
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
 }
-.side-menu-content.hide,
-.side-menu.hide .side-menu-content {
+.side-menu .content.hide,
+.side-menu.hide .content {
     display: none;
     opacity: 0;
 }
-.side-menu-content.show {
+.side-menu .content.show {
     opacity: 1;
 }
 
