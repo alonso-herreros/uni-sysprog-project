@@ -165,6 +165,7 @@ button.insert-button  {
 /* #region Details modal */
 .side-menu {
     width: 400px;
+    max-height: 450px;
     transition:
         width 0.3s ease-in-out,
         margin 0.3s ease-in-out,
@@ -221,7 +222,9 @@ button.insert-button  {
 }
 
 .side-menu .details-form {
+    max-height: 350px;
     padding: 5px;
+    overflow: auto;
     display: grid;
     grid-auto-flow: row;
     grid-gap: 10px;
@@ -247,6 +250,21 @@ button.insert-button  {
 .details-form .field input:read-only {
     background-color: transparent;
 }
+/* #region Details form scrollbar */
+.details-form::-webkit-scrollbar {
+    width: 10px;
+}
+.details-form::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+.details-form::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+.details-form::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
+}
+/* #endregion */
 /* #endregion */
 /* #endregion */
 
