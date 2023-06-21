@@ -174,7 +174,7 @@ button.insert-button  {
 }
 .side-menu .content {
     opacity: 0;
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity 0.25s ease-in-out;
 }
 /* #region Hiding */
 .side-menu.hide {

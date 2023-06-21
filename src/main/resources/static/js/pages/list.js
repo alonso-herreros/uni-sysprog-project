@@ -64,7 +64,7 @@ function toggleSideMenu(sideMenu, show) {
   show = !sideMenu.toggleClass("hide", !show).hasClass("hide")
   setTimeout(() =>
     toggleMenuContent($(".content", sideMenu), show),
-    250
+    300
   )
   return show
 }
