@@ -205,6 +205,10 @@ button.insert-button  {
     align-items: center;
     border-bottom: 1px solid #ccc;
 }
+.corner-buttons {
+    display: flex;
+    flex-direction: row-reverse;
+}
 .corner-buttons button {
     height: 25px;
     width: 25px;
