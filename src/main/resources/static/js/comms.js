@@ -1,3 +1,7 @@
+export {
+  parseJsonResponse,
+  showErrorToast
+}
 
 /**
  * Interprets a server response, expected to be JSON.
@@ -7,7 +11,7 @@
  * and response is the JSON response. If the response is not valid JSON,
  * status is false and response is {message: "Server sent invalid JSON: " + respRaw}
  */
-export async function parseJsonResponse(response) {
+async function parseJsonResponse(response) {
   const status = response.status
   const respRaw = await response.text()
 
@@ -19,6 +23,6 @@ export async function parseJsonResponse(response) {
   }
 }
 
-export function showErrorToast(serverMessage) {
+function showErrorToast(serverMessage) {
   showVarToast("Server said: " + serverMessage)
 }

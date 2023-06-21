@@ -1,3 +1,8 @@
+export {
+  populateTable,
+  newElement
+}
+
 
 /** // Types
  * @typedef {Object} FormatDescriptor
@@ -30,7 +35,7 @@
  * 
  * @returns {HTMLTableElement} The `<table>` element populated
  */
-export function populateTable(table, list, fields, meta) {
+function populateTable(table, list, fields, meta) {
   if (!table || !list || !fields)  throw "Missing critical arguments"
 
   table.innerHTML = ""
@@ -213,7 +218,7 @@ function newButtonCell(buttonClass="open-button", content) {
  * @param {Object} [content] The content to place in the element
  * @returns {HTMLElement} The element created
  */
-export function newElement(tag, content, className) {
+function newElement(tag, content, className) {
   const element = document.createElement(tag)
   if (content)  addContent(element, content)
   if (className)  setClass(element, className)
