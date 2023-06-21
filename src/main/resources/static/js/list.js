@@ -2,6 +2,9 @@ import {
   populateTable,
   newElement
 } from "./populateTable.js"
+import {
+  fetchJson
+} from "./comms.js"
 
 
 const STORE_PATH = "/store"
@@ -19,10 +22,7 @@ $(document).ready(async ()=> {
 
 
 async function fetchListObject(context) {
-  const listPath = `${STORE_PATH}/${context}${LIST_PATHEXT}`
-  list = await fetch(listPath).then( (response) =>
-    response.json()
-  )
+  [, list] = await fetchJson(`${STORE_PATH}/${context}${LIST_PATHEXT}`)
   return list
 }
 
