@@ -12,13 +12,24 @@ const STORE_PATH = "/store"
 const LIST_PATHEXT = "/list-object"
 
 var list
+var sideMenu
 var selectedElementID
 
 
 $(document).ready(async ()=> {
   await populateList(list)
-  $(".open-button").on("click", openDetailsModal)
-  $(".close-button").on("click", () => toggleSideMenu($("#side-menu"), false))
+  
+  sideMenu = $("#side-menu")
+
+  $(".open-button").on("click", (e) =>
+    toggleDetailsModal(sideMenu, e.target.closest("tr").dataset.elementID)
+  )
+  $(".close-button").on("click", ()=>
+    closeDetailsModal(sideMenu)
+  )
+  $(".edit-button").on("click", () => {
+    if (selectedElementID && !editEnabled)  enableEdit(sideMenu)
+  })
 })
 
 
@@ -39,28 +50,30 @@ async function populateList() {
   )
 }
 
-function openDetailsModal(event) {
+function toggleDetailsModal(sideMenu, elementID) {
   if (!list)  throw "List not loaded."
 
-  const button = event.target
-  const selectedRow = button.closest("tr");
-  const sideMenu = $("#side-menu")
-  const elementId = selectedRow.dataset["elementID"]
-  if (elementId == selectedElementID) {
-    toggleSideMenu(sideMenu, false)
-    selectedElementID = null
-    return
-  }
+  if (elementID == selectedElementID)  closeDetailsModal(sideMenu)
+  else openDetailsModal(sideMenu, elementID)
+}
 
-  toggleSideMenu(sideMenu, true)
+function openDetailsModal(sideMenu, elementID) {
+  toggleSideMenuVis(sideMenu, true)
+  selectedElementID = elementID
+  populateDetailsForm(
+    $(".details-form:first", sideMenu)[0],
+    findElementByID(list, elementID, EDIT_CONFIG),
+    EDIT_CONFIG
+  )
+}
 
-  selectedElementID = elementId
-  const element = findElementByID(list, elementId, EDIT_CONFIG)
-  populateDetailsForm($(".details-form:first", sideMenu)[0], element, EDIT_CONFIG)
+function closeDetailsModal(sideMenu) {
+  toggleSideMenuVis(sideMenu, false)
+  selectedElementID = null
 }
 
 // #region Side menu open/close
-function toggleSideMenu(sideMenu, show) {
+function toggleSideMenuVis(sideMenu, show) {
   show = (show!=null && show) || sideMenu.hasClass("hide")
   show = !sideMenu.toggleClass("hide", !show).hasClass("hide")
   setTimeout(() =>
