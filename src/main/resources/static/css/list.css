@@ -254,7 +254,7 @@ button.insert-button  {
     width: 50px;
 }
 .details-form .field input.id {
-    width: 100px;
+    width: 75px;
 }
 
 .details-form .field input:read-only {
