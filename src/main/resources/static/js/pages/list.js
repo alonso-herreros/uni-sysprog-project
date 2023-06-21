@@ -12,14 +12,13 @@ const STORE_PATH = "/store"
 const LIST_PATHEXT = "/list-object"
 
 var list
-var sideMenu
 var selectedElementID
 
 
 $(document).ready(async ()=> {
   await populateList(list)
   
-  sideMenu = $("#side-menu")
+  var sideMenu = $("#side-menu")
 
   $(".open-button").on("click", (e) =>
     toggleDetailsModal(sideMenu, e.target.closest("tr").dataset.elementID)
