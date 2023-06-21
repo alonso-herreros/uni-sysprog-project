@@ -224,12 +224,11 @@ button.insert-button  {
     max-height: 350px;
     padding: 5px;
     overflow: auto;
-    display: grid;
-    grid-auto-flow: row;
+    display: flex;
+    flex-direction: column;
     grid-gap: 10px;
-    justify-content: stretch;
-    align-items: center;
-    justify-items: stretch;
+    justify-content: flex-start;
+    align-items: left;
     text-align: left;
 }
 .details-form .field label {
@@ -239,7 +238,6 @@ button.insert-button  {
     font-weight: bold;
 }
 .details-form .field input {
-    flex-grow: 1;
     padding: 5px;
     font-size: 10pt;
     border: none;

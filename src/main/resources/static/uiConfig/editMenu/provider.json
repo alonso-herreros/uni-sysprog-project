@@ -1,0 +1,59 @@
+{
+    "elementID": "vat",
+    "elementClass": "Provider",
+    "setFormat": [
+        "vat",
+        "firstName",
+        "lastName",
+        "email"
+    ],
+    "fields": {
+        "vat": {
+            "title": "VAT",
+            "fields": [{
+                "content":[{
+                    "type": "attribute",
+                    "attributePath": ["vat"]
+                }],
+                "set": "set"
+            }]
+        },
+        "name": {
+            "title": "Name",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["name"]
+                }],
+                "set": "set"
+            }]
+        },
+        "taxAddress": {
+            "title": "Tax Address",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["taxAddress"]
+                }],
+                "set": "set"
+            }]
+        },
+        "contactPerson": {
+            "title": "Contact Person",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["contactPerson", "firstName"],
+                    "format": {
+                        "suffix": " "
+                    }
+                },
+                {
+                    "type": "attribute",
+                    "attributePath": ["contactPerson", "lastName"]
+                }],
+                "set": false
+            }]
+        }
+    }
+}

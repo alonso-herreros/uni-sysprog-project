@@ -1,0 +1,52 @@
+{
+    "elementID": "id",
+    "elementClass": "Person",
+    "setFormat": [
+        "id",
+        "firstName",
+        "lastName",
+        "email"
+    ],
+    "fields": {
+        "id": {
+            "title": "ID",
+            "fields": [{
+                "content":[{
+                    "type": "attribute",
+                    "attributePath": ["id"]
+                }],
+                "set": "set"
+            }]
+        },
+        "firstName": {
+            "title": "First Name",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["firstName"]
+                }],
+                "set": "set"
+            }]
+        },
+        "lastName": {
+            "title": "Last Name",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["lastName"]
+                }],
+                "set": "set"
+            }]
+        },
+        "email": {
+            "title": "E-Mail",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["email"]
+                }],
+                "set": "set"
+            }]
+        }
+    }
+}

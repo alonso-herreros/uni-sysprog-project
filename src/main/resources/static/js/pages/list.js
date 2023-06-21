@@ -55,8 +55,7 @@ function openDetailsModal(event) {
   toggleSideMenu(sideMenu, true)
 
   selectedElementID = elementId
-  const element = list.filter((element) => (element["productID"] == elementId))[0]
-  console.log($(".details-form:first", sideMenu).constructor.name)
+  const element = findElementByID(list, elementId, EDIT_CONFIG)
   populateDetailsForm($(".details-form:first", sideMenu)[0], element, EDIT_CONFIG)
 }
 

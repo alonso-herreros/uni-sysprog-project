@@ -19,12 +19,12 @@ import {
  * @returns {HTMLFormElement} The `<form>` element populated
  */
 function populateDetailsForm(form, element, menuConfig) {
-  if (!form || !element || !menuConfig)  throw "Missing critical arguments"
+  if (!form || !element || !menuConfig)
+    throw `Missing parameter(s). form: ${form}, element: ${element}, menuConfig: ${menuConfig}`
 
   form.innerHTML = ""
 
   for (const [fieldName, fieldDesc] of Object.entries(menuConfig.fields)) {
-    console.log(fieldName, fieldDesc)
     form.appendChild(buildSideMenuField(element, fieldName, fieldDesc))
   }
 
@@ -63,7 +63,7 @@ function setMeta(row, element, meta) {
 }
 
 function findElementByID(list, id, editConfig) {
-  if (!element[editConfig.elementID])  throw "Can't determine element ID"
+  if (!list[0][editConfig.elementID])  throw "Can't determine element ID"
   for (const element of list) {
     if (element[editConfig.elementID] == id)  return element
   }

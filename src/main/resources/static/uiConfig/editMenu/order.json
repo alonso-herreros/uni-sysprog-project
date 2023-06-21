@@ -1,0 +1,97 @@
+{
+    "elementID": "orderID",
+    "elementClass": "Order",
+    "setFormat": [
+        "orderID",
+        "client",
+        "employee"
+    ],
+    "fields": {
+        "orderID": {
+            "title": "ID",
+            "fields": [{
+                "content":[{
+                    "type": "attribute",
+                    "attributePath": ["orderID"]
+                }],
+                "set": "set"
+            }]
+        },
+        "client": {
+            "title": "Client",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["client", "firstName"],
+                    "format": {
+                        "suffix": " "
+                    }
+                },
+                {
+                    "type": "attribute",
+                    "attributePath": ["client", "lastName"]
+                }],
+                "set": false
+            }]
+        },
+        "employee": {
+            "title": "Employee",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["employee", "firstName"],
+                    "format": {
+                        "suffix": " "
+                    }
+                },
+                {
+                    "type": "attribute",
+                    "attributePath": ["employee", "lastName"]
+                }],
+                "set": false
+            }]
+        },
+        "totalCost": {
+            "title": "Total Cost",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["totalCost"],
+                    "format": {
+                        "type": "float",
+                        "suffix": " €"
+                    }
+                }],
+                "set": false
+            }]
+        },
+        "totalPrice": {
+            "title": "Total Price",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["totalPrice"],
+                    "format": {
+                        "type": "float",
+                        "suffix": " €"
+                    }
+                }],
+                "set": false
+            }]
+        },
+        "totalBenefit": {
+            "title": "Total Benefit",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["totalBenefit"],
+                    "format": {
+                        "type": "float",
+                        "suffix": " €"
+                    }
+                }],
+                "set": false
+            }]
+        }
+    }
+}

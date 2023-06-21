@@ -88,7 +88,11 @@
             "fields": [{
                 "content": [{
                     "type": "attribute",
-                    "attributePath": ["costPerUnit"]
+                    "attributePath": ["costPerUnit"],
+                    "format": {
+                        "type": "float",
+                        "suffix": " €"
+                    }
                 }],
                 "set": "set"
             }]
@@ -98,7 +102,11 @@
             "fields": [{
                 "content": [{
                     "type": "attribute",
-                    "attributePath": ["pricePerUnit"]
+                    "attributePath": ["pricePerUnit"],
+                    "format": {
+                        "type": "float",
+                        "suffix": " €"
+                    }
                 }],
                 "set": "set"
             }]
@@ -108,7 +116,11 @@
             "fields": [{
                 "content": [{
                     "type": "attribute",
-                    "attributePath": ["totalCost"]
+                    "attributePath": ["totalCost"],
+                    "format": {
+                        "type": "float",
+                        "suffix": " €"
+                    }
                 }],
                 "set": false
             }]
@@ -118,7 +130,11 @@
             "fields": [{
                 "content": [{
                     "type": "attribute",
-                    "attributePath": ["totalPrice"]
+                    "attributePath": ["totalPrice"],
+                    "format": {
+                        "type": "float",
+                        "suffix": " €"
+                    }
                 }],
                 "set": false
             }]
