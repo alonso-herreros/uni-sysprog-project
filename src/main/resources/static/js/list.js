@@ -1,7 +1,7 @@
 import {
   populateTable,
   newElement
-} from "./populate-table.js"
+} from "./populateTable.js"
 
 
 const STORE_PATH = "/store"
