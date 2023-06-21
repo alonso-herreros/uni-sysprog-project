@@ -11,6 +11,7 @@
         "vat": {
             "title": "VAT",
             "fields": [{
+                "class": "id",
                 "content":[{
                     "type": "attribute",
                     "attributePath": ["vat"]

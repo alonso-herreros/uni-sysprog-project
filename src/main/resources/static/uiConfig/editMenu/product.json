@@ -16,6 +16,7 @@
         "productID": {
             "title": "ID",
             "fields": [{
+                "class": "id-short",
                 "content":[{
                     "type": "attribute",
                     "attributePath": ["productID"]
