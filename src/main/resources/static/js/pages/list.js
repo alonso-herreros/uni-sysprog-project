@@ -1,10 +1,13 @@
 import {
   populateTable,
   newElement
-} from "./populateTable.js"
+} from "../lib/populateTable.js"
+import {
+  populateDetailsForm
+} from "../lib/populateEditMenu.js"
 import {
   fetchJson
-} from "./comms.js"
+} from "../lib/comms.js"
 
 
 const STORE_PATH = "/store"
@@ -54,9 +57,9 @@ function openDetailsModal(event) {
   toggleSideMenu(sideMenu, true)
 
   selectedElementID = elementId
-  const element = list.filter((element) => (element.productID == elementId))[0]
+  const element = list.filter((element) => (element["productID"] == elementId))[0]
   console.log(element)
-  populateSideMenu($(".content", sideMenu), element)
+  populateDetailsForm($(".details-form:first", sideMenu)[0], element, EDIT_CONFIG)
 }
 
 function toggleSideMenu(sideMenu, show) {
@@ -72,27 +75,4 @@ function toggleSideMenu(sideMenu, show) {
 function toggleMenuContent(menuContent, show) {
   menuContent.toggleClass("hide", !show)
   setTimeout(() => menuContent.toggleClass("show", show), 1)
-}
-
-function populateSideMenu(sideMenuContent, element) {
-  const detailsForm = $(".details-form", sideMenuContent)[0]
-  detailsForm.innerHTML = ""
-  for (const [fieldName, fieldValue] of Object.entries(element)) {
-    detailsForm.appendChild(buildSideMenuField(fieldName, fieldValue))
-  }
-}
-
-function buildSideMenuField(fieldName, fieldValue) {
-  const label = newElement("label", fieldName)
-  label.setAttribute("for", fieldName)
-  const input = newElement("input")
-  input.setAttribute("type", "text")
-  input.setAttribute("name", fieldName)
-  input.setAttribute("value", fieldValue)
-  input.setAttribute("readonly", true)
-
-  const fieldContainer = newElement("div", null, "field")
-  fieldContainer.appendChild(label)
-  fieldContainer.appendChild(input)
-  return fieldContainer
 }

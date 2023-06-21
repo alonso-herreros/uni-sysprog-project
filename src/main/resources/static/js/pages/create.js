@@ -1,7 +1,7 @@
 import {
   parseJsonResponse,
   showErrorToast,
-} from "./comms.js"
+} from "../lib/comms.js"
 
 window.onload = () => {
   // Can't simply use on("submit", function) because it hides the submitter
