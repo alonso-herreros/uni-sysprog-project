@@ -33,8 +33,8 @@ async function populateList() {
   populateTable(
     $(".context-table")[0],
     list,
-    TABLE_DESC["fields"],
-    TABLE_DESC["meta"]
+    LIST_CONFIG["fields"],
+    LIST_CONFIG["meta"]
   )
 }
 
