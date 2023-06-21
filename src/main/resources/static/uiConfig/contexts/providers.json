@@ -2,5 +2,6 @@
     "name": "providers",
     "title": "Providers",
     "elementName": "provider",
-    "elementsName": "providers"
+    "elementsName": "providers",
+    "elementType": "provider"
 }

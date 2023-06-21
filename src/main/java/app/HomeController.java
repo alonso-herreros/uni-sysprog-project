@@ -22,13 +22,11 @@ import store.StoreManager;
 @EnableAutoConfiguration
 public class HomeController {
 
-    public static final String DETAILS_PATH = "src\\main\\resources\\static\\details\\";
+    public static final String UICONFIG_PATH = "src\\main\\resources\\static\\uiConfig\\";
 
-    public static final String MANAGE_PAGE_PATH = "manage\\";
-    public static final String LIST_PAGE_PATH = "list\\";
-
-    public static final String VARIANTS_PATH = "variants\\";
-    public static final String TABLE_DESC_PATH = "tableDesc\\";
+    public static final String CONTEXTS_SPATH = "contexts\\";
+    public static final String LIST_SPATH = "list\\";
+    public static final String EDITMENU_SPATH = "editMenu\\";
 
     
     @GetMapping("/")
@@ -59,36 +57,36 @@ public class HomeController {
 
 
     // #region Manage menus
-    @GetMapping("manage/{variantName}")
-    public String stock(Model model, @PathVariable String variantName) {
-        setupManageMenu(model, variantName);
+    @GetMapping("manage/{contextName}")
+    public String stock(Model model, @PathVariable String contextName) {
+        setupManageMenu(model, contextName);
         return "manage";
     }
     // #endregion
 
 
     // #region List menus
-    @GetMapping("manage/{variantName}/list")
-    public String stockList(Model model, @PathVariable String variantName) {
-        setupElementList(model, variantName);
+    @GetMapping("manage/{contextName}/list")
+    public String stockList(Model model, @PathVariable String contextName) {
+        setupElementList(model, contextName);
         return "list";
     }
     // #endregion
 
 
     // #region Setup methods
-    public Model setupManageMenu(Model model, String variantName) {
-        LinkedHashMap<String, Object> variant = getVariant(MANAGE_PAGE_PATH, variantName);
-        model.addAttribute("variant", variant);
+    public Model setupManageMenu(Model model, String contextName) {
+        final LinkedHashMap<String, Object> context = getContext(contextName);
+        model.addAttribute("context", context);
         return model;
     }
 
-    public Model setupElementList(Model model, String variantName) {
-        LinkedHashMap<String, Object> variant = getVariant(LIST_PAGE_PATH, variantName);
+    public Model setupElementList(Model model, String contextName) {
+        final LinkedHashMap<String, Object> context = getContext(contextName);
 
-        model.addAttribute("variant", variant);
-        model.addAttribute("tableCols",
-            readJSON(DETAILS_PATH + LIST_PAGE_PATH + TABLE_DESC_PATH + (String) variant.get("tableColsClass")  + ".json")
+        model.addAttribute("context", context);
+        model.addAttribute("listConfig",
+            readJSON(UICONFIG_PATH + LIST_SPATH + (String) context.get("elementType")  + ".json")
         );
         return model;
     }
@@ -96,14 +94,14 @@ public class HomeController {
 
     // #region Utility methods
     @SuppressWarnings("unchecked")
-    public LinkedHashMap<String, Object> getVariant(String pagePath, String variantName) {
-        final String dir = DETAILS_PATH + pagePath + VARIANTS_PATH;
-        final Object variant = readJSON(dir + variantName.replace("/", ".") + ".json");
+    public LinkedHashMap<String, Object> getContext(String contextName) {
+        final String dir = UICONFIG_PATH + CONTEXTS_SPATH;
+        final Object context = readJSON(dir + contextName.replace("/", ".") + ".json");
 
-        if (!(variant instanceof LinkedHashMap))
-            throw new RuntimeException("Invalid variant file: " + variantName  + " in " + dir);
+        if (!(context instanceof LinkedHashMap))
+            throw new RuntimeException("Invalid context file: " + contextName  + " in " + dir);
 
-        return (LinkedHashMap<String, Object>) variant;
+        return (LinkedHashMap<String, Object>) context;
     }
 
     public static Object readJSON(String jsonFilePath) {

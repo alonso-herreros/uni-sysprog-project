@@ -2,5 +2,6 @@
     "name": "clients",
     "title": "Clients",
     "elementName": "client",
-    "elementsName": "clients"
+    "elementsName": "clients",
+    "elementType": "person"
 }

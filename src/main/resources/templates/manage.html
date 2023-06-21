@@ -11,14 +11,14 @@
 	<header th:replace="/fragments/header :: header"></header>
 
 	<main>
-		<h2>Manage <span th:text="${variant.title}"></span> Menu</h2>
+		<h2>Manage <span th:text="${context.title}"></span></h2>
 		<div class="info-card">
 			<ul class="operations"> 
-				<li><a href="#">Insert <span th:text="${variant.elementName}"></span></a></li>
-				<li><a href="#">Remove <span th:text="${variant.elementName}"></span></a></li>
-				<li><a href="#">Modify <span th:text="${variant.elementName}"></span></a></li>
-				<li><a href="#">Search <span th:text="${variant.elementName}"></span></a></li>
-				<li><a th:href="@{/manage/{subMenu}/list(subMenu=${variant.name})}">List <span th:text="${variant.elementsName}"></span></a></li>
+				<li><a href="#">Insert <span th:text="${context.elementName}"></span></a></li>
+				<li><a href="#">Remove <span th:text="${context.elementName}"></span></a></li>
+				<li><a href="#">Modify <span th:text="${context.elementName}"></span></a></li>
+				<li><a href="#">Search <span th:text="${context.elementName}"></span></a></li>
+				<li><a th:href="@{/manage/{subMenu}/list(subMenu=${context.name})}">List <span th:text="${context.elementsName}"></span></a></li>
 			</ul>
 		</div>
 	</main>

@@ -8,8 +8,8 @@
     <!-- List -->
     <link rel="stylesheet" th:href="@{/css/list.css}">
     <script th:inline="javascript">
-        const TABLE_DESC = /*[[${tableCols}]]*/ ""
-        const VARIANT = /*[[${variant}]]*/ ""
+        const TABLE_DESC = /*[[${listConfig}]]*/ ""
+        const CONTEXT = /*[[${context}]]*/ ""
     </script>
     <script type="module" th:src="@{/js/list.js}"></script>
 </head>
@@ -18,7 +18,7 @@
 
     <main>
         <div class="titlebar-container">
-            <h2 class="inline-header"><span th:text="${variant.listTitle}"></span></h2>
+            <h2 class="inline-header"><span th:text="${context.title}"></span></h2>
             <div class="titlebar-elements">
                 <div class="search-bar">
                     <input type="text" placeholder="Search ID..." class="search-input" />
@@ -44,7 +44,7 @@
             <aside class="content-card side-menu hide" id="side-menu">
                 <div class="content hide">
                     <div class="titlebar">
-                        <h3>[Element] details</h3> <!-- TODO: Unify variants into contexts -->
+                        <h3><span th:text="${#strings.capitalize(context.elementName)}"></span> details</h3>
                         <div class="corner-buttons">
                             <button type="button" class="edit-button"><i class="fas fa-pen-to-square"></i></button>
                             <button type="button" class="close-button"><i class="fas fa-xmark"></i></button>

@@ -2,5 +2,6 @@
     "name": "employees",
     "title": "Employees",
     "elementName": "employee",
-    "elementsName": "employees"
+    "elementsName": "employees",
+    "elementType": "person"
 }

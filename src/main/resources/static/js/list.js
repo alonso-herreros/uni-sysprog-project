@@ -28,7 +28,7 @@ async function fetchListObject(context) {
 
 
 async function populateList() {
-  if (!list)  await fetchListObject(VARIANT.name)
+  if (!list)  await fetchListObject(CONTEXT.name)
   if (!list.length)  list = Object.values(list) // Convert object to array
   populateTable(
     $(".context-table")[0],
