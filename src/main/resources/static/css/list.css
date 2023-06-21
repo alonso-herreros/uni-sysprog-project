@@ -240,15 +240,8 @@ button.insert-button  {
 .details-form .field input {
     padding: 5px;
     font-size: 10pt;
+    border-radius: 10px;
     border: none;
-}
-.details-form .field input.first {
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-.details-form .field input.last {
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
 }
 .details-form .field input.id-short {
     width: 50px;
