@@ -1,5 +1,9 @@
 import populateTable from "../lib/populateTable.js"
 import {
+  populateDetailsForm,
+  findElementByID
+ } from "../lib/populateEditMenu.js"
+import {
   fetchJson
 } from "../lib/comms.js"
 
@@ -52,7 +56,7 @@ function openDetailsModal(event) {
 
   selectedElementID = elementId
   const element = list.filter((element) => (element["productID"] == elementId))[0]
-  console.log(element)
+  console.log($(".details-form:first", sideMenu).constructor.name)
   populateDetailsForm($(".details-form:first", sideMenu)[0], element, EDIT_CONFIG)
 }
 

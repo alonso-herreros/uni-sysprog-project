@@ -88,6 +88,9 @@ public class HomeController {
         model.addAttribute("listConfig",
             readJSON(UICONFIG_PATH + LIST_SPATH + (String) context.get("elementType")  + ".json")
         );
+        model.addAttribute("editConfig", 
+            readJSON(UICONFIG_PATH + EDITMENU_SPATH + (String) context.get("elementType")  + ".json")
+        );
         return model;
     }
     // #endregion

@@ -1,0 +1,127 @@
+{
+    "elementID": "productID",
+    "elementClass": "StockableProduct",
+    "setFormat": [
+        "productID",
+        "name",
+        "brand",
+        "category",
+        "isCountable",
+        "measurementUnit",
+        "numUnits",
+        "costPerUnit",
+        "pricePerUnit"
+    ],
+    "fields": {
+        "productID": {
+            "title": "ID",
+            "fields": [{
+                "content":[{
+                    "type": "attribute",
+                    "attributePath": ["productID"]
+                }],
+                "set": "set"
+            }]
+        },
+        "name": {
+            "title": "Name",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["name"]
+                }],
+                "set": "set"
+            }]
+        },
+        "brand": {
+            "title": "Brand",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["brand"]
+                }],
+                "set": "set"
+            }]
+        },
+        "category": {
+            "title": "Category",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["category"]
+                }],
+                "set": "set"
+            }]
+        },
+        "isCountable": {
+            "title": "Countable",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["isCountable"]
+                }],
+                "set": "set"
+            }]
+        },
+        "measurementUnit": {
+            "title": "Measurement Unit",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["measurementUnit"]
+                }],
+                "set": "set"
+            }]
+        },
+        "numUnits": {
+            "title": "Units in stock",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["numUnits"]
+                }],
+                "set": "set"
+            }]
+        },
+        "costPerUnit": {
+            "title": "Cost per unit",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["costPerUnit"]
+                }],
+                "set": "set"
+            }]
+        },
+        "pricePerUnit": {
+            "title": "Price per unit",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["pricePerUnit"]
+                }],
+                "set": "set"
+            }]
+        },
+        "totalCost": {
+            "title": "Total cost",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["totalCost"]
+                }],
+                "set": false
+            }]
+        },
+        "totalPrice": {
+            "title": "Total price",
+            "fields": [{
+                "content": [{
+                    "type": "attribute",
+                    "attributePath": ["totalPrice"]
+                }],
+                "set": false
+            }]
+        }
+    }
+}
