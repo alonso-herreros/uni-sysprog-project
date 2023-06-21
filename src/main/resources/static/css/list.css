@@ -26,6 +26,7 @@
 }
 /* #endregion */
 
+
 /* #region Search bar */
 .search-bar {
     width: 80%;
@@ -71,6 +72,7 @@
 }
 /* #endregion */
 
+
 /* #region Insert buttons */
 button.insert-button  {
 	height: 39px;
@@ -94,7 +96,8 @@ button.insert-button  {
 }
 /* #endregion */
 
-/* #region List container */
+
+/* #region List */
 .list-ui-container {
 	width: 100%;
 	display: flex;
@@ -109,9 +112,7 @@ button.insert-button  {
         margin-right 0.3s ease-in-out,
         width 0.3s ease-in-out;
 }
-/* #endregion */
 
-/* #region Context table */
 .context-table {
     border-collapse: collapse;
     width: 100%;
@@ -159,7 +160,6 @@ button.insert-button  {
 /* #endregion */
 
 /* #endregion */
-
 
 
 /* #region Details modal */
