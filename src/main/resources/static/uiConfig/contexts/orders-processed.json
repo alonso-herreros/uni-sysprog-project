@@ -1,7 +1,7 @@
 {
     "name": "orders-processed",
     "title": "Processed Orders",
-    "elementName": "order (processed)",
-    "elementsName": "orders (processed)",
+    "elementName": "order",
+    "elementsName": "orders",
     "elementType": "order"
 }
