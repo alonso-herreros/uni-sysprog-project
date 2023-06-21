@@ -1,7 +1,17 @@
 export {
-  populateTable,
-  newElement
+  populateTable as default
 }
+
+import {
+  getContent,
+  getContentPiece
+} from "./elementHandler.js"
+import {
+  newElement,
+  addContent,
+  setClass
+} from "./htmlBuilder.js"
+
 
 
 /** // Types
@@ -48,7 +58,6 @@ function populateTable(table, list, fields, meta) {
   return table
 }
 
-
 /**
  * Populates the given table head with the fields provided. There will be as
  * many column headers as elements in the `fields` array, with the `title`
@@ -88,6 +97,13 @@ function populateTableBody(tableBody, list, fields, meta) {
 }
 
 
+function setMeta(row, element, meta) {
+  for (const [fieldName, fieldContent] of Object.entries(meta)) {
+    row.dataset[fieldName] = getContentPiece(element, fieldContent)
+  }
+}
+
+
 /**
  * Creates a cell with the element's field as described in the `content`
  * attribute of the `field`. If the field is a `detailsButton`, the cell
@@ -100,60 +116,8 @@ function populateTableBody(tableBody, list, fields, meta) {
 function buildContentCell(element, field) {
   if (field.class == "detailsButton") return newButtonCell()
   if (!field.content)  throw "Missing content"
-  
-  var cellContent = ""
-  for (const pieceDescriptor of field.content) {
-    cellContent += getContentPiece(element, pieceDescriptor)
-  }
 
-  return newCell(cellContent)
-}
-
-/**
- * Extracts the content piece described by the `pieceDesc` object from the
- * given `element`, applying the `format` attribute if present.
- * 
- * @param {Object} element the element to extract the content piece from
- * @param {ContentPieceDescriptor} pieceDesc the descriptor of the content piece to extract
- * @returns {String} the content piece described by the `pieceDesc` object
- */
-function getContentPiece(element, pieceDesc) {
-  var piece = ""
-  switch (pieceDesc.type) {
-    case "attribute":
-      piece = element
-      for (const attr of pieceDesc.attributePath)  piece = piece[attr]
-      break
-    case "const":
-      piece = pieceDesc.value || ""
-      break
-  }
-  if (pieceDesc.format)  piece = formatData(piece, pieceDesc.format)
-  return piece
-}
-
-/**
- * Formats the given `data` according to the given `format` object.
- *
- * @param {any} data the data to format
- * @param {FormatDescriptor} format the format to apply to the data
- * @returns {String} the formatted data
- */
-function formatData(data, format) {
-  switch (format.type) {
-    case "float":
-      data = data.toFixed(format.decimalPlaces || 2)
-  }
-  if (format.prefix)  data = format.prefix + data
-  if (format.suffix)  data = data + format.suffix
-  return String(data)
-}
-
-
-function setMeta(row, element, meta) {
-  for (const [fieldName, fieldContent] of Object.entries(meta)) {
-    row.dataset[fieldName] = getContentPiece(element, fieldContent)
-  }
+  return newCell(getContent(element, field.content))
 }
 
 
@@ -171,6 +135,7 @@ function newRowByIteration(iterable, executable) {
   for (const item of iterable)  row.appendChild(executable(item))
   return row
 }
+
 
 /**
  * Creates a new cell of type `td` with the given `content`.
@@ -194,12 +159,6 @@ function newTHCell(content, className) {
   return cell
 }
 
-// TODO: Add an ID parameter to make the button unique to its row
-/**
- * Creates a new cell of type `td` containing a button to open a modal.
- * 
- * @returns {HTMLTableCellElement} The `<td>` cell element created
- */
 function newButtonCell(buttonClass="open-button", content) {
   const cell = newElement("td")
 
@@ -209,45 +168,4 @@ function newButtonCell(buttonClass="open-button", content) {
   cell.appendChild(button)
 
   return cell
-}
-
-/**
- * Creates a new element of the given `tag` with the given `content`.
- * 
- * @param {String} tag Tag of the element to create
- * @param {Object} [content] The content to place in the element
- * @returns {HTMLElement} The element created
- */
-function newElement(tag, content, className) {
-  const element = document.createElement(tag)
-  if (content)  addContent(element, content)
-  if (className)  setClass(element, className)
-  return element
-}
-
-function addContent(element, content) {
-  if (content instanceof Array) {
-    content.forEach((piece) => addContent(element, piece))
-  }
-  else {
-    if (content instanceof Node)  addChild(element, content)
-    else  element.innerHTML = content
-  }
-  return element
-}
-
-
-function addChild(parent, child) {
-  parent.appendChild(child)
-  return parent
-}
-
-function setClass(element, classValue) {
-  element.setAttribute("class", classValue)
-  return element
-}
-
-function addClass(element, className) {
-  element.classList.add(className)
-  return element
 }

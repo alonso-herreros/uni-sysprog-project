@@ -1,10 +1,4 @@
-import {
-  populateTable,
-  newElement
-} from "../lib/populateTable.js"
-import {
-  populateDetailsForm
-} from "../lib/populateEditMenu.js"
+import populateTable from "../lib/populateTable.js"
 import {
   fetchJson
 } from "../lib/comms.js"
