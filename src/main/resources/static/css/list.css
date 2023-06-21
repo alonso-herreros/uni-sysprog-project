@@ -24,8 +24,6 @@
 	justify-content: flex-end;
 	align-items: center;
 }
-/* #endregion */
-
 
 /* #region Search bar */
 .search-bar {
@@ -70,6 +68,7 @@
     cursor: pointer;
     color: #666;
 }
+/* #endregion */
 /* #endregion */
 
 
