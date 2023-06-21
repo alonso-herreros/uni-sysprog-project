@@ -56,32 +56,14 @@ public class HomeController {
     }
 
 
-    // #region Manage menus
+    // #region Manage menu
     @GetMapping("manage/{contextName}")
-    public String stock(Model model, @PathVariable String contextName) {
-        setupManageMenu(model, contextName);
+    public String manage(Model model, @PathVariable String contextName) {
+        setupManagePage(model, contextName);
         return "manage";
     }
-    // #endregion
 
-
-    // #region List menus
-    @GetMapping("manage/{contextName}/list")
-    public String stockList(Model model, @PathVariable String contextName) {
-        setupElementList(model, contextName);
-        return "list";
-    }
-    // #endregion
-
-
-    // #region Setup methods
-    public Model setupManageMenu(Model model, String contextName) {
-        final LinkedHashMap<String, Object> context = getContext(contextName);
-        model.addAttribute("context", context);
-        return model;
-    }
-
-    public Model setupElementList(Model model, String contextName) {
+    public Model setupManagePage(Model model, String contextName) {
         final LinkedHashMap<String, Object> context = getContext(contextName);
 
         model.addAttribute("context", context);
