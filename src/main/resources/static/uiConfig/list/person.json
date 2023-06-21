@@ -15,7 +15,13 @@
             "title": "ID",
             "content": [{
                 "type": "attribute",
-                "attributePath": ["id"]
+                "attributePath": ["id"],
+                "format": {
+                    "type": "int",
+                    "digits": 8,
+                    "align": "right",
+                    "pad": "0"
+                }
             }]
         },
         {

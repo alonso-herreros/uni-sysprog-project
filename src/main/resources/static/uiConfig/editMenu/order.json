@@ -24,7 +24,13 @@
                     "class": "id",
                     "content": [{
                         "type": "attribute",
-                        "attributePath": ["client", "id"]
+                        "attributePath": ["employee", "id"],
+                        "format": {
+                            "type": "int",
+                            "digits": 8,
+                            "align": "right",
+                            "pad": "0"
+                        }
                     }],
                     "set": "changeLink"
                 },
@@ -50,7 +56,13 @@
                     "class": "id",
                     "content": [{
                         "type": "attribute",
-                        "attributePath": ["client", "id"]
+                        "attributePath": ["client", "id"],
+                        "format": {
+                            "type": "int",
+                            "digits": 8,
+                            "align": "right",
+                            "pad": "0"
+                        }
                     }],
                     "set": "changeLink"
                 },

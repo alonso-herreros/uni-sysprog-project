@@ -15,7 +15,13 @@
             "title": "VAT",
             "content": [{
                 "type": "attribute",
-                "attributePath": ["vat"]
+                "attributePath": ["vat"],
+                "format": {
+                    "type": "int",
+                    "digits": 8,
+                    "align": "right",
+                    "pad": "0"
+                }
             }]
         },
         {

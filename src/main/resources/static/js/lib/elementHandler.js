@@ -62,6 +62,14 @@ function formatData(data, format) {
   switch (format.type) {
     case "float":
       data = data.toFixed(format.decimalPlaces || 2)
+      break
+    case "int":
+      if (format.digits) {
+        var d = format.digits, c = format.pad || "0"
+        data = "" + data
+        data = (format.align == "left") ? data.padEnd(d,c) :  data.padStart(d,c)
+      }
+      break
   }
   if (format.prefix)  data = format.prefix + data
   if (format.suffix)  data = data + format.suffix
