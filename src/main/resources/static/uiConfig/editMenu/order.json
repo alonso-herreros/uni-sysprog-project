@@ -21,36 +21,54 @@
         "client": {
             "title": "Client",
             "fields": [{
-                "content": [{
-                    "type": "attribute",
-                    "attributePath": ["client", "firstName"],
-                    "format": {
-                        "suffix": " "
-                    }
+                    "class": "id",
+                    "content": [{
+                        "type": "attribute",
+                        "attributePath": ["client", "id"]
+                    }],
+                    "set": "changeLink"
                 },
                 {
-                    "type": "attribute",
-                    "attributePath": ["client", "lastName"]
-                }],
-                "set": false
-            }]
+                    "content": [{
+                            "type": "attribute",
+                            "attributePath": ["client", "firstName"],
+                            "format": {
+                                "suffix": " "
+                            }
+                        },
+                        {
+                            "type": "attribute",
+                            "attributePath": ["client", "lastName"]
+                    }],
+                    "set": false
+                }
+            ]
         },
         "employee": {
             "title": "Employee",
             "fields": [{
-                "content": [{
-                    "type": "attribute",
-                    "attributePath": ["employee", "firstName"],
-                    "format": {
-                        "suffix": " "
-                    }
+                    "class": "id",
+                    "content": [{
+                        "type": "attribute",
+                        "attributePath": ["client", "id"]
+                    }],
+                    "set": "changeLink"
                 },
                 {
-                    "type": "attribute",
-                    "attributePath": ["employee", "lastName"]
-                }],
-                "set": false
-            }]
+                    "content": [{
+                        "type": "attribute",
+                        "attributePath": ["employee", "firstName"],
+                        "format": {
+                            "suffix": " "
+                        }
+                    },
+                    {
+                        "type": "attribute",
+                        "attributePath": ["employee", "lastName"]
+                    }],
+                    "set": false
+                }
+            ]
         },
         "totalCost": {
             "title": "Total Cost",
