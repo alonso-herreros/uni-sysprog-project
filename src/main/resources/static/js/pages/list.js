@@ -22,14 +22,14 @@ $(document).ready(async ()=> {
 })
 
 
-async function fetchListObject(context) {
-  [, list] = await fetchJson(`${STORE_PATH}/${context}${LIST_PATHEXT}`)
+async function fetchListObject() {
+  [, list] = await fetchJson(`${STORE_PATH}/${CONTEXT.name}${LIST_PATHEXT}`)
   return list
 }
 
 
 async function populateList() {
-  if (!list)  await fetchListObject(CONTEXT.name)
+  if (!list)  await fetchListObject()
   if (!list.length)  list = Object.values(list) // Convert object to array
   populateTable(
     $(".context-table")[0],
@@ -59,6 +59,7 @@ function openDetailsModal(event) {
   populateDetailsForm($(".details-form:first", sideMenu)[0], element, EDIT_CONFIG)
 }
 
+// #region Side menu open/close
 function toggleSideMenu(sideMenu, show) {
   show = (show!=null && show) || sideMenu.hasClass("hide")
   show = !sideMenu.toggleClass("hide", !show).hasClass("hide")
@@ -73,3 +74,4 @@ function toggleMenuContent(menuContent, show) {
   menuContent.toggleClass("hide", !show)
   setTimeout(() => menuContent.toggleClass("show", show), 1)
 }
+// #endregion
