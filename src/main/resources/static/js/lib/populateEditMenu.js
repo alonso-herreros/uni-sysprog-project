@@ -37,7 +37,13 @@ function buildSideMenuField(element, fieldName, fieldDesc) {
 
   fieldContainer.appendChild(buildFieldLabel(fieldName, fieldDesc.title))
 
-  fieldContainer.appendChild(buildFieldInput(element, fieldName, fieldDesc))
+  for (let i = 0; i < fieldDesc.fields.length; i++) {
+    const subField = fieldDesc.fields[i]
+    const fieldInput = buildFieldInput(element, fieldName, subField)
+    if (i == 0)  fieldInput.classList.add("first")
+    if (i == fieldDesc.fields.length-1)  fieldInput.classList.add("last")
+    fieldContainer.appendChild(fieldInput)
+  }
 
   return fieldContainer
 }
@@ -51,8 +57,9 @@ function buildFieldInput(element, fieldName, fieldDesc) {
   const input = $("<input>")
   input.attr("type", "text")
   input.attr("name", fieldName)
-  input.attr("value", getContent(element, fieldDesc.fields[0].content))
+  input.attr("value", getContent(element, fieldDesc.content))
   input.attr("readonly", true)
+  if (fieldDesc.class)  input.addClass(fieldDesc.class)
   return input[0]
 }
 

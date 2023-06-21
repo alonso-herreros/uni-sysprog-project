@@ -241,9 +241,22 @@ button.insert-button  {
     padding: 5px;
     font-size: 10pt;
     border: none;
-    border-radius: 10px;
-    transition: border-color 0.3s ease-in-out;
 }
+.details-form .field input.first {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.details-form .field input.last {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.details-form .field input.id-short {
+    width: 50px;
+}
+.details-form .field input.id {
+    width: 100px;
+}
+
 .details-form .field input:read-only {
     background-color: transparent;
 }
