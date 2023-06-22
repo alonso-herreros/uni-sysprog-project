@@ -63,11 +63,6 @@ function buildFieldInput(element, fieldName, fieldDesc) {
   return input[0]
 }
 
-function setMeta(row, element, meta) {
-  for (const [fieldName, fieldContent] of Object.entries(meta)) {
-    row.dataset[fieldName] = getContentPiece(element, fieldContent)
-  }
-}
 
 function findElementByID(list, id, editConfig) {
   if (!list[0][editConfig.elementID])  throw "Can't determine element ID"
