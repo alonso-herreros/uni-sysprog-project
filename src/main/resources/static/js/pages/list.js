@@ -103,7 +103,7 @@ function enableEdit(sideMenu) {
   for (const [fieldName, field] of Object.entries(EDIT_CONFIG.fields)) {
     for (const subField of field.subFields) {
       if (!subField.set || subField.set == "false")  continue
-      $(`input[name="${fieldName}.${subField.name}"]`, form).prop("readOnly", false)
+      $(`input[name="${fieldName}${subField.name? "."+subField.name : ""}"]`, form).prop("readOnly", false)
     }
   }
   sideMenu.addClass("edit-mode")

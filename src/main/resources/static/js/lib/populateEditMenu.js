@@ -58,7 +58,7 @@ function buildFieldInput(element, fieldName, fieldDesc) {
   const input = $("<input>")
   input.prop("readonly", true)
   input.attr("type", fieldDesc.type || "text")
-  input.attr("name", fieldName + "." + fieldDesc.name)
+  input.attr("name", fieldName + (fieldDesc.name? "."+fieldDesc.name : ""))
   input.attr("value", getContent(element, fieldDesc.content))
   if (fieldDesc.class)  input.addClass(fieldDesc.class)
   return input[0]
