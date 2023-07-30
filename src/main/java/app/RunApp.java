@@ -12,6 +12,7 @@ import java.util.Map;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +35,9 @@ public class RunApp {
       SpringApplication.run(RunApp.class, args);
     }
 
-    @PostMapping("/create")
+    @PostMapping(
+        value="/create",
+        consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
     public static ResponseEntity<?> createStore(
             @RequestParam(value = "storeName", defaultValue = "Store") String storeName,
             @RequestParam(value = "force", defaultValue = "false") boolean force) {
@@ -70,7 +73,9 @@ public class RunApp {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseBody);
     }
 
-    @PostMapping("/load")
+    @PostMapping(
+        value="/load",
+        consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
     public static ResponseEntity<?> loadStore(
             @RequestParam(value = "storeName", defaultValue = "Store") String storeName) {
 
