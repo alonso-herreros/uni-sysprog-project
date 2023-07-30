@@ -13,6 +13,7 @@ const LIST_PATHEXT = "/list-object"
 
 var list
 var selectedElementID
+var editEnabled = false
 
 
 $(document).ready(async ()=> {
@@ -28,6 +29,12 @@ $(document).ready(async ()=> {
   )
   $(".edit-button").on("click", () => {
     if (selectedElementID && !editEnabled)  enableEdit(sideMenu)
+  })
+  $(".cancel-button").on("click", () => {
+    if (editEnabled)  disableEdit(sideMenu)
+  })
+  $(".save-button").on("click", () => {
+    if (selectedElementID && editEnabled)  save(sideMenu)
   })
 })
 
@@ -49,9 +56,9 @@ async function populateList() {
   )
 }
 
-function toggleDetailsModal(sideMenu, elementID) {
-  if (!list)  throw "List not loaded."
 
+// #region Side menu open/close
+function toggleDetailsModal(sideMenu, elementID) {
   if (elementID == selectedElementID)  closeDetailsModal(sideMenu)
   else openDetailsModal(sideMenu, elementID)
 }
@@ -68,10 +75,10 @@ function openDetailsModal(sideMenu, elementID) {
 
 function closeDetailsModal(sideMenu) {
   toggleSideMenuVis(sideMenu, false)
+  disableEdit(sideMenu)
   selectedElementID = null
 }
 
-// #region Side menu open/close
 function toggleSideMenuVis(sideMenu, show) {
   show = (show!=null && show) || sideMenu.hasClass("hide")
   show = !sideMenu.toggleClass("hide", !show).hasClass("hide")
@@ -87,3 +94,38 @@ function toggleMenuContent(menuContent, show) {
   setTimeout(() => menuContent.toggleClass("show", show), 1)
 }
 // #endregion
+
+
+// #region Side menu edit enable/disable
+function enableEdit(sideMenu) {
+  const form = $(".details-form:first", sideMenu)[0]
+
+  for (const [fieldName, field] of Object.entries(EDIT_CONFIG.fields)) {
+    for (const subField of field.subFields) {
+      if (!subField.set || subField.set == "false")  continue
+      $(`input[name="${fieldName}.${subField.name}"]`, form).prop("readOnly", false)
+    }
+  }
+  sideMenu.addClass("edit-mode")
+
+  document.addEventListener("keydown", function(event) {
+    if(event.key == "Escape") {
+        disableEdit(sideMenu)
+    }
+  });
+
+  editEnabled = true
+}
+
+function disableEdit(sideMenu) {
+  const form = $(".details-form:first", sideMenu)[0]
+  
+  for (const input of $("input", form)) {
+    input.readOnly = true
+  }
+  sideMenu.removeClass("edit-mode")
+
+  editEnabled = false
+}
+// #endregion
+

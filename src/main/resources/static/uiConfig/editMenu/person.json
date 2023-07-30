@@ -10,7 +10,7 @@
     "fields": {
         "id": {
             "title": "ID",
-            "fields": [{
+            "subFields": [{
                 "class": "id",
                 "content":[{
                     "type": "attribute",
@@ -27,7 +27,7 @@
         },
         "firstName": {
             "title": "First Name",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["firstName"]
@@ -37,7 +37,7 @@
         },
         "lastName": {
             "title": "Last Name",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["lastName"]
@@ -47,7 +47,7 @@
         },
         "email": {
             "title": "E-Mail",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["email"]

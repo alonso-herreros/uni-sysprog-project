@@ -9,7 +9,7 @@
     "fields": {
         "orderID": {
             "title": "ID",
-            "fields": [{
+            "subFields": [{
                 "class": "id-short",
                 "content":[{
                     "type": "attribute",
@@ -20,11 +20,12 @@
         },
         "client": {
             "title": "Client",
-            "fields": [{
+            "subFields": [{
+                    "name": "id",
                     "class": "id",
                     "content": [{
                         "type": "attribute",
-                        "attributePath": ["employee", "id"],
+                        "attributePath": ["client", "id"],
                         "format": {
                             "type": "int",
                             "digits": 8,
@@ -35,6 +36,7 @@
                     "set": "changeLink"
                 },
                 {
+                    "name": "fullName",
                     "content": [{
                             "type": "attribute",
                             "attributePath": ["client", "firstName"],
@@ -52,7 +54,8 @@
         },
         "employee": {
             "title": "Employee",
-            "fields": [{
+            "subFields": [{
+                    "name": "id",
                     "class": "id",
                     "content": [{
                         "type": "attribute",
@@ -67,6 +70,7 @@
                     "set": "changeLink"
                 },
                 {
+                    "name": "fullName",
                     "content": [{
                         "type": "attribute",
                         "attributePath": ["employee", "firstName"],
@@ -84,7 +88,7 @@
         },
         "totalCost": {
             "title": "Total Cost",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["totalCost"],
@@ -98,7 +102,7 @@
         },
         "totalPrice": {
             "title": "Total Price",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["totalPrice"],
@@ -112,7 +116,7 @@
         },
         "totalBenefit": {
             "title": "Total Benefit",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["totalBenefit"],

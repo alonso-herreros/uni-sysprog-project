@@ -34,14 +34,15 @@ function populateDetailsForm(form, element, menuConfig) {
 
 function buildSideMenuField(element, fieldName, fieldDesc) {
   const fieldContainer = $("<div>").addClass("field")[0]
+  const subFields = fieldDesc.subFields
 
   fieldContainer.appendChild(buildFieldLabel(fieldName, fieldDesc.title))
 
-  for (let i = 0; i < fieldDesc.fields.length; i++) {
-    const subField = fieldDesc.fields[i]
+  for (let i = 0; i < subFields.length; i++) {
+    const subField = subFields[i]
     const fieldInput = buildFieldInput(element, fieldName, subField)
     if (i == 0)  fieldInput.classList.add("first")
-    if (i == fieldDesc.fields.length-1)  fieldInput.classList.add("last")
+    if (i == subFields.length-1)  fieldInput.classList.add("last")
     fieldContainer.appendChild(fieldInput)
   }
 
@@ -55,10 +56,10 @@ function buildFieldLabel(fieldName, title) {
 
 function buildFieldInput(element, fieldName, fieldDesc) {
   const input = $("<input>")
-  input.attr("type", "text")
-  input.attr("name", fieldName)
+  input.prop("readonly", true)
+  input.attr("type", fieldDesc.type || "text")
+  input.attr("name", fieldName + "." + fieldDesc.name)
   input.attr("value", getContent(element, fieldDesc.content))
-  input.attr("readonly", true)
   if (fieldDesc.class)  input.addClass(fieldDesc.class)
   return input[0]
 }

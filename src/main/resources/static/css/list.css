@@ -217,6 +217,16 @@ button.insert-button  {
     background-color: transparent;
     color: #333;
     font-size: 12.5pt;
+    vertical-align: bottom;
+}
+.side-menu .edit-only {
+    display: none;
+}
+.side-menu.edit-mode .edit-only {
+    display: unset;
+}
+.side-menu.edit-mode .view-only {
+    display: none;
 }
 .side-menu h3 {
     margin: 0;
@@ -226,7 +236,7 @@ button.insert-button  {
     font-size: 13pt;
     text-align: left;
 }
-
+/* #region Details form */
 .side-menu .details-form {
     max-height: 350px;
     padding: 5px;
@@ -274,6 +284,7 @@ button.insert-button  {
 .details-form::-webkit-scrollbar-thumb:hover {
     background-color: #aaa;
 }
+/* #endregion */
 /* #endregion */
 /* #endregion */
 /* #endregion */

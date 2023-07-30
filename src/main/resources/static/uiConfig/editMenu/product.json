@@ -15,7 +15,7 @@
     "fields": {
         "productID": {
             "title": "ID",
-            "fields": [{
+            "subFields": [{
                 "class": "id-short",
                 "content":[{
                     "type": "attribute",
@@ -26,7 +26,7 @@
         },
         "name": {
             "title": "Name",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["name"]
@@ -36,7 +36,7 @@
         },
         "brand": {
             "title": "Brand",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["brand"]
@@ -46,7 +46,7 @@
         },
         "category": {
             "title": "Category",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["category"]
@@ -56,7 +56,7 @@
         },
         "isCountable": {
             "title": "Countable",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["isCountable"]
@@ -66,7 +66,7 @@
         },
         "measurementUnit": {
             "title": "Measurement Unit",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["measurementUnit"]
@@ -76,7 +76,7 @@
         },
         "numUnits": {
             "title": "Units in stock",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["numUnits"]
@@ -86,7 +86,7 @@
         },
         "costPerUnit": {
             "title": "Cost per unit",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["costPerUnit"],
@@ -100,7 +100,7 @@
         },
         "pricePerUnit": {
             "title": "Price per unit",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["pricePerUnit"],
@@ -114,7 +114,7 @@
         },
         "totalCost": {
             "title": "Total cost",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["totalCost"],
@@ -128,7 +128,7 @@
         },
         "totalPrice": {
             "title": "Total price",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["totalPrice"],

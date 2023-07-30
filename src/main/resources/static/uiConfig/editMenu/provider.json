@@ -10,7 +10,7 @@
     "fields": {
         "vat": {
             "title": "VAT",
-            "fields": [{
+            "subFields": [{
                 "class": "id",
                 "content":[{
                     "type": "attribute",
@@ -27,7 +27,7 @@
         },
         "name": {
             "title": "Name",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["name"]
@@ -37,7 +37,7 @@
         },
         "taxAddress": {
             "title": "Tax Address",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["taxAddress"]
@@ -47,7 +47,7 @@
         },
         "contactPerson": {
             "title": "Contact Person",
-            "fields": [{
+            "subFields": [{
                 "content": [{
                     "type": "attribute",
                     "attributePath": ["contactPerson", "firstName"],
