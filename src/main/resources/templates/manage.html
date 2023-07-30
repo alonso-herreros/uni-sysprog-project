@@ -5,6 +5,7 @@
     <div th:replace="/fragments/commonHead :: commonHead"></div>
     <div th:replace="/fragments/header :: css-js"></div>
     <div th:replace="/fragments/footer :: css-js"></div>
+	<div th:replace="/fragments/varToast :: css-js"></div>
     <!-- List -->
     <link rel="stylesheet" th:href="@{/css/list.css}">
     <script th:inline="javascript">
@@ -61,6 +62,8 @@
             </aside>
         </div>
     </main>
+    
+	<div th:replace="/fragments/varToast :: varToast"></div>
 
     <footer th:replace="/fragments/footer :: footer"></footer>
 </body>
