@@ -14,6 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -126,32 +127,24 @@ public class RunApp {
         }
     }
 
-    // #region List Objects
-    @GetMapping("/stock/list-object")
-    public static String getStockList() {
-        return storeManager.getStock().getJSON("products");
+    @GetMapping("/{contextName}/list-object")
+    public static String getStockList(@PathVariable String contextName) {
+        switch (contextName) {
+        case "stock":
+            return storeManager.getStock().getJSON("products");
+        case "orders-unprocessed":
+            return storeManager.getOrdersToProcess().toJSON();
+        case "orders-processed":
+            return storeManager.getOrdersProcessed().toJSON();
+        case "clients":
+            return storeManager.getStoreCustomers().toJSON();
+        case "employees":
+            return storeManager.getStoreEmployees().toJSON();
+        case "providers":
+            return storeManager.getStoreProviders().toJSON();
+        }
+        return "null";
     }
-    @GetMapping("/orders-unprocessed/list-object")
-    public static String getUPOrdersList() {
-        return storeManager.getOrdersToProcess().toJSON();
-    }
-    @GetMapping("/orders-processed/list-object")
-    public static String getPOrdersList() {
-        return storeManager.getOrdersProcessed().toJSON();
-    }
-    @GetMapping("/clients/list-object")
-    public static String getClientsList() {
-        return storeManager.getStoreCustomers().toJSON();
-    }
-    @GetMapping("/employees/list-object")
-    public static String getEmployeesList() {
-        return storeManager.getStoreEmployees().toJSON();
-    }
-    @GetMapping("/providers/list-object")
-    public static String getProvidersList() {
-        return storeManager.getStoreProviders().toJSON();
-    }
-    // #endregion
 
     public static boolean deleteFile(File dir) {
         if (dir.isDirectory()) {
