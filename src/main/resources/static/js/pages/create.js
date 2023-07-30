@@ -1,7 +1,10 @@
 import {
-  parseJsonResponse,
-  showErrorToast,
+  parseJsonResponse
 } from "../lib/comms.js"
+import {
+  showVarToast,
+  showErrorToast
+} from "../pages/toasts.js"
 
 window.onload = () => {
   // Can't simply use on("submit", function) because it hides the submitter

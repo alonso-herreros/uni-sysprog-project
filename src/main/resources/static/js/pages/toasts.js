@@ -1,3 +1,8 @@
+export {
+  showErrorToast,
+  showVarToast
+}
+
 
 var toastMessages = {
   "newStore": "Store created successfully!",
@@ -25,4 +30,9 @@ function showVarToast(message) {
 
 function hideVarToast(variableToast) {
   variableToast.classList.remove("show")
+}
+
+
+function showErrorToast(serverMessage) {
+  showVarToast("Server said: " + serverMessage)
 }

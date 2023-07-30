@@ -1,7 +1,6 @@
 export {
   fetchJson,
-  parseJsonResponse,
-  showErrorToast
+  parseJsonResponse
 }
 
 /** Fetches and interprets a server response, expected to be JSON.
@@ -41,8 +40,4 @@ async function parseJsonResponse(response) {
   catch (e) {
     return [false, {status: status, message: `Server sent invalid JSON: ${respRaw}`}]
   }
-}
-
-function showErrorToast(serverMessage) {
-  showVarToast("Server said: " + serverMessage)
 }

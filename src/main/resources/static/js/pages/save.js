@@ -1,7 +1,10 @@
 import {
   parseJsonResponse,
-  showErrorToast,
 } from "../lib/comms.js"
+import {
+  showVarToast,
+  showErrorToast
+} from "../pages/toasts.js"
 
 $(document).ready( () => {
   $("#save-button")[0].addEventListener("click", saveStore)
