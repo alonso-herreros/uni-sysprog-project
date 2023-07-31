@@ -272,7 +272,8 @@ button.insert-button  {
     background-color: transparent;
 }
 .details-form .field input.invalid {
-    border: 1.5px solid red;
+    outline: 2px solid red;
+    outline-offset: -1px;
 }
 /* #region Details form scrollbar */
 .details-form::-webkit-scrollbar {
