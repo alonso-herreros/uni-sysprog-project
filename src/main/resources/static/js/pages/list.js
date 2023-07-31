@@ -11,6 +11,7 @@ import {
   showVarToast,
   showErrorToast
 } from "../pages/toasts.js"
+import { getContent } from "../lib/elementHandler.js"
 
 
 const STORE_PATH = "/store"
@@ -111,7 +112,7 @@ function enableEdit(sideMenu) {
   for (const [fieldName, field] of Object.entries(EDIT_CONFIG.fields)) {
     for (const subField of field.subFields) {
       if (!subField.set || subField.set == "false")  continue
-      $(`input[name="${fieldName}${subField.name? "."+subField.name : ""}"]`, form).prop("readOnly", false)
+      enableField(fieldName, field, subField)
     }
   }
   sideMenu.addClass("edit-mode")
@@ -132,6 +133,17 @@ function disableEdit(sideMenu) {
   sideMenu.removeClass("edit-mode")
 
   editEnabled = false
+}
+
+function enableField(fieldName, field, subField) {
+  const input = $(`input[name="${fieldName}${subField.name? "."+subField.name : ""}"]`)
+  if (subField.set == "simpleAttribute") {
+    var [prefix, value, suffix] = getContent(selectedElement, subField.content, true)[0]
+    input.val(value)
+    input.before(prefix)
+    input.after(suffix)
+    input.prop("readonly", false)
+  }
 }
 
 function cancelEdit(sideMenu) {

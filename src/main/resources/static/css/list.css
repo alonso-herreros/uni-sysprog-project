@@ -247,6 +247,7 @@ button.insert-button  {
     justify-content: flex-start;
     align-items: left;
     text-align: left;
+    font-size: 10pt;
 }
 .details-form .field label {
     display: block;
@@ -256,7 +257,6 @@ button.insert-button  {
 }
 .details-form .field input {
     padding: 5px;
-    font-size: 10pt;
     border-radius: 10px;
     border: none;
 }
