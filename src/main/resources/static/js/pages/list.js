@@ -188,7 +188,6 @@ function validateInput(validation, input) {
   if (!validation)  return true
 
   const value = input.val()
-  console.log(validation)
   switch (validation.type) {
     case "int":
       if (!Number.isInteger(Number(value)))  return false
