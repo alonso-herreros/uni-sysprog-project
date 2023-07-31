@@ -22,7 +22,12 @@
                         "pad": "0"
                     }
                 }],
-                "set": "simpleAttribute"
+                "set": "simpleAttribute",
+                "validation": {
+                    "type": "int",
+                    "min": 0,
+                    "max": 99999999
+                }
             }]
         },
         "firstName": {
@@ -32,7 +37,12 @@
                     "type": "attribute",
                     "attributePath": ["firstName"]
                 }],
-                "set": "simpleAttribute"
+                "set": "simpleAttribute",
+                "validation": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 20
+                }
             }]
         },
         "lastName": {
@@ -42,7 +52,12 @@
                     "type": "attribute",
                     "attributePath": ["lastName"]
                 }],
-                "set": "simpleAttribute"
+                "set": "simpleAttribute",
+                "validation": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 25
+                }
             }]
         },
         "email": {
@@ -52,7 +67,11 @@
                     "type": "attribute",
                     "attributePath": ["email"]
                 }],
-                "set": "simpleAttribute"
+                "set": "simpleAttribute",
+                "validation": {
+                    "type": "regex",
+                    "pattern": "^\\w[\\w-\\.]*@([\\w-]+\\.)+[\\w-]{2,4}$"
+                }
             }]
         }
     }

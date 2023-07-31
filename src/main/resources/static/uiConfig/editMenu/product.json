@@ -21,7 +21,11 @@
                     "type": "attribute",
                     "attributePath": ["productID"]
                 }],
-                "set": "simpleAttribute"
+                "set": "simpleAttribute",
+                "validation": {
+                    "type": "int",
+                    "min": 1
+                }
             }]
         },
         "name": {
@@ -31,7 +35,12 @@
                     "type": "attribute",
                     "attributePath": ["name"]
                 }],
-                "set": "simpleAttribute"
+                "set": "simpleAttribute",
+                "validation": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 40
+                }
             }]
         },
         "brand": {
@@ -41,7 +50,12 @@
                     "type": "attribute",
                     "attributePath": ["brand"]
                 }],
-                "set": "simpleAttribute"
+                "set": "simpleAttribute",
+                "validation": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 20
+                }
             }]
         },
         "category": {
@@ -51,7 +65,12 @@
                     "type": "attribute",
                     "attributePath": ["category"]
                 }],
-                "set": "simpleAttribute"
+                "set": "simpleAttribute",
+                "validation": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 1
+                }
             }]
         },
         "isCountable": {
@@ -61,7 +80,10 @@
                     "type": "attribute",
                     "attributePath": ["isCountable"]
                 }],
-                "set": "simpleAttribute"
+                "set": "simpleAttribute",
+                "validation": {
+                    "type": "boolean"
+                }
             }]
         },
         "measurementUnit": {
@@ -71,7 +93,12 @@
                     "type": "attribute",
                     "attributePath": ["measurementUnit"]
                 }],
-                "set": "simpleAttribute"
+                "set": "simpleAttribute",
+                "validation": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 10
+                }
             }]
         },
         "numUnits": {
@@ -81,7 +108,11 @@
                     "type": "attribute",
                     "attributePath": ["numUnits"]
                 }],
-                "set": "simpleAttribute"
+                "set": "simpleAttribute",
+                "validation": {
+                    "type": "int",
+                    "min": 0
+                }
             }]
         },
         "costPerUnit": {
@@ -95,7 +126,11 @@
                         "suffix": " €"
                     }
                 }],
-                "set": "simpleAttribute"
+                "set": "simpleAttribute",
+                "validation": {
+                    "type": "float",
+                    "min": 0
+                }
             }]
         },
         "pricePerUnit": {
@@ -109,7 +144,11 @@
                         "suffix": " €"
                     }
                 }],
-                "set": "simpleAttribute"
+                "set": "simpleAttribute",
+                "validation": {
+                    "type": "float",
+                    "min": 0
+                }
             }]
         },
         "totalCost": {

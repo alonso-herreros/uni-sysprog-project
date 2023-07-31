@@ -260,6 +260,7 @@ button.insert-button  {
     border-radius: 10px;
     border: none;
 }
+
 .details-form .field input.id-short {
     width: 50px;
 }
@@ -269,6 +270,9 @@ button.insert-button  {
 
 .details-form .field input:read-only {
     background-color: transparent;
+}
+.details-form .field input.invalid {
+    border: 1.5px solid red;
 }
 /* #region Details form scrollbar */
 .details-form::-webkit-scrollbar {

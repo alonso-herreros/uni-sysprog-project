@@ -15,7 +15,11 @@
                     "type": "attribute",
                     "attributePath": ["orderID"]
                 }],
-                "set": "simpleAttribute"
+                "set": "simpleAttribute",
+                "validation": {
+                    "type": "int",
+                    "min": 1
+                }
             }]
         },
         "client": {

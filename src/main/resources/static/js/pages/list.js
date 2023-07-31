@@ -41,7 +41,7 @@ $(document).ready(async ()=> {
     if (editEnabled)  cancelEdit(sideMenu)
   })
   $(".save-button").on("click", () => {
-    if (selectedElementID && editEnabled)  save(sideMenu)
+    if (selectedElementID && editEnabled)  saveEdit(sideMenu)
   })
 })
 
@@ -157,4 +157,71 @@ function cancelEdit(sideMenu) {
   }
 }
 // #endregion
+
+// #region Side menu save
+async function saveEdit(sideMenu) {
+  const changes = buildEditChanges(sideMenu)
+  if (changes == false) {
+    showVarToast("Invalid input")
+    return false
+  }
+}
+
+function buildEditChanges(sideMenu) {
+  var changes = []
+
+  for (const [name, field] of Object.entries(EDIT_CONFIG.fields)) {
+    for (const subField of field.subFields) {
+      if (!subField.set || subField.set == "false")  continue
+      const input = $(`input[name="${name}${subField.name? "."+subField.name : ""}"]`, sideMenu)
+      if (!validateInput(subField.validation, input)) {
+        input.addClass("invalid")
+        return false
+      }
+      changes.push(buildChange(subField, input))
+    }
+  }
+  return changes
+}
+
+function validateInput(validation, input) {
+  if (!validation)  return true
+
+  const value = input.val()
+  console.log(validation)
+  switch (validation.type) {
+    case "int":
+      if (!Number.isInteger(Number(value)))  return false
+      // Fallthrough
+    case "number":
+    case "float":
+      if (Number.isNaN(Number(value)))  return false
+      if (validation.min!=undefined && value < validation.min)  return false
+      if (validation.max!=undefined && value > validation.max)  return false
+      break
+    case "regex":
+      if (!new RegExp(validation.pattern).test(value))  return false
+    case "text":
+    case "string":
+      if (validation.minLength!=undefined && value.length < validation.min)  return false
+      if (validation.maxLength!=undefined && value.length > validation.max)  return false
+      break
+    case "bool":
+    case "boolean":
+      if (value != "true" && value != "false")  return false
+      break
+  }
+  return true
+}
+
+function buildChange(subField, input) {
+  if (subField.set == "simpleAttribute") {
+    return {
+      "type": "setAttribute",
+      "attributePath": subField.content[0].attributePath,
+      "value": input.val()
+    }
+  }
+  return false
+}
 
