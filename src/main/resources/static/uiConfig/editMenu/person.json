@@ -25,7 +25,7 @@
                 "set": "simpleAttribute",
                 "validation": {
                     "type": "int",
-                    "min": 0,
+                    "min": 1,
                     "max": 99999999
                 }
             }]

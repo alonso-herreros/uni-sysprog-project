@@ -67,9 +67,8 @@
                 }],
                 "set": "simpleAttribute",
                 "validation": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxLength": 1
+                    "type": "regex",
+                    "pattern": "^[fsem]$"
                 }
             }]
         },
