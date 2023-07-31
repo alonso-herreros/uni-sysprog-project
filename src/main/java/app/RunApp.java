@@ -35,9 +35,12 @@ public class RunApp {
       SpringApplication.run(RunApp.class, args);
     }
 
+
+    // #region Create @ /store/create 
     @PostMapping(
         value="/create",
-        consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+        consumes=MediaType.MULTIPART_FORM_DATA_VALUE,
+        produces=MediaType.APPLICATION_JSON_VALUE)
     public static ResponseEntity<?> createStore(
             @RequestParam(value = "storeName", defaultValue = "Store") String storeName,
             @RequestParam(value = "force", defaultValue = "false") boolean force) {
@@ -72,10 +75,13 @@ public class RunApp {
         responseBody.put("message", "Store created.");
         return ResponseEntity.status(HttpStatus.CREATED).body(responseBody);
     }
+    // #endregion
 
+    // #region Load @ /store/load 
     @PostMapping(
         value="/load",
-        consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
+        consumes=MediaType.MULTIPART_FORM_DATA_VALUE,
+        produces=MediaType.APPLICATION_JSON_VALUE)
     public static ResponseEntity<?> loadStore(
             @RequestParam(value = "storeName", defaultValue = "Store") String storeName) {
 
@@ -98,8 +104,12 @@ public class RunApp {
         responseBody.put("message", "Store loaded.");
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
+    // #endregion
 
-    @PostMapping("/save")
+    // #region Save @ /store/save 
+    @PostMapping(
+        value="/save",
+        produces=MediaType.APPLICATION_JSON_VALUE)
     public static ResponseEntity<?> saveStore() {
 
         Map<String, Object> responseBody = new HashMap<String, Object>();
@@ -118,8 +128,12 @@ public class RunApp {
         responseBody.put("message", "Store saved.");
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
+    // #endregion
 
-    @GetMapping("/getvar")
+    // #region (Deprecated) Get variable @ /store/getvar
+    @GetMapping(
+        value="/getvar",
+        produces=MediaType.TEXT_PLAIN_VALUE)
     public static String getStoreInfo(@RequestParam(value="varID", defaultValue="name") String varId) {
         try {
             return storeManager.get(varId);
@@ -131,8 +145,12 @@ public class RunApp {
             return "null";
         }
     }
+    // #endregion
 
-    @GetMapping("/{contextName}/list-object")
+    // #region Get list of elements @ /store/{contextName}/list
+    @GetMapping(
+        value="/{contextName}/list-object",
+        produces = MediaType.APPLICATION_JSON_VALUE)
     public static String getStockList(@PathVariable String contextName) {
         switch (contextName) {
         case "stock":
@@ -150,6 +168,7 @@ public class RunApp {
         }
         return "null";
     }
+    //#endregion
 
     public static boolean deleteFile(File dir) {
         if (dir.isDirectory()) {
