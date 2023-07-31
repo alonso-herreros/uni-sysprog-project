@@ -21,7 +21,7 @@
                     "type": "attribute",
                     "attributePath": ["productID"]
                 }],
-                "set": "set"
+                "set": "simpleAttribute"
             }]
         },
         "name": {
@@ -31,7 +31,7 @@
                     "type": "attribute",
                     "attributePath": ["name"]
                 }],
-                "set": "set"
+                "set": "simpleAttribute"
             }]
         },
         "brand": {
@@ -41,7 +41,7 @@
                     "type": "attribute",
                     "attributePath": ["brand"]
                 }],
-                "set": "set"
+                "set": "simpleAttribute"
             }]
         },
         "category": {
@@ -51,7 +51,7 @@
                     "type": "attribute",
                     "attributePath": ["category"]
                 }],
-                "set": "set"
+                "set": "simpleAttribute"
             }]
         },
         "isCountable": {
@@ -61,7 +61,7 @@
                     "type": "attribute",
                     "attributePath": ["isCountable"]
                 }],
-                "set": "set"
+                "set": "simpleAttribute"
             }]
         },
         "measurementUnit": {
@@ -71,7 +71,7 @@
                     "type": "attribute",
                     "attributePath": ["measurementUnit"]
                 }],
-                "set": "set"
+                "set": "simpleAttribute"
             }]
         },
         "numUnits": {
@@ -81,7 +81,7 @@
                     "type": "attribute",
                     "attributePath": ["numUnits"]
                 }],
-                "set": "set"
+                "set": "simpleAttribute"
             }]
         },
         "costPerUnit": {
@@ -95,7 +95,7 @@
                         "suffix": " €"
                     }
                 }],
-                "set": "set"
+                "set": "simpleAttribute"
             }]
         },
         "pricePerUnit": {
@@ -109,7 +109,7 @@
                         "suffix": " €"
                     }
                 }],
-                "set": "set"
+                "set": "simpleAttribute"
             }]
         },
         "totalCost": {

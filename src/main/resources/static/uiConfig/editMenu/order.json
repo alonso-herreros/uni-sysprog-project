@@ -15,7 +15,7 @@
                     "type": "attribute",
                     "attributePath": ["orderID"]
                 }],
-                "set": "set"
+                "set": "simpleAttribute"
             }]
         },
         "client": {
