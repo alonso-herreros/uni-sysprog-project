@@ -19,12 +19,12 @@ export {
  */
 
 
-function getContent(element, contentDesc) {
-  var content = ""
+function getContent(element, contentDesc, split=false) {
+  var content = []
   for (const pieceDescriptor of contentDesc) {
-    content += getContentPiece(element, pieceDescriptor)
+    content.push(getContentPiece(element, pieceDescriptor, split))
   }
-  return content
+  return split? content : content.join("")
 }
 
 
@@ -36,7 +36,7 @@ function getContent(element, contentDesc) {
  * @param {ContentPieceDescriptor} pieceDesc the descriptor of the content piece to extract
  * @returns {String} the content piece described by the `pieceDesc` object
  */
-function getContentPiece(element, pieceDesc) {
+function getContentPiece(element, pieceDesc, split=false) {
   var piece = ""
   switch (pieceDesc.type) {
     case "attribute":
@@ -47,8 +47,7 @@ function getContentPiece(element, pieceDesc) {
       piece = pieceDesc.value || ""
       break
   }
-  if (pieceDesc.format)  piece = formatData(piece, pieceDesc.format)
-  return piece
+  return formatData(piece, pieceDesc.format, split)
 }
 
 /**
@@ -58,7 +57,8 @@ function getContentPiece(element, pieceDesc) {
  * @param {FormatDescriptor} format the format to apply to the data
  * @returns {String} the formatted data
  */
-function formatData(data, format) {
+function formatData(data, format, split=false) {
+  if (!format)  return split? ["",String(data),""] : String(data)
   switch (format.type) {
     case "float":
       data = data.toFixed(format.decimalPlaces || 2)
@@ -71,6 +71,7 @@ function formatData(data, format) {
       }
       break
   }
+  if (split)  return [format.prefix?format.prefix:"", data, format.suffix?format.suffix:""]
   if (format.prefix)  data = format.prefix + data
   if (format.suffix)  data = data + format.suffix
   return String(data)
