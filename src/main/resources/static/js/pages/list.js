@@ -18,6 +18,7 @@ const LIST_PATHEXT = "/list-object"
 
 var list
 var selectedElementID
+var selectedElement
 var editEnabled = false
 
 
@@ -36,7 +37,7 @@ $(document).ready(async ()=> {
     if (selectedElementID && !editEnabled)  enableEdit(sideMenu)
   })
   $(".cancel-button").on("click", () => {
-    if (editEnabled)  disableEdit(sideMenu)
+    if (editEnabled)  cancelEdit(sideMenu)
   })
   $(".save-button").on("click", () => {
     if (selectedElementID && editEnabled)  save(sideMenu)
@@ -71,9 +72,10 @@ function toggleDetailsModal(sideMenu, elementID) {
 function openDetailsModal(sideMenu, elementID) {
   toggleSideMenuVis(sideMenu, true)
   selectedElementID = elementID
+  selectedElement = findElementByID(list, elementID, EDIT_CONFIG)
   populateDetailsForm(
     $(".details-form:first", sideMenu)[0],
-    findElementByID(list, elementID, EDIT_CONFIG),
+    selectedElement,
     EDIT_CONFIG
   )
 }
@@ -82,6 +84,7 @@ function closeDetailsModal(sideMenu) {
   toggleSideMenuVis(sideMenu, false)
   disableEdit(sideMenu)
   selectedElementID = null
+  selectedElement = null
 }
 
 function toggleSideMenuVis(sideMenu, show) {
@@ -114,10 +117,8 @@ function enableEdit(sideMenu) {
   sideMenu.addClass("edit-mode")
 
   document.addEventListener("keydown", function(event) {
-    if(event.key == "Escape") {
-        disableEdit(sideMenu)
-    }
-  });
+    if(event.key == "Escape")  cancelEdit(sideMenu)
+  })
 
   editEnabled = true
 }
@@ -131,6 +132,17 @@ function disableEdit(sideMenu) {
   sideMenu.removeClass("edit-mode")
 
   editEnabled = false
+}
+
+function cancelEdit(sideMenu) {
+  if (editEnabled) {
+    disableEdit(sideMenu)
+    populateDetailsForm(
+      $(".details-form:first", sideMenu)[0],
+      selectedElement,
+      EDIT_CONFIG
+    )
+  }
 }
 // #endregion
 
