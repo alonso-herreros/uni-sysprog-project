@@ -2,11 +2,14 @@ package app;
 
 import org.xml.sax.SAXException;
 
+import store.SMContext;
 import store.StoreManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.SpringApplication;
@@ -17,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -170,6 +174,69 @@ public class RunApp {
         return "null";
     }
     //#endregion
+
+    // #region Edit element @ /store/{contextName}/edit/{elementID} 
+    @PostMapping(
+        value = "/{contextName}/edit/{elementID}",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public static ResponseEntity<Map<String,Object>> editElement(
+            @RequestBody List<Map<String,Object>> changes,
+            @PathVariable String contextName,
+            @PathVariable int elementID) {
+
+        Map<String, Object> responseBody = new HashMap<String, Object>();
+        responseBody.put("contextName", contextName);
+        responseBody.put("elementID", elementID);
+
+        List<Map<String, Object>> changeList = applyChangesToElement(contextName, elementID, changes);
+        responseBody.put("changes", changeList);
+
+        responseBody.put("message", "Element edited.");
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+    }
+
+    private static List<Map<String, Object>> applyChangesToElement(
+            String contextName, int elementID, List<Map<String, Object>> changes) {
+
+        List<Map<String, Object>> changeList = new ArrayList<Map<String, Object>>();
+
+        for (Map<String, Object> change : changes) {
+            String mode = (String) change.get("mode");
+            switch (mode) {
+                case "elementAttribute":
+                    try { changeList.add(setElementAttribute(contextName, elementID, change)); }
+                    catch (IllegalArgumentException e) { addErrorStatus(change, e.getMessage()); }
+                    break;
+                default:
+                    addErrorStatus(change, "Invalid set mode: " + mode);
+            }
+        }
+        return changeList;
+    }
+
+    private static Map<String, Object> setElementAttribute(
+            String contextName, int elementID, Map<String, Object> changeMap) {
+        SMContext<?> context = storeManager.getContext(contextName);
+        String attributeID = (String) changeMap.get("attribute");
+        String value = (String) changeMap.get("value");
+
+        context.search(elementID).setVar(attributeID, value);
+
+        changeMap.put("status", "set");
+        changeMap.put("newValue", context.search(elementID).get(attributeID));
+
+        return changeMap;
+    }
+
+    private static Map<String, Object> addErrorStatus(Map<String, Object> changeMap, String message) {
+        changeMap.put("status", "error");
+        changeMap.put("message", message);
+        return changeMap;
+    }
+    // #endregion
+
 
     public static boolean deleteFile(File dir) {
         if (dir.isDirectory()) {
