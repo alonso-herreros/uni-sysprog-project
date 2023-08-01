@@ -28,10 +28,10 @@ public class StoreManager extends WarehouseElement {
         }
 
         @Override public String toJSON() {
-            return JsonDictFromSKIterable(this, (Person p) -> Integer.toString(keyGetter.apply(p)));
+            return jsonDictFromSKIterable(this, (Person p) -> Integer.toString(keyGetter.apply(p)));
         }
         public String toJSONList() {
-            return JsonListFromIterable(this);
+            return jsonListFromIterable(this);
         }
 
     }
@@ -54,10 +54,10 @@ public class StoreManager extends WarehouseElement {
         }
 
         @Override public String toJSON() {
-            return JsonDictFromSKIterable(this, (Provider p) -> Integer.toString(keyGetter.apply(p)));
+            return jsonDictFromSKIterable(this, (Provider p) -> Integer.toString(keyGetter.apply(p)));
         }
         public String toJSONList() {
-            return JsonListFromIterable(this);
+            return jsonListFromIterable(this);
         }
 
     }
@@ -83,7 +83,7 @@ public class StoreManager extends WarehouseElement {
         @Override public void modify(int identifier, Order data) { throw new UnsupportedOperationException("Can't modify elements in a queue."); }
         
         @Override public String toString() { return toJSON(); }
-        @Override public String toJSON() { return JsonListFromIterable(this); }
+        @Override public String toJSON() { return jsonListFromIterable(this); }
 
     }
 
@@ -112,7 +112,7 @@ public class StoreManager extends WarehouseElement {
         }
 
         @Override public String toString() { return toJSON(); }
-        @Override public String toJSON() { return JsonListFromIterable(this); }
+        @Override public String toJSON() { return jsonListFromIterable(this); }
 
     }
 
