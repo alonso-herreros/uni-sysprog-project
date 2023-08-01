@@ -229,23 +229,23 @@ public abstract class WarehouseElement implements JSONAble {
 
     // Default equals
     public boolean equals(Object o) {
-            if (o == this) {
-                return true;
-            }
-            if (!(o instanceof WarehouseElement)) {
-                return false;
-            }
-            if(toString() == o.toString()) {
-                return true;
-            }
-            WarehouseElement other = (WarehouseElement) o;
-            for (String key : getters.keySet()) {
-                if (!get(key).equals(other.get(key))) {
-                    return false;
-                }
-            }
+        if (o == this) {
             return true;
         }
+        if (!(o instanceof WarehouseElement)) {
+            return false;
+        }
+        if(toString().equals(o.toString())) {
+            return true;
+        }
+        WarehouseElement other = (WarehouseElement) o;
+        for (String key : getters.keySet()) {
+            if (!get(key).equals(other.get(key))) {
+                return false;
+            }
+        }
+        return true;
+    }
         
     
 }
