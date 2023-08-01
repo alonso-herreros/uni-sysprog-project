@@ -199,14 +199,14 @@ public abstract class WarehouseElement implements JSONAble {
     }
 
 
-    public static <E extends JSONAble> String JsonListFromIterable(Iterable<E> iterable) {
+    public static <E extends JSONAble> String jsonListFromIterable(Iterable<E> iterable) {
         String out = "[\n";
         for (E element : iterable) {
             out += element.toJSON() + ",\n";
         }
         return out.substring(0, Math.max(1, out.length()-2)) + "\n]";
     }
-    public static <E extends JSONAble> String JsonDictFromSKIterable(Iterable<E> iterable, Function<E, String> keyGetter) {
+    public static <E extends JSONAble> String jsonDictFromSKIterable(Iterable<E> iterable, Function<E, String> keyGetter) {
         String out = "{\n";
         for (E element : iterable) {
             out += quote(keyGetter.apply(element)) + ": " + element.toJSON() + ",\n";
@@ -229,23 +229,23 @@ public abstract class WarehouseElement implements JSONAble {
 
     // Default equals
     public boolean equals(Object o) {
-            if (o == this) {
-                return true;
-            }
-            if (!(o instanceof WarehouseElement)) {
-                return false;
-            }
-            if(toString() == o.toString()) {
-                return true;
-            }
-            WarehouseElement other = (WarehouseElement) o;
-            for (String key : getters.keySet()) {
-                if (!get(key).equals(other.get(key))) {
-                    return false;
-                }
-            }
+        if (o == this) {
             return true;
         }
+        if (!(o instanceof WarehouseElement)) {
+            return false;
+        }
+        if(toString().equals(o.toString())) {
+            return true;
+        }
+        WarehouseElement other = (WarehouseElement) o;
+        for (String key : getters.keySet()) {
+            if (!get(key).equals(other.get(key))) {
+                return false;
+            }
+        }
+        return true;
+    }
         
     
 }
