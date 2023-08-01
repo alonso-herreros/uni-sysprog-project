@@ -3,7 +3,7 @@ package store;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.HashMap; 
 
 import dataStructures.*;
 
@@ -82,6 +82,7 @@ public class StoreManager extends WarehouseElement {
         }
         @Override public void modify(int identifier, Order data) { throw new UnsupportedOperationException("Can't modify elements in a queue."); }
         
+        @Override public String toString() { return toJSON(); }
         @Override public String toJSON() { return JsonListFromIterable(this); }
 
     }
@@ -110,6 +111,7 @@ public class StoreManager extends WarehouseElement {
             return -1;
         }
 
+        @Override public String toString() { return toJSON(); }
         @Override public String toJSON() { return JsonListFromIterable(this); }
 
     }
