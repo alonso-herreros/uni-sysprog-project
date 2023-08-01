@@ -178,7 +178,8 @@ function buildEditChanges(sideMenu) {
         showInvalidInput(subField.validation, input)
         return false
       }
-      changes.push(buildChange(subField, input))
+      var change = buildChange(subField, input)
+      if (change)  changes.push(change)
     }
   }
   return changes
