@@ -21,28 +21,12 @@ var list
 var selectedElementID
 var selectedElement
 var editEnabled = false
+var sideMenu
 
 
 $(document).ready(async ()=> {
-  await populateList(list)
-  
-  var sideMenu = $("#side-menu")
-
-  $(".open-button").on("click", (e) =>
-    toggleDetailsModal(sideMenu, e.target.closest("tr").dataset.elementID)
-  )
-  $(".close-button").on("click", ()=>
-    closeDetailsModal(sideMenu)
-  )
-  $(".edit-button").on("click", () => {
-    if (selectedElementID && !editEnabled)  enableEdit(sideMenu)
-  })
-  $(".cancel-button").on("click", () => {
-    if (editEnabled)  cancelEdit(sideMenu)
-  })
-  $(".save-button").on("click", () => {
-    if (selectedElementID && editEnabled)  saveEdit(sideMenu)
-  })
+  sideMenu = $("#side-menu")
+  populateList(list)
 })
 
 
@@ -60,6 +44,10 @@ async function populateList() {
     list,
     LIST_CONFIG["fields"],
     LIST_CONFIG["meta"]
+  )
+
+  $(".open-button").on("click", (e) =>
+    toggleDetailsModal(sideMenu, e.target.closest("tr").dataset.elementID)
   )
 }
 
@@ -79,6 +67,7 @@ function openDetailsModal(sideMenu, elementID) {
     selectedElement,
     EDIT_CONFIG
   )
+  attachMenuButtonListeners(sideMenu)
 }
 
 function closeDetailsModal(sideMenu) {
@@ -102,6 +91,22 @@ function toggleMenuContent(menuContent, show) {
   menuContent.toggleClass("hide", !show)
   setTimeout(() => menuContent.toggleClass("show", show), 1)
 }
+
+function attachMenuButtonListeners(sideMenu) {
+  $(".close-button").on("click", ()=>
+    closeDetailsModal(sideMenu)
+  )
+  $(".edit-button").on("click", () => {
+    if (selectedElementID && !editEnabled)  enableEdit(sideMenu)
+  })
+  $(".cancel-button").on("click", () => {
+    if (editEnabled)  cancelEdit(sideMenu)
+  })
+  $(".save-button").on("click", () => {
+    if (selectedElementID && editEnabled)  saveEdit(sideMenu)
+  })
+}
+
 // #endregion
 
 
