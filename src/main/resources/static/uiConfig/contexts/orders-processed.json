@@ -3,5 +3,6 @@
     "title": "Processed Orders",
     "elementName": "order",
     "elementsName": "orders",
-    "elementType": "order"
+    "elementType": "order",
+    "contextID": "ordersProcessed"
 }

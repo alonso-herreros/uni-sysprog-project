@@ -3,5 +3,6 @@
     "title": "Providers",
     "elementName": "provider",
     "elementsName": "providers",
-    "elementType": "provider"
+    "elementType": "provider",
+    "contextID": "storeProviders"
 }

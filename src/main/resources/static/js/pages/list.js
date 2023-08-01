@@ -16,6 +16,7 @@ import { getContent } from "../lib/elementHandler.js"
 
 const STORE_PATH = "/store"
 const LIST_PATHEXT = "/list-object"
+const EDIT_PATHEXT = "/edit"
 
 var list
 var selectedElementID
@@ -68,6 +69,7 @@ function openDetailsModal(sideMenu, elementID) {
     EDIT_CONFIG
   )
   attachMenuButtonListeners(sideMenu)
+  disableEdit(sideMenu)
 }
 
 function closeDetailsModal(sideMenu) {
@@ -170,6 +172,9 @@ async function saveEdit(sideMenu) {
     showVarToast("Invalid input")
     return false
   }
+  requestEdit(CONTEXT.contextID, selectedElementID, changes).then((response) =>{
+    if (response)  openDetailsModal(sideMenu, selectedElementID)
+  })
 }
 
 function buildEditChanges(sideMenu) {
@@ -239,3 +244,49 @@ function buildChange(subField, input) {
   return false
 }
 
+async function requestEdit(context, id, changes) {
+  var result = fetch(`${STORE_PATH}/${context}${EDIT_PATHEXT}/${id}`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(changes)
+  }).then((response) =>
+    processEditResponse(changes, response)
+  )
+  return await result
+}
+
+async function processEditResponse(changes, response) {
+  const [status, resp] = await parseJsonResponse(response)
+
+  switch (status) {
+    case 200: // OK
+      showVarToast("Element edited.")
+      console.log(resp)
+      refreshList()
+      return true
+    case 400: // Bad request
+      //TODO: Specify the wrong field
+      showErrorToast(resp.message)
+      return false
+    case 409: // Conflict
+      if (resp.message == "Element not found") {
+        showVarToast("Element not found. Refreshing list.")
+        await fetchListObject()
+        populateList()
+        closeDetailsModal($("#side-menu"))
+        return false
+      }
+      break
+    default: // Includes 500: Internal server error and false from bad JSON
+      showErrorToast(resp.message)
+      return false
+  }
+}
+
+async function refreshList() {
+  await fetchListObject()
+  populateList()
+  if (selectedElementID)  openDetailsModal($("#side-menu"), selectedElementID)
+}
+
+// #endregion

@@ -3,5 +3,6 @@
     "title": "Employees",
     "elementName": "employee",
     "elementsName": "employees",
-    "elementType": "person"
+    "elementType": "person",
+    "contextID": "storeEmployees"
 }

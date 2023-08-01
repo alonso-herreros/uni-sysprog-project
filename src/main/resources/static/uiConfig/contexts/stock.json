@@ -3,5 +3,6 @@
     "title": "Stock",
     "elementName": "product",
     "elementsName": "products",
-    "elementType": "product"
+    "elementType": "product",
+    "contextID": "stock"
 }

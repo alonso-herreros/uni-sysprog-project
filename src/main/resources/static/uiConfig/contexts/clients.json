@@ -3,5 +3,6 @@
     "title": "Clients",
     "elementName": "client",
     "elementsName": "clients",
-    "elementType": "person"
+    "elementType": "person",
+    "contextID": "storeCustomers"
 }
