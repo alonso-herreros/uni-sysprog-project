@@ -199,14 +199,14 @@ public abstract class WarehouseElement implements JSONAble {
     }
 
 
-    public static <E extends JSONAble> String JsonListFromIterable(Iterable<E> iterable) {
+    public static <E extends JSONAble> String jsonListFromIterable(Iterable<E> iterable) {
         String out = "[\n";
         for (E element : iterable) {
             out += element.toJSON() + ",\n";
         }
         return out.substring(0, Math.max(1, out.length()-2)) + "\n]";
     }
-    public static <E extends JSONAble> String JsonDictFromSKIterable(Iterable<E> iterable, Function<E, String> keyGetter) {
+    public static <E extends JSONAble> String jsonDictFromSKIterable(Iterable<E> iterable, Function<E, String> keyGetter) {
         String out = "{\n";
         for (E element : iterable) {
             out += quote(keyGetter.apply(element)) + ": " + element.toJSON() + ",\n";
