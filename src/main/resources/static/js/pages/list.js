@@ -195,6 +195,20 @@ function buildEditChanges(sideMenu) {
   return changes
 }
 
+function buildChange(subField, input) {
+  switch(subField.set) {
+  case "simpleAttribute":
+    if (subField.content.length != 1 || subField.content[0].attributePath.length !=1) 
+      throw "Error in edit config: wrong structure for set mode 'simpleAttribute'"
+    return {
+      "mode": "elementAttribute",
+      "attribute": subField.content[0].attributePath[0],
+      "value": input.val()
+    }
+  }
+  return false
+}
+
 function validateInput(validation, input) {
   if (!validation)  return true
 
@@ -228,20 +242,6 @@ function showInvalidInput(validation, input) {
   if (validation.hint) {
     //TODO: Show hint
   }
-}
-
-function buildChange(subField, input) {
-  switch(subField.set) {
-  case "simpleAttribute":
-    if (subField.content.length != 1 || subField.content[0].attributePath.length !=1) 
-      throw "Error in edit config: wrong structure for set mode 'simpleAttribute'"
-    return {
-      "mode": "elementAttribute",
-      "attribute": subField.content[0].attributePath[0],
-      "value": input.val()
-    }
-  }
-  return false
 }
 
 async function requestEdit(context, id, changes) {
