@@ -98,6 +98,8 @@ public interface BSTree<T extends Comparable<T>, E> extends Iterable<E> {
     }
 
     default String joinedIterable(Iterator<E> iter, String delimiter) {
+        if (!iter.hasNext())  return "";
+
         StringBuilder sb = new StringBuilder();
         while (iter.hasNext())  sb.append(iter.next().toString()).append(delimiter);
         return sb.substring(0, sb.length() - delimiter.length());
