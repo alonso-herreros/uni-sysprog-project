@@ -118,6 +118,7 @@ public class RunApp {
             responseBody.put("message", "Store must have a name.");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
         }
+        responseBody.put("storeName", storeManager.getName());
 
         storeManager.saveStore();
         if (!checkSavedStore()) {
