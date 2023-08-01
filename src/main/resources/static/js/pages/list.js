@@ -175,7 +175,7 @@ function buildEditChanges(sideMenu) {
       if (!subField.set || subField.set == "false")  continue
       const input = $(`input[name="${name}${subField.name? "."+subField.name : ""}"]`, sideMenu)
       if (!validateInput(subField.validation, input)) {
-        input.addClass("invalid")
+        showInvalidInput(subField.validation, input)
         return false
       }
       changes.push(buildChange(subField, input))
@@ -211,6 +211,12 @@ function validateInput(validation, input) {
       break
   }
   return true
+}
+function showInvalidInput(validation, input) {
+  input.addClass("invalid")
+  if (validation.hint) {
+    //TODO: Show hint
+  }
 }
 
 function buildChange(subField, input) {
