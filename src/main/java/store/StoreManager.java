@@ -3,7 +3,7 @@ package store;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.HashMap; 
 
 import dataStructures.*;
 
@@ -28,10 +28,10 @@ public class StoreManager extends WarehouseElement {
         }
 
         @Override public String toJSON() {
-            return JsonDictFromSKIterable(this, (Person p) -> Integer.toString(keyGetter.apply(p)));
+            return jsonDictFromSKIterable(this, (Person p) -> Integer.toString(keyGetter.apply(p)));
         }
         public String toJSONList() {
-            return JsonListFromIterable(this);
+            return jsonListFromIterable(this);
         }
 
     }
@@ -54,10 +54,10 @@ public class StoreManager extends WarehouseElement {
         }
 
         @Override public String toJSON() {
-            return JsonDictFromSKIterable(this, (Provider p) -> Integer.toString(keyGetter.apply(p)));
+            return jsonDictFromSKIterable(this, (Provider p) -> Integer.toString(keyGetter.apply(p)));
         }
         public String toJSONList() {
-            return JsonListFromIterable(this);
+            return jsonListFromIterable(this);
         }
 
     }
@@ -82,7 +82,8 @@ public class StoreManager extends WarehouseElement {
         }
         @Override public void modify(int identifier, Order data) { throw new UnsupportedOperationException("Can't modify elements in a queue."); }
         
-        @Override public String toJSON() { return JsonListFromIterable(this); }
+        @Override public String toString() { return toJSON(); }
+        @Override public String toJSON() { return jsonListFromIterable(this); }
 
     }
 
@@ -110,7 +111,8 @@ public class StoreManager extends WarehouseElement {
             return -1;
         }
 
-        @Override public String toJSON() { return JsonListFromIterable(this); }
+        @Override public String toString() { return toJSON(); }
+        @Override public String toJSON() { return jsonListFromIterable(this); }
 
     }
 
@@ -234,6 +236,9 @@ public class StoreManager extends WarehouseElement {
         return true;
     }
 
+    public SMContext<?> getContext(String contextName) {
+        return contextMap.get(contextName);
+    }
 
     public ProductList getStock() { return stock; }
     private void setStock(ProductList stock) { this.stock = stock; }

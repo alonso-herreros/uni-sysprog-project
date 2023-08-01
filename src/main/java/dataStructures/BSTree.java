@@ -88,16 +88,18 @@ public interface BSTree<T extends Comparable<T>, E> extends Iterable<E> {
     }
 
     default String toStringPreOrder() {
-        return joinedIterable(iteratorPreOrder(), ", ");
+        return joinedIterator(iteratorPreOrder(), ", ");
     }
     default String toStringInOrder() {
-        return joinedIterable(iteratorInOrder(), ", ");
+        return joinedIterator(iteratorInOrder(), ", ");
     }
     default String toStringPostOrder() {
-        return joinedIterable(iteratorPostOrder(), ", ");
+        return joinedIterator(iteratorPostOrder(), ", ");
     }
 
-    default String joinedIterable(Iterator<E> iter, String delimiter) {
+    default String joinedIterator(Iterator<E> iter, String delimiter) {
+        if (!iter.hasNext())  return "";
+
         StringBuilder sb = new StringBuilder();
         while (iter.hasNext())  sb.append(iter.next().toString()).append(delimiter);
         return sb.substring(0, sb.length() - delimiter.length());
