@@ -221,10 +221,13 @@ function showInvalidInput(validation, input) {
 }
 
 function buildChange(subField, input) {
-  if (subField.set == "simpleAttribute") {
+  switch(subField.set) {
+  case "simpleAttribute":
+    if (subField.content.length != 1 || subField.content[0].attributePath.length !=1) 
+      throw "Error in edit config: wrong structure for set mode 'simpleAttribute'"
     return {
-      "type": "setAttribute",
-      "attributePath": subField.content[0].attributePath,
+      "mode": "elementAttribute",
+      "attribute": subField.content[0].attributePath[0],
       "value": input.val()
     }
   }
