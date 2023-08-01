@@ -236,6 +236,9 @@ public class StoreManager extends WarehouseElement {
         return true;
     }
 
+    public SMContext<?> getContext(String contextName) {
+        return contextMap.get(contextName);
+    }
 
     public ProductList getStock() { return stock; }
     private void setStock(ProductList stock) { this.stock = stock; }
